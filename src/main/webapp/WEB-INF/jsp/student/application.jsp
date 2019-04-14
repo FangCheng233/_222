@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="forrm" uri="http://www.springframework.org/tags/form" %>
+<%@ page isELIgnored="false" %>
 <%--
   Created by IntelliJ IDEA.
   User: FangCheng
@@ -8,22 +9,17 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<% response.setHeader("refresh","30"); %>--%>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>layui</title>
-<%--    <meta name="renderer" content="webkit">
-    <meta http-equiv="Content-Type" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">--%>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/layui/css/layui.css"  media="all">
-
-    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
 <script src="/static/plugins/jquery.1.12.4.min.js"></script>
-<%--<fieldset class="layui-elem-field" style="margin-top: 20px;margin-left: 20px;" >
+<fieldset class="layui-elem-field" style="margin-top: 20px;margin-left: 20px;" >
     <legend>基本资料</legend>
     <div class="layui-field-box" style="width: 60%">
         <div style="display:inline-block;margin-left: 20px">学号：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
@@ -40,51 +36,51 @@
         <hr class="layui-bg-green">
         <div style="display:inline-block;margin-left: 20px">性别：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
         <div style="display:inline-block;margin-left: 20px">寝室：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <div style="display:inline-block;margin-left: 20px">寝室：</div><div style="display:inline-block;margin-left: 220px">${user}</div>&lt;%&ndash;//选择器选择&ndash;%&gt;
+        <div style="display:inline-block;margin-left: 20px">寝室：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
         <hr class="layui-bg-cyan">
         <div style="display:inline-block;margin-left: 20px">QQ：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
         <div style="display:inline-block;margin-left: 20px">邮箱：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <div style="display:inline-block;margin-left: 20px">手机号：</div><div style="display:inline-block;margin-left: 220px">${user}</div>&lt;%&ndash;//选择器选择&ndash;%&gt;
-        &lt;%&ndash;<hr class="layui-bg-blue">&ndash;%&gt;
-            &lt;%&ndash;专业&ndash;%&gt;
-        &lt;%&ndash;<hr class="layui-bg-black">&ndash;%&gt;
+        <div style="display:inline-block;margin-left: 20px">手机号：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
+        <%--<hr class="layui-bg-blue">--%>
+            <%--专业--%>
+        <%--<hr class="layui-bg-black">--%>
 
-        &lt;%&ndash;灰色分割线&ndash;%&gt;
-        &lt;%&ndash;<hr class="layui-bg-gray">&ndash;%&gt;
+        <%--灰色分割线--%>
+        <%--<hr class="layui-bg-gray">--%>
     </div>
 
-</fieldset>--%>
-<%--<fieldset class="layui-elem-field" style="margin-top: 20px;margin-left: 20px;">--%>
-    <%--<legend>家庭信息</legend>--%>
-    <%--<table class="layui-table" lay-data="{height:232, url:'/static/data/role.json', id:'idTest',toolbar: '#toolbarDemo'}" lay-filter="demo">--%>
-        <%--<thead>--%>
-        <%--<tr>--%>
-            <%--<th lay-data="{field:'username', width:90,align:'center'}">姓名</th>--%>
-            <%--<th lay-data="{field:'sex', width:80, sort: true, align:'center'}">年龄</th>--%>
-            <%--<th lay-data="{field:'classify', width:80, align:'center'}">职业</th>--%>
-            <%--<th lay-data="{field:'city', width:120, align:'center'}">与学生关系</th>--%>
-            <%--<th lay-data="{field:'sign', width:160, align:'center'}">健康状况</th>--%>
-            <%--<th lay-data="{field:'experience', width:80, sort: true,align:'center'}">年收入</th>--%>
-            <%--<th lay-data="{field:'wealth', width:200, sort: true, align:'center'}">工作（学校）单位</th>--%>
-            <%--<th lay-data="{field:'score', width:120, sort: true, fixed: 'right'}">联系电话</th>--%>
-            <%--<th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>--%>
-        <%--</tr>--%>
-        <%--</thead>--%>
-    <%--</table>--%>
+</fieldset>
+<fieldset class="layui-elem-field" style="margin-top: 20px;margin-left: 20px;">
+    <legend>家庭信息</legend>
+    <table class="layui-table" lay-data="{height:232, url:'/static/data/role.json', id:'idTest',toolbar: '#toolbarDemo'}" lay-filter="demo">
+        <thead>
+        <tr>
+            <th lay-data="{field:'username', width:90,align:'center'}">姓名</th>
+            <th lay-data="{field:'sex', width:80, sort: true, align:'center'}">年龄</th>
+            <th lay-data="{field:'classify', width:80, align:'center'}">职业</th>
+            <th lay-data="{field:'city', width:120, align:'center'}">与学生关系</th>
+            <th lay-data="{field:'sign', width:160, align:'center'}">健康状况</th>
+            <th lay-data="{field:'experience', width:80, sort: true,align:'center'}">年收入</th>
+            <th lay-data="{field:'wealth', width:200, sort: true, align:'center'}">工作（学校）单位</th>
+            <th lay-data="{field:'score', width:120, sort: true, fixed: 'right'}">联系电话</th>
+            <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
+        </tr>
+        </thead>
+    </table>
 
-    <%--<script type="text/html" id="barDemo">--%>
-        <%--<a href="javascript:;" title="编辑" lay-event="edit"><i class="layui-icon">&#xe642;</i></a>--%>
-        <%--<a href="javascript:;" title="删除" lay-event="del"><i class="layui-icon">&#xe640;</i></a>--%>
-    <%--</script>--%>
-    <%--<script type="text/html" id="toolbarDemo">--%>
-        <%--<div class="layui-btn-container">--%>
-            <%--<button class="layui-btn" id="addRole"><i class="layui-icon">&#xe61f;</i>添加家庭成员</button>--%>
-        <%--</div>--%>
-    <%--</script>--%>
-<%--</fieldset>--%>
-<%--<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;margin-left: 20px">
+    <script type="text/html" id="barDemo">
+        <a href="javascript:;" title="编辑" lay-event="edit"><i class="layui-icon">&#xe642;</i></a>
+        <a href="javascript:;" title="删除" lay-event="del"><i class="layui-icon">&#xe640;</i></a>
+    </script>
+    <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+            <button class="layui-btn" id="addRole"><i class="layui-icon">&#xe61f;</i>添加家庭成员</button>
+        </div>
+    </script>
+</fieldset>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;margin-left: 20px">
     <legend>影响家庭贫困的因素</legend>
-</fieldset>--%>
+</fieldset>
 <form:form class="layui-form" method="post" action="/addapplication" >
     <blockquote class="layui-elem-quote layui-quote-nm" style="margin-left: 20px">
         <div class="layui-form-item">
@@ -171,7 +167,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">其他情况</label>
             <div class="layui-input-block">
-                <input type="text" name="title" lay-verify="required|title" autocomplete="off" class="layui-input">
+                <input type="text" name="otherSituation" lay-verify="required|title" autocomplete="off" class="layui-input">
             </div>
         </div>
     </blockquote>
@@ -182,13 +178,13 @@
         <div class="layui-form-item">
             <label class="layui-form-label">家庭地址</label>
             <div class="layui-input-block">
-                <input type="text" name="title" lay-verify="title" placeholder="" autocomplete="off" class="layui-input">
+                <input type="text" name="address" lay-verify="title" placeholder="" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">通讯地址</label>
             <div class="layui-input-block">
-                <input type="text" name="title" lay-verify="title" placeholder="" autocomplete="off" class="layui-input">
+                <input type="text" name="postalAddress" lay-verify="title" placeholder="" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -198,12 +194,12 @@
                     <input type="postNumber" name="postNumber" lay-verify="required|postNumber" autocomplete="off" class="layui-input">
                 </div>
             </div>
-            <%--<div class="layui-inline">--%>
-                <%--<label class="layui-form-label">收信人</label>--%>
-                <%--<div class="layui-input-inline">--%>
-                    <%--<input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">--%>
-                <%--</div>--%>
-            <%--</div>--%>
+            <div class="layui-inline">
+                <label class="layui-form-label">收信人</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                </div>
+            </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
@@ -327,18 +323,18 @@
         });
 
         //监听提交
-        form.on('submit(demo1)', function(data){
+/*        form.on('submit(demo1)', function(data){
             var sendData = JSON.stringify(data.field);
             sendData.yearlyIncome = "getValue";
             sendData.applicationNumber = "asda";
-/*            sendData.userMobile = $("#userMobile").textbox("getValue");
+            sendData.userMobile = $("#userMobile").textbox("getValue");
             sendData.userTel = $("#userTel").textbox("getValue");
             sendData.orgId = $("#orgId").combobox("getValue");
             sendData.lastdate = $("#lastdate").datebox("getValue");
             sendData.remark = $("#remark").textbox("getValue");
-            sendData.password = $("#password").val();*/
+            sendData.password = $("#password").val();
 
-/*                $.ajax({
+                $.ajax({
                     url:'/addapplication',
                     type:'post',
                     dataType:'json',
@@ -352,8 +348,8 @@
                             alert(123);
                     },
                     //执行失败或错误的回调函数
-                });*/
-        });
+                });
+        });*/
 
         //表单初始赋值
         form.val('example', {
