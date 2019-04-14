@@ -1,4 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="forrm" uri="http://www.springframework.org/tags/form" %>
+<%@ page isELIgnored="false" %>
 <%--
   Created by IntelliJ IDEA.
   User: FangCheng
@@ -7,18 +9,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<% response.setHeader("refresh","30"); %>--%>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>layui</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="Content-Type" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/layui/css/layui.css"  media="all">
-
-    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
 <script src="/static/plugins/jquery.1.12.4.min.js"></script>
@@ -39,11 +36,11 @@
         <hr class="layui-bg-green">
         <div style="display:inline-block;margin-left: 20px">性别：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
         <div style="display:inline-block;margin-left: 20px">寝室：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <div style="display:inline-block;margin-left: 20px">寝室：</div><div style="display:inline-block;margin-left: 220px">${user}</div><%--//选择器选择--%>
+        <div style="display:inline-block;margin-left: 20px">寝室：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
         <hr class="layui-bg-cyan">
         <div style="display:inline-block;margin-left: 20px">QQ：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
         <div style="display:inline-block;margin-left: 20px">邮箱：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <div style="display:inline-block;margin-left: 20px">手机号：</div><div style="display:inline-block;margin-left: 220px">${user}</div><%--//选择器选择--%>
+        <div style="display:inline-block;margin-left: 20px">手机号：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
         <%--<hr class="layui-bg-blue">--%>
             <%--专业--%>
         <%--<hr class="layui-bg-black">--%>
@@ -53,186 +50,186 @@
     </div>
 
 </fieldset>
-<%--<fieldset class="layui-elem-field" style="margin-top: 20px;margin-left: 20px;">--%>
-    <%--<legend>家庭信息</legend>--%>
-    <%--<table class="layui-table" lay-data="{height:232, url:'/static/data/role.json', id:'idTest',toolbar: '#toolbarDemo'}" lay-filter="demo">--%>
-        <%--<thead>--%>
-        <%--<tr>--%>
-            <%--<th lay-data="{field:'username', width:90,align:'center'}">姓名</th>--%>
-            <%--<th lay-data="{field:'sex', width:80, sort: true, align:'center'}">年龄</th>--%>
-            <%--<th lay-data="{field:'classify', width:80, align:'center'}">职业</th>--%>
-            <%--<th lay-data="{field:'city', width:120, align:'center'}">与学生关系</th>--%>
-            <%--<th lay-data="{field:'sign', width:160, align:'center'}">健康状况</th>--%>
-            <%--<th lay-data="{field:'experience', width:80, sort: true,align:'center'}">年收入</th>--%>
-            <%--<th lay-data="{field:'wealth', width:200, sort: true, align:'center'}">工作（学校）单位</th>--%>
-            <%--<th lay-data="{field:'score', width:120, sort: true, fixed: 'right'}">联系电话</th>--%>
-            <%--<th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>--%>
-        <%--</tr>--%>
-        <%--</thead>--%>
-    <%--</table>--%>
+<fieldset class="layui-elem-field" style="margin-top: 20px;margin-left: 20px;">
+    <legend>家庭信息</legend>
+    <table class="layui-table" lay-data="{height:232, url:'/static/data/role.json', id:'idTest',toolbar: '#toolbarDemo'}" lay-filter="demo">
+        <thead>
+        <tr>
+            <th lay-data="{field:'username', width:90,align:'center'}">姓名</th>
+            <th lay-data="{field:'sex', width:80, sort: true, align:'center'}">年龄</th>
+            <th lay-data="{field:'classify', width:80, align:'center'}">职业</th>
+            <th lay-data="{field:'city', width:120, align:'center'}">与学生关系</th>
+            <th lay-data="{field:'sign', width:160, align:'center'}">健康状况</th>
+            <th lay-data="{field:'experience', width:80, sort: true,align:'center'}">年收入</th>
+            <th lay-data="{field:'wealth', width:200, sort: true, align:'center'}">工作（学校）单位</th>
+            <th lay-data="{field:'score', width:120, sort: true, fixed: 'right'}">联系电话</th>
+            <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
+        </tr>
+        </thead>
+    </table>
 
-    <%--<script type="text/html" id="barDemo">--%>
-        <%--<a href="javascript:;" title="编辑" lay-event="edit"><i class="layui-icon">&#xe642;</i></a>--%>
-        <%--<a href="javascript:;" title="删除" lay-event="del"><i class="layui-icon">&#xe640;</i></a>--%>
-    <%--</script>--%>
-    <%--<script type="text/html" id="toolbarDemo">--%>
-        <%--<div class="layui-btn-container">--%>
-            <%--<button class="layui-btn" id="addRole"><i class="layui-icon">&#xe61f;</i>添加家庭成员</button>--%>
-        <%--</div>--%>
-    <%--</script>--%>
-<%--</fieldset>--%>
+    <script type="text/html" id="barDemo">
+        <a href="javascript:;" title="编辑" lay-event="edit"><i class="layui-icon">&#xe642;</i></a>
+        <a href="javascript:;" title="删除" lay-event="del"><i class="layui-icon">&#xe640;</i></a>
+    </script>
+    <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+            <button class="layui-btn" id="addRole"><i class="layui-icon">&#xe61f;</i>添加家庭成员</button>
+        </div>
+    </script>
+</fieldset>
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;margin-left: 20px">
     <legend>影响家庭贫困的因素</legend>
 </fieldset>
-<form class="layui-form" action="##" <%--method="POST"--%>>
-    <%--<blockquote class="layui-elem-quote layui-quote-nm" style="margin-left: 20px">--%>
-        <%--<div class="layui-form-item">--%>
-            <%--<div class="layui-inline">--%>
-                <%--<label class="layui-form-label">家庭年收入</label>--%>
-                <%--<div class="layui-input-inline">--%>
-                    <%--<input type="number" name="yearlyIncome" id="yearlyIncome" lay-verify="required|number" autocomplete="off" class="layui-input" required='' min="0" step="1000">--%>
-                    <%--<label alt='请输入整数' placeholder='单位为￥'></label>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-            <%--<div class="layui-inline">--%>
-                <%--<label class="layui-form-label">家庭人口数</label>--%>
-                <%--<div class="layui-input-inline">--%>
-                    <%--<input type="number" name="populationSize" id="populationSize" lay-verify="required|number" autocomplete="off" class="layui-input" required='' min="0" max="10">--%>
-                    <%--<label alt='家庭成员总数' placeholder='家庭成员'></label>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-            <%--<div class="layui-inline" id="hide">--%>
-                <%--<label class="layui-form-label">人均年收入</label>--%>
-                <%--<div class="layui-input-inline">--%>
-                    <%--<script type="text/javascript">--%>
-                        <%--var value1 = $("#yearlyIncome").val();--%>
-                        <%--var value2 = $("#populationSize").val();--%>
-                        <%--document.write(16);--%>
-                    <%--</script>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<div class="layui-form-item">--%>
-            <%--<div class="layui-inline">--%>
-                <%--<label class="layui-form-label">负债情况</label>--%>
-                <%--<div class="layui-input-inline" id="CheckBox">--%>
-                    <%--<input type="checkbox" name="close" lay-skin="switch" lay-text="有|无">--%>
-                <%--</div>--%>
-            <%--</div>--%>
-            <%--<div class="layui-inline">--%>
-                <%--<label class="layui-form-label">负债金额</label>--%>
-                <%--<div class="layui-input-inline">--%>
-                    <%--<select name="quiz1">--%>
-                        <%--<option value="">无</option>--%>
-                        <%--<option value="1万以下">1万以下</option>--%>
-                        <%--<option value="1-3万">1-3万</option>--%>
-                        <%--<option value="3-5万">3-5万</option>--%>
-                        <%--<option value="5万以上">5万以上</option>--%>
-                    <%--</select>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<div class="layui-form-item">--%>
-            <%--<label class="layui-form-label">自然灾害</label>--%>
-            <%--<div class="layui-input-block">--%>
-                <%--<input type="text" name="title" lay-verify="required|title" autocomplete="off" class="layui-input" required=''>--%>
-                <%--<label alt='家庭遭受自然灾害情况' placeholder='时间/原因/损失'></label>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<div class="layui-form-item">--%>
-            <%--<label class="layui-form-label">突发意外</label>--%>
-            <%--<div class="layui-input-block">--%>
-                <%--<input type="text" name="unexpectedAccident" lay-verify="required|title" autocomplete="off" class="layui-input" required=''>--%>
-                <%--<label alt='家庭遭受意外事件' placeholder='时间/原因/损失'></label>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<div class="layui-form-item">--%>
-            <%--<label class="layui-form-label">成员情况</label>--%>
-            <%--<div class="layui-input-block">--%>
-                <%--<input type="text" name="membershipSituation" lay-verify="required|title" autocomplete="off" class="layui-input" required=''>--%>
-                <%--<label alt='家庭成员身体状况' placeholder='因残疾/患病/年迈而劳动力弱等原因'></label>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<div class="layui-form-item">--%>
-            <%--<label class="layui-form-label">失业情况</label>--%>
-            <%--<div class="layui-input-block">--%>
-                <%--<input type="text" name="unemploymentSituation" lay-verify="required|title" autocomplete="off" class="layui-input" required=''>--%>
-                <%--<label alt='家庭成员失业状况' placeholder='何时失业'></label>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<div class="layui-form-item">--%>
-            <%--<label class="layui-form-label">获资助情况</label>--%>
-            <%--<div class="layui-input-block">--%>
-                <%--<input type="text" name="fundedSituation" lay-verify="required|title" autocomplete="off" class="layui-input" required=''>--%>
-                <%--<label alt='入学以来接受过的资助情况' placeholder='包含奖学金、助学金'></label>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<div class="layui-form-item">--%>
-            <%--<label class="layui-form-label">其他情况</label>--%>
-            <%--<div class="layui-input-block">--%>
-                <%--<input type="text" name="title" lay-verify="required|title" autocomplete="off" class="layui-input">--%>
-            <%--</div>--%>
-        <%--</div>--%>
-    <%--</blockquote>--%>
-    <%--<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;margin-left: 20px">--%>
-        <%--<legend>家庭联系方式</legend>--%>
-    <%--</fieldset>--%>
-    <%--<blockquote class="layui-elem-quote layui-quote-nm" STYLE="margin-top: 30px;margin-left: 20px">--%>
-        <%--<div class="layui-form-item">--%>
-            <%--<label class="layui-form-label">家庭地址</label>--%>
-            <%--<div class="layui-input-block">--%>
-                <%--<input type="text" name="title" lay-verify="title" placeholder="" autocomplete="off" class="layui-input">--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<div class="layui-form-item">--%>
-            <%--<label class="layui-form-label">通讯地址</label>--%>
-            <%--<div class="layui-input-block">--%>
-                <%--<input type="text" name="title" lay-verify="title" placeholder="" autocomplete="off" class="layui-input">--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<div class="layui-form-item">--%>
-            <%--<div class="layui-inline">--%>
-                <%--<label class="layui-form-label">邮政编码</label>--%>
-                <%--<div class="layui-input-inline">--%>
-                    <%--<input type="postNumber" name="postNumber" lay-verify="required|postNumber" autocomplete="off" class="layui-input">--%>
-                <%--</div>--%>
-            <%--</div>--%>
-            <%--&lt;%&ndash;<div class="layui-inline">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<label class="layui-form-label">收信人</label>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="layui-input-inline">&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;<input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-        <%--</div>--%>
-        <%--<div class="layui-form-item">--%>
-            <%--<div class="layui-inline">--%>
-                <%--<label class="layui-form-label">联系人1</label>--%>
-                <%--<div class="layui-input-inline">--%>
-                    <%--<input type="text" name="addressee" lay-verify="required|title" autocomplete="off" class="layui-input">--%>
-                <%--</div>--%>
-            <%--</div>--%>
-            <%--<div class="layui-inline">--%>
-                <%--<label class="layui-form-label">联系人1电话</label>--%>
-                <%--<div class="layui-input-inline">--%>
-                    <%--<input type="tel" name="contactNumbere" lay-verify="required|phone" autocomplete="off" class="layui-input">--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<div class="layui-form-item">--%>
-            <%--<div class="layui-inline">--%>
-                <%--<label class="layui-form-label">联系人2</label>--%>
-                <%--<div class="layui-input-inline">--%>
-                    <%--<input type="text" name="emergencyContact" lay-verify="required|title" autocomplete="off" class="layui-input">--%>
-                <%--</div>--%>
-            <%--</div>--%>
-            <%--<div class="layui-inline">--%>
-                <%--<label class="layui-form-label">联系人2电话</label>--%>
-                <%--<div class="layui-input-inline">--%>
-                    <%--<input type="tel" name="emergencyContactNumber" lay-verify="required|phone" autocomplete="off" class="layui-input">--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-    <%--</blockquote>--%>
+<form:form class="layui-form" method="post" action="/addapplication" >
+    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-left: 20px">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">家庭年收入</label>
+                <div class="layui-input-inline">
+                    <input type="number" name="yearlyIncome" id="yearlyIncome" lay-verify="required|number" autocomplete="off" class="layui-input" required='' min="0" step="1000">
+                    <label alt='请输入整数' placeholder='单位为￥'></label>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">家庭人口数</label>
+                <div class="layui-input-inline">
+                    <input type="number" name="populationSize" id="populationSize" lay-verify="required|number" autocomplete="off" class="layui-input" required='' min="0" max="10">
+                    <label alt='家庭成员总数' placeholder='家庭成员'></label>
+                </div>
+            </div>
+            <div class="layui-inline" id="hide">
+                <label class="layui-form-label">人均年收入</label>
+                <div class="layui-input-inline">
+                    <script type="text/javascript">
+                        var value1 = $("#yearlyIncome").val();
+                        var value2 = $("#populationSize").val();
+                        document.write(16);
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">负债情况</label>
+                <div class="layui-input-inline" id="CheckBox">
+                    <input type="checkbox" name="close" lay-skin="switch" lay-text="有|无">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">负债金额</label>
+                <div class="layui-input-inline">
+                    <select name="quiz1">
+                        <option value="">无</option>
+                        <option value="1万以下">1万以下</option>
+                        <option value="1-3万">1-3万</option>
+                        <option value="3-5万">3-5万</option>
+                        <option value="5万以上">5万以上</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">自然灾害</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" lay-verify="required|title" autocomplete="off" class="layui-input" required=''>
+                <label alt='家庭遭受自然灾害情况' placeholder='时间/原因/损失'></label>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">突发意外</label>
+            <div class="layui-input-block">
+                <input type="text" name="unexpectedAccident" lay-verify="required|title" autocomplete="off" class="layui-input" required=''>
+                <label alt='家庭遭受意外事件' placeholder='时间/原因/损失'></label>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">成员情况</label>
+            <div class="layui-input-block">
+                <input type="text" name="membershipSituation" lay-verify="required|title" autocomplete="off" class="layui-input" required=''>
+                <label alt='家庭成员身体状况' placeholder='因残疾/患病/年迈而劳动力弱等原因'></label>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">失业情况</label>
+            <div class="layui-input-block">
+                <input type="text" name="unemploymentSituation" lay-verify="required|title" autocomplete="off" class="layui-input" required=''>
+                <label alt='家庭成员失业状况' placeholder='何时失业'></label>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">获资助情况</label>
+            <div class="layui-input-block">
+                <input type="text" name="fundedSituation" lay-verify="required|title" autocomplete="off" class="layui-input" required=''>
+                <label alt='入学以来接受过的资助情况' placeholder='包含奖学金、助学金'></label>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">其他情况</label>
+            <div class="layui-input-block">
+                <input type="text" name="otherSituation" lay-verify="required|title" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </blockquote>
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;margin-left: 20px">
+        <legend>家庭联系方式</legend>
+    </fieldset>
+    <blockquote class="layui-elem-quote layui-quote-nm" STYLE="margin-top: 30px;margin-left: 20px">
+        <div class="layui-form-item">
+            <label class="layui-form-label">家庭地址</label>
+            <div class="layui-input-block">
+                <input type="text" name="address" lay-verify="title" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">通讯地址</label>
+            <div class="layui-input-block">
+                <input type="text" name="postalAddress" lay-verify="title" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">邮政编码</label>
+                <div class="layui-input-inline">
+                    <input type="postNumber" name="postNumber" lay-verify="required|postNumber" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">收信人</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">联系人1</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="addressee" lay-verify="required|title" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">联系人1电话</label>
+                <div class="layui-input-inline">
+                    <input type="tel" name="contactNumbere" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">联系人2</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="emergencyContact" lay-verify="required|title" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">联系人2电话</label>
+                <div class="layui-input-inline">
+                    <input type="tel" name="emergencyContactNumber" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </blockquote>
     <fieldset class="layui-elem-field" style="margin-top: 20px;margin-left: 20px;">
     <legend>申请记录</legend>
     <table class="layui-table" lay-data="{url:'/static/data/role.json', id:'test2'}" lay-filter="test2">
@@ -250,7 +247,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">贫困等级</label>
             <div class="layui-input-inline">
-                <select name="povertyLevel">
+                <select name="povertyLevel" id="povertyLevel">
                     <option value="">请选择</option>
                     <option value="一般贫困">一般贫困</option>
                     <option value="一般贫困">特别贫困</option>
@@ -260,7 +257,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">认定理由</label>
             <div class="layui-input-block">
-                <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+                <textarea placeholder="请输入内容" id="reasonsForApplication" class="layui-textarea"></textarea>
             </div>
         </div>
     </fieldset>
@@ -270,7 +267,15 @@
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
-</form>
+    <input type="hidden" name="applicationNumber" value="param1">
+    <input type="hidden" name="yearlyIncome" value="param1">
+    <input type="hidden" name="populationSize" value="param1">
+    <input type="hidden" name="perCapitaIncome" value="param1">
+    <input type="hidden" name="unexpectedAccident" value="param1">
+    <input type="hidden" name="naturalDisaster" value="param1">
+
+
+</form:form>
 <script src="/static/layui/layui.js" charset="utf-8"></script>
 <script>
     layui.use(['form', 'layedit', 'laydate'], function(){
@@ -318,35 +323,33 @@
         });
 
         //监听提交
-        form.on('submit(demo1)', function(data){
-            var sendData = data;
-            // sendData.id = $("#yearlyIncome").textbox("getValue");
-            // sendData.name = $("#populationSize").textbox("getValue");
-            // sendData.userMobile = $("#userMobile").textbox("getValue");
-            // sendData.userTel = $("#userTel").textbox("getValue");
-            // sendData.orgId = $("#orgId").combobox("getValue");
-            // sendData.lastdate = $("#lastdate").datebox("getValue");
-            // sendData.remark = $("#remark").textbox("getValue");
-            // sendData.password = $("#password").val();
-            // alert(JSON.stringify(sendData.field))
+/*        form.on('submit(demo1)', function(data){
+            var sendData = JSON.stringify(data.field);
+            sendData.yearlyIncome = "getValue";
+            sendData.applicationNumber = "asda";
+            sendData.userMobile = $("#userMobile").textbox("getValue");
+            sendData.userTel = $("#userTel").textbox("getValue");
+            sendData.orgId = $("#orgId").combobox("getValue");
+            sendData.lastdate = $("#lastdate").datebox("getValue");
+            sendData.remark = $("#remark").textbox("getValue");
+            sendData.password = $("#password").val();
+
                 $.ajax({
-                    url:'/newuser',
-                    type:'get',
+                    url:'/addapplication',
+                    type:'post',
                     dataType:'json',
                     contentType:"application/json;charset=utf-8",
                     async:true,//异步请求
                     cache:false,
-                    // data:JSON.stringify(sendData.field),//使用变量sendData
+                    data:sendData,//使用变量sendData
                     //执行成功的回调函数
                     success:function(data) {
-
+                        if (data.length()>=0)
+                            alert(123);
                     },
                     //执行失败或错误的回调函数
-                    error:function(data) {
-                        alert("保存失败");
-                    }
                 });
-        });
+        });*/
 
         //表单初始赋值
         form.val('example', {

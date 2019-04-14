@@ -38,14 +38,10 @@
         #college .content_tab{background: #455EC5;}
         #college .s-profile>a{background: url(/static/images/zheng-cms.png) left top no-repeat;}
 
-
         #admin #header {background: #6539B4;}
         #admin .content_tab{background: #6539B4;}
         #admin .s-profile>a{background: url(/static/images/zheng-ucenter.png) left top no-repeat;}
 
-        /*#test #header {background: test;}*/
-        /*#test .content_tab{background: test;}*/
-        /*#test .s-profile>a{background: url(/WEB-INF/jsp/userInfo) left top no-repeat;}*/
     </style>
 </head>
 <body>
@@ -125,9 +121,9 @@
         <!-- /个人资料区 -->
         <!-- 菜单区 -->
         <ul class="main-menu">
-            <li>
-                <a class="waves-effect" href="javascript:Tab.addTab('首页', 'home');"><i class="zmdi zmdi-home"></i> 首页</a>
-            </li>
+<%--            <li>
+                <a class="waves-effect" href="/main"><i class="zmdi zmdi-home"></i> 首页</a>
+            </li>--%>
             <%-- 系统管理员菜单--%>
             <li class="sub-menu system_menus system_1 0">
                 <a class="waves-effect" ><i class="zmdi zmdi-menu"></i> 申请审批管理</a><%--href="javascript:;"--%>
@@ -139,8 +135,8 @@
             <li class="sub-menu system_menus system_1 1">
                 <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-accounts"></i> 用户管理</a>
                 <ul>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('管理员信息', '/userInfo?params=getCollegeList');">管理员信息管理</a></li>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('学生信息', '/userInfo?params=getStudentList');">学生信息管理</a></li>
+                    <li><a class="waves-effect" href="javascript:Tab.addTab('管理员信息', '/userList?params=getCollegeList');">管理员信息管理</a></li>
+                    <li><a class="waves-effect" href="javascript:Tab.addTab('学生信息', '/userList?params=getStudentList');">学生信息管理</a></li>
                 </ul>
             </li>
             <%-- 院系管理员菜单--%>
@@ -154,8 +150,8 @@
             <li class="sub-menu system_menus system_2 2">
                 <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-accounts"></i> 用户管理</a>
                 <ul>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('管理员信息', '/userInfo?params=getCounsellorList');">管理员信息管理</a></li>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('学生信息', '/userInfo?params=getStudentList');">学生信息管理</a></li>
+                    <li><a class="waves-effect" href="javascript:Tab.addTab('管理员信息', '/userList?params=getCounsellorList');">管理员信息管理</a></li>
+                    <li><a class="waves-effect" href="javascript:Tab.addTab('学生信息', '/userList?params=getStudentList');">学生信息管理</a></li>
                 </ul>
             </li>
             <%-- 辅导员管理菜单--%>
@@ -169,7 +165,7 @@
             <li class="sub-menu system_menus system_3 2">
                 <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-accounts"></i> 用户管理</a>
                 <ul>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('学生信息', '/userInfo?params=getStudentList');">学生信息管理</a></li>
+                    <li><a class="waves-effect" href="javascript:Tab.addTab('学生信息', '/userList?params=getStudentList');">学生信息管理</a></li>
                 </ul>
             </li>
             <%-- 学生端菜单--%>
@@ -222,7 +218,7 @@
                 </div>
                 <div class="md2-sub2">
                 <span>100</span>
-                <cite>用户总数</cite>
+                <cite>待处理审批</cite>
                 </div>
                 </div>
                 <div class="layui-col-md2">
@@ -231,7 +227,7 @@
                 </div>
                 <div class="md2-sub2">
                 <span>100</span>
-                <cite>申请总数</cite>
+                <cite>已处理审批</cite>
                 </div>
                 </div>
                 <div class="layui-col-md2">
@@ -240,12 +236,29 @@
                 </div>
                 <div class="md2-sub2">
                 <span>100</span>
-                <cite>待处理申请</cite>
+                <cite>审批总数</cite>
                 </div>
                 </div>
                 </div>
                 </fieldset>
                 </div>
+                </sec:authorize>
+                <sec:authorize access="hasRole('STUDENT')">
+                    <div>
+                        <fieldset class="layui-elem-field">
+                            <div class="layui-row layui-col-space10 layui-row-margin">
+                                <div class="layui-col-md2">
+                                    <div class="layui-bg-green md2-sub1">
+                                        <i class="iconfont icon-dianliyonghuzongshu"></i>
+                                    </div>
+                                    <div class="md2-sub2">
+                                        <span>100条</span>
+                                        <cite>正在处理审批</cite>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
                 </sec:authorize>
             </div>
         </div>
