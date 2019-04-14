@@ -3,7 +3,6 @@ import com.fangcheng.test.dao.AbstractDao;
 import com.fangcheng.test.dao.ApplicationDao;
 import com.fangcheng.test.entity.Application;
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;

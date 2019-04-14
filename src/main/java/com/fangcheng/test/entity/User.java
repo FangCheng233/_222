@@ -2,6 +2,7 @@ package com.fangcheng.test.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 import java.sql.Date;
@@ -25,73 +26,80 @@ import java.util.Set;
 public class User implements Serializable {
     //学号
     @Id
-    @NotEmpty
+    @NotNull
     @Column(name="USER_ID", unique=true, nullable=false)
     private String userId;
     //密码
-    @NotEmpty
+    @NotNull
     @Column(name = "PASSWORD",nullable = false)
     private String password;
     //姓名
-    @NotEmpty
+    @NotNull
     @Column(name="USER_NAME", nullable=false)
     private String userName;
+    //曾用名
+    @NotNull
+    @Column(name="NAME_USED_BRFORE", nullable=false)
+    private String nameUsedBefore;
     //组织   学生  辅导员  系统管理员
-    @NotEmpty
+    @NotNull
     @Column(name="GROUP_ID", nullable=false)
     private String groupId;
     //创建时间
     @Column(name="CREAT_TIME", nullable=true)
     private String creatTime;
     //性别
-    @NotEmpty
+    @NotNull
     @Column(name="USER_SEX", nullable=true)
     private String userSex;
     //班级
-    @NotEmpty
+    @NotNull
     @Column(name="USER_CLASS", nullable=true)
     private String userClass;
     //专业
-    @NotEmpty
+    @NotNull
     @Column(name="USER_MAJOR", nullable=true)
     private String userMajor;
     //学院
-    @NotEmpty
+    @NotNull
     @Column(name="USER_COLLEGE", nullable=true)
     private String userCollege;
     //邮箱
     @Column(name="USER_EMAIL", nullable=true)
     private String userEmail;
     //年级
-    @NotEmpty
+    @NotNull
     @Column(name="USER_GRADE", nullable=true)
     private String userGrade;
     //出生日期
-
     @Column(name="BIRTH_DATE", nullable=true)
     private Date birthDate;
     //手机号
-
     @Column(name="PHONE_NUMBER", nullable=true)
     private Integer phoneNumber;
     //身份证号
-
     @Column(name="ID_NUMBER", nullable=true)
     private String idNumber;
-    //籍贯
+    //证件类型
+    @Column(name="ID_TYPE", nullable=true)
+    private String idType;
+    //民族
+    @Column(name="NATION", nullable=true)
+    private String nation;
+    //政治面貌
+    @Column(name="POLITICAL_OUTLOOK", nullable=true)
+    private String politicalOutlook;
 
+    //籍贯
     @Column(name="NATIVE_PLACE", nullable=true)
     private String nativePlace;
     //现住址
-
     @Column(name="BASE_PLACE", nullable=true)
     private String basePlace;
     //密保问题
-
     @Column(name="USER_SECURITY", nullable=true)
     private String userSecurity;
     //密保答案
-
     @Column(name="SECURITY_ANWSER", nullable=true)
     private String securityAnwser;
 
@@ -103,6 +111,9 @@ public class User implements Serializable {
 
     public String getUserName() { return userName;}
     public void setUserName(String userName) { this.userName = userName; }
+
+    public String getNameUsedBefore() {return nameUsedBefore; }
+    public void setNameUsedBefore(String nameUsedBefore) {this.nameUsedBefore = nameUsedBefore; }
 
     public String getGroupId() { return groupId;    }
     public void setGroupId(String groupId) { this.groupId = groupId; }
@@ -136,6 +147,15 @@ public class User implements Serializable {
 
     public String getIdNumber() { return idNumber;}
     public void setIdNumber(String idNumber) { this.idNumber = idNumber; }
+
+    public String getIdType() { return idType; }
+    public void setIdType(String idType) { this.idType = idType; }
+
+    public String getNation() {return nation; }
+    public void setNation(String nation) {this.nation = nation; }
+
+    public String getPoliticalOutlook() {return politicalOutlook; }
+    public void setPoliticalOutlook(String politicalOutlook) {this.politicalOutlook = politicalOutlook; }
 
     public String getNativePlace() { return nativePlace;}
     public void setNativePlace(String nativePlace) { this.nativePlace = nativePlace; }
@@ -171,7 +191,8 @@ public class User implements Serializable {
                 + ", groupId=" + groupId + ", userSex=" + userSex + ", userClass=" + userClass
                 + ", userMajor=" + userMajor + ", userCollege=" + userCollege +", userEmail=" + userEmail
                 + ", userGrade=" + userGrade + ", birthDate=" + birthDate + ", phoneNumber=" + phoneNumber
-                +", idNumber=" + idNumber + ", nativePlace=" + nativePlace + ", bathPlace=" + basePlace
-                + ", userSecurity=" + userSecurity + ", securityAnwser=" + securityAnwser+"]";
+                + ", idNumber=" + idNumber + ", nativePlace=" + nativePlace + ", bathPlace=" + basePlace
+                + ", userSecurity=" + userSecurity + ", securityAnwser=" + securityAnwser + ", idType=" + idType
+                + ", nation=" + nation +  ", nameUsedBefore=" + nameUsedBefore +", politicalOutlook=" + politicalOutlook +"]";
     }
 }

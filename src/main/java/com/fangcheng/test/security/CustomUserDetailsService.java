@@ -2,6 +2,7 @@ package com.fangcheng.test.security;
 
 import com.fangcheng.test.entity.TableAuthor;
 import com.fangcheng.test.entity.User;
+import com.fangcheng.test.service.ApplicationService;
 import com.fangcheng.test.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

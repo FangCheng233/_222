@@ -40,14 +40,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.headers().frameOptions().sameOrigin();
 		http.authorizeRequests()
-				.antMatchers("/", "/list")
+				.antMatchers("/", "/main")
 				.access("hasRole('STUDENT') or hasRole('COUNSELLOR') or hasRole('COLLEGE') or hasRole('ADMIN')")
 				.antMatchers("/newuser/**", "/delete-user")
 				.access("hasRole('ADMIN') or hasRole('COLLEGE') or hasRole('STUDENT')")
+				.antMatchers("/userInfo")
+				.access("hasRole('STUDENT') or hasRole('COUNSELLOR') or hasRole('COLLEGE') or hasRole('ADMIN')")
 				.antMatchers("/edit-user-*")
 				.access("hasRole('STUDENT')")
 				.antMatchers("/addapplication")
-				.access("hasRole('STUDENT') or hasRole('COUNSELLOR') or hasRole('COLLEGE') or hasRole('ADMIN')")
+				.access("hasRole('STUDENT')")
 				.and()
 				.formLogin()
 				.loginPage("/login")

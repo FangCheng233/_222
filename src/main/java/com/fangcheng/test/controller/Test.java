@@ -9,7 +9,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import com.fangcheng.test.entity.User;
+import com.fangcheng.test.service.UserService;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 /**
  * @ProjectName: _222
  * @Package: com.fc.test
@@ -27,13 +37,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes("roles")
 public class Test {
     @Autowired
-    ApplicationService applicationService;
-    @Autowired
     UserService userService;
-    public static Test test;
+    @Autowired
+    ApplicationService applicationService;
+//    public static Test test;
     public static void main(String[] args) {
         Application application = new Application();
-        test.get();
+        Test test = new Test();
+        test.getid();
     }
     public void saveApp(Application application){
         application.setApplicationNumber("sasdada");
@@ -52,11 +63,14 @@ public class Test {
         application.setEmeergencyContactNumber(123);
         application.setReasonsForApplication("asdada");
         System.out.println(application);
-        applicationService.save(application);
+//        applicationService.save(application);
     }
     public void get(){
-        Application application = applicationService.findByApplicationNumber("asdadad");
-        System.out.println(application);
+       applicationService.findByApplicationNumber("asdadad");
+        System.out.println(applicationService.findByApplicationNumber("asdadad"));
     }
-
+    public void getid(){
+        userService.findAllUsers();
+        System.out.println(userService.findAllUsers());
+    }
 }

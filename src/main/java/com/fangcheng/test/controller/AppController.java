@@ -51,6 +51,12 @@ public class AppController {
     AuthenticationTrustResolver authenticationTrustResolver;
 
 
+
+	@RequestMapping(value = { "/", "/main" }, method = RequestMethod.GET)
+	public String main(ModelMap model) {
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "main";
+	}
 	/**
 	 * @method  listUsers
 	 * @description 返回所有的用户信息
@@ -59,26 +65,16 @@ public class AppController {
 	[model]
 	 * @return java.lang.String
 	 */
-	@RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
-	public String listUsers(ModelMap model) {
-	    List<User> users = userService.findAllUsers();
-		model.addAttribute("users", users);
-		model.addAttribute("loggedinuser", getPrincipal());
-		return "main";
-	}
-	//获取用户的信息
-	@RequestMapping(value = { "/userInfo" }, method = RequestMethod.GET)
-	public String userInfo(ModelMap model,@Valid String params) {
+	@RequestMapping(value = { "/userList" }, method = RequestMethod.GET)
+	public String userList(ModelMap model,@Valid String params) {
 		model.addAttribute("params", params);
 		return "userList";
 	}
-	@RequestMapping(value = { "/application" }, method = RequestMethod.GET)
-	public String application(ModelMap model) {
+	@RequestMapping(value = { "/userInfo" }, method = RequestMethod.GET)
+	public String userIno(ModelMap model) {
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "student/application";
+		return "userInfo";
 	}
-
-
 	/**
 	 * @method  newUser
 	 * @description 添加用户
@@ -117,7 +113,25 @@ public class AppController {
 		}
 		//调用业务层处理
 		userService.saveUser(user);
-
+/*		Application application = new Application();
+		application.setApplicationNumber("sasdada");
+		application.setUserId("12345");
+		application.setSchoolYear("asda");
+		application.setPovertyLevel("adsad");
+		application.setYearlyIncome(123);
+		application.setPopulationSize(4);
+		application.setPerCapitaIncome(1);
+		application.setSchoolYear("asdad");
+		application.setAddress("asda");
+		application.setPostalAddress("asdada");
+		application.setAddressee("asdad");
+		application.setContactNumber(123);
+		application.setEmeergencyContact("asdada");
+		application.setEmeergencyContactNumber(123);
+		application.setReasonsForApplication("asdada");
+		application.setApprovalStatus("adas");
+		application.setProcessNode("sdad");
+		applicationService.save(application);*/
 		model.addAttribute("success", "User " + user.getUserId() + " "+ user.getGroupId() + " registered successfully");
 		model.addAttribute("loggedinuser", getPrincipal());
 		//return "success";
@@ -134,49 +148,19 @@ public class AppController {
 	 */
     @RequestMapping(value = { "/addapplication" }, method = RequestMethod.GET)
     public String newApplication(ModelMap model) {
-        Application application = new Application();
-        model.addAttribute("application", application);
         model.addAttribute("edit", false);
         model.addAttribute("loggedinuser", getPrincipal());
         return "student/application";
     }
-    /**
-     * @method  saveUser
-     * @description 获取页面提交的参数创建新用户
-     * @date: 2019/4/1 19:13
-     * @author: Fangcheng
-    [user, result, model]
-     * @return java.lang.String
-     */
-    public static void main(String[]args){
-    	AppController appController = new AppController();
-
-	}
 
     @RequestMapping(value = { "/addapplication" }, method = RequestMethod.POST)
-	public String addApplication(Model model,
-								@RequestParam String yearlyIncome,
-								@RequestParam String populationSize,
-								@RequestParam String perCapitaIncome,
-								@RequestParam String naturalDisaster,
-								@RequestParam String unexpectedAccident,
-								@RequestParam String membershipSituation,
-								@RequestParam String unemploymentSituation,
-								@RequestParam String fundedSituation,
-								@RequestParam String otherSituation,
-								@RequestParam String address,
-								@RequestParam String postalAddress,
-								@RequestParam String postNumber,
-								@RequestParam String addressee,
-								@RequestParam String contactNumber,
-								@RequestParam String emergencyContact,
-								@RequestParam String emergencyContactNumber,
-								@RequestParam String povertyLevel,
-								@RequestParam String reasonsForApplication,
-											   BindingResult result) {
-
-//		System.out.println("shop.name="+yearlyIncome+" contact="+populationSize+" phone="+povertyLevel+povertyLevel+address);
-		Application application = applicationService.findByApplicationNumber("asdadad");
+	public String addApplication(@Valid  ModelMap modelMap, @RequestParam String applicationNumber,
+	@RequestParam String yearlyIncome, @RequestParam String populationSize, @RequestParam String perCapitaIncome,
+	@RequestParam String naturalDisaster, @RequestParam String unexpectedAccident, @RequestParam String membershipSituation,
+	@RequestParam String unemploymentSituation, @RequestParam String fundedSituation, @RequestParam String otherSituation,
+	@RequestParam String address, @RequestParam String postalAddress, @RequestParam String postNumber,
+	@RequestParam String addressee, @RequestParam String contactNumber, @RequestParam String emergencyContact,
+	@RequestParam String emergencyContactNumber, @RequestParam String povertyLevel, @RequestParam String reasonsForApplication) {
         return "registrationsuccess";
     }
 
@@ -204,7 +188,6 @@ public class AppController {
 		if (result.hasErrors()) {
 			return "registration";
 		}
-		System.out.println(user);
 		userService.updateUserData(user);
 		model.addAttribute("success", "User " + user.getUserId()  + " updated successfully");
 		model.addAttribute("loggedinuser", getPrincipal());
@@ -246,14 +229,11 @@ public class AppController {
 		if (isCurrentAuthenticationAnonymous()) {
 			return "login";
 	    } else {
-	    	return "redirect:/list";
+	    	return "redirect:/main";
 	    }
 	}
 
-	/**
-	 * This method handles logout requests.
-	 * Toggle the handlers if you are RememberMe functionality is useless in your app.
-	 */
+
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
 	public String logoutPage (HttpServletRequest request, HttpServletResponse response){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -266,16 +246,26 @@ public class AppController {
 	}
 
 	/**
-	 * This method returns the principal[user-name] of logged-in user.
+	 * @method  getPrincipal
+	 * @description 返回当前用户的信息
+	 * @date: 2019/4/14 18:32
+	 * @author: Fangcheng
+	[]
+	 * @return java.lang.String
 	 */
 	private String getPrincipal(){
+		String userId = null;
 		String userName = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		if (principal instanceof UserDetails) {
-			userName = ((UserDetails)principal).getUsername();
+			userId = ((UserDetails)principal).getUsername();
+			User user = userService.findByUserId(userId);
+			userName = user.getUserName();
 		} else {
-			userName = principal.toString();
+			userId = principal.toString();
+			User user = userService.findByUserId(userId);
+			userName = user.getUserName();
 		}
 		return userName;
 	}

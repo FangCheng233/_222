@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -23,31 +24,31 @@ import java.io.Serializable;
 @Table(name = "TABLE_APPLICATION")
 public class Application implements Serializable {
     @Id
-    @NotEmpty
+    @NotNull
     @Column(name = "APPLICATION_NUMBER")
     private String applicationNumber;
 
-    @NotEmpty
+    @NotNull
     @Column(name = "USER_ID")
     private String userId;
 
-    @NotEmpty
+    @NotNull
     @Column(name = "SCHOOL_YEAR")
     private String schoolYear;
 
-    @NotEmpty
+    @NotNull
     @Column(name = "POVERTY_LEVEL")
     private String povertyLevel;
 
-    @NotEmpty
+    @NotNull
     @Column(name = "YEARLY_INCOME")
     private int yearlyIncome;
 
-    @NotEmpty
+    @NotNull
     @Column(name = "POPULATION_SIZE")
     private int populationSize;
 
-    @NotEmpty
+    @NotNull
     @Column(name = "PER_CAPITA_INCOME")
     private int perCapitaIncome;
 
@@ -90,15 +91,15 @@ public class Application implements Serializable {
     @Column(name = "EMERGENCY_CONTACT_NUMBER")
     private int emeergencyContactNumber;
 
-    @NotEmpty
+    @NotNull
     @Column(name = "REASONS_FOR_APPLICATION",columnDefinition = "TEXT",nullable = false)
     private String reasonsForApplication;
 
-    @NotEmpty
+    @NotNull
     @Column(name = "APPROVAL_STATUS",nullable = false)
     private String approvalStatus;
 
-    @NotEmpty
+    @NotNull
     @Column(name = "PROCESS_NODE",nullable = false)
     private String processNode;
 

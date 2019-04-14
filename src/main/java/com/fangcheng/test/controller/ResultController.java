@@ -1,6 +1,7 @@
 package com.fangcheng.test.controller;
 
 import com.fangcheng.test.entity.User;
+import com.fangcheng.test.service.ApplicationService;
 import com.fangcheng.test.service.UserService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,10 @@ import java.util.List;
 public class ResultController {
     @Autowired
     UserService userService;
-
+    @Autowired
+    ApplicationService applicationService;
     /**
-     * @method  getUserInfo
+     * @method  getStudentInfo
      * @description 获取用户的信息
      * @date: 2019/4/9 16:53
      * @author: Fangcheng
@@ -51,6 +53,14 @@ public class ResultController {
         }
         return listToJson(users1,pageStart,pageSize);
     }
+    /**
+     * @method  getCounsellorList
+     * @description 获取辅导员用户的信息
+     * @date: 2019/4/9 16:53
+     * @author: Fangcheng
+    [model]
+     * @return java.lang.String
+     */
     @ResponseBody
     @RequestMapping(value = { "/getCounsellorList" }, method = RequestMethod.GET,produces = "application/json")
     public String getCounsellorList(ModelMap model,@Valid Integer pageStart,Integer pageSize) {
@@ -62,6 +72,14 @@ public class ResultController {
         }
         return listToJson(users1,pageStart,pageSize);
     }
+    /**
+     * @method  getCollegeList
+     * @description 获取院系级用户的信息
+     * @date: 2019/4/9 16:53
+     * @author: Fangcheng
+    [model]
+     * @return java.lang.String
+     */
     @ResponseBody
     @RequestMapping(value = { "/getCollegeList" }, method = RequestMethod.GET,produces = "application/json")
     public String getCollegeList(ModelMap model,@Valid Integer pageStart,Integer pageSize) {
@@ -73,6 +91,14 @@ public class ResultController {
         }
         return listToJson(users1,pageStart,pageSize);
     }
+    /**
+     * @method  getAdminList
+     * @description 获取管理员级别用户的列表
+     * @date: 2019/4/9 16:53
+     * @author: Fangcheng
+    [model]
+     * @return java.lang.String
+     */
     @ResponseBody
     @RequestMapping(value = { "/getAdminList" }, method = RequestMethod.GET,produces = "application/json")
     public String getAdminList(ModelMap model,@Valid Integer pageStart,Integer pageSize) {
@@ -84,6 +110,14 @@ public class ResultController {
         }
         return listToJson(users1,pageStart,pageSize);
     }
+    /**
+     * @method  listToJson
+     * @description 条件查询，分页后信息返回用户页面
+     * @date: 2019/4/14 16:05
+     * @author: Fangcheng
+    [users, pageStart, pageSize]
+     * @return java.lang.String
+     */
     private static String listToJson(List<User> users,Integer pageStart,Integer pageSize) {
         ArrayList arrayList = new ArrayList();
         JSONObject jsonObject1 = new JSONObject();
