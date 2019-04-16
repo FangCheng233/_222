@@ -1,6 +1,5 @@
 package com.fangcheng.test.controller;
 
-import com.fangcheng.test.entity.Application;
 import com.fangcheng.test.entity.TableAuthor;
 import com.fangcheng.test.entity.User;
 import com.fangcheng.test.service.ApplicationService;
@@ -14,7 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -50,19 +48,33 @@ public class AppController {
 	@Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
 
-
-
+	/**
+	 * @method  loginPage
+	 * @description 登陆控制及页面跳转
+	 * @date: 2019/4/16 15:13
+	 * @author: Fangcheng
+	[]
+	 * @return java.lang.String
+	 */
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String loginPage() {
+		if (isCurrentAuthenticationAnonymous()) {
+			return "login";
+		} else {
+			return "redirect:/main";
+		}
+	}
 	@RequestMapping(value = { "/", "/main" }, method = RequestMethod.GET)
 	public String main(ModelMap model) {
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "main";
 	}
 	/**
-	 * @method  listUsers
-	 * @description 返回所有的用户信息
-	 * @date: 2019/4/1 19:14
+	 * @method  userList
+	 * @description 前端请求返回到用户列表界面
+	 * @date: 2019/4/16 15:14
 	 * @author: Fangcheng
-	[model]
+	[model, params]
 	 * @return java.lang.String
 	 */
 	@RequestMapping(value = { "/userList" }, method = RequestMethod.GET)
@@ -70,6 +82,14 @@ public class AppController {
 		model.addAttribute("params", params);
 		return "userList";
 	}
+	/**
+	 * @method  userIno
+	 * @description 根据前端的请求跳转到用户信息界面
+	 * @date: 2019/4/16 15:14
+	 * @author: Fangcheng
+	[model]
+	 * @return java.lang.String
+	 */
 	@RequestMapping(value = { "/userInfo" }, method = RequestMethod.GET)
 	public String userIno(ModelMap model) {
 		model.addAttribute("loggedinuser", getPrincipal());
@@ -137,7 +157,14 @@ public class AppController {
 		//return "success";
 		return "registrationsuccess";
 	}
-
+	@RequestMapping(value = { "/approval" }, method = RequestMethod.GET)
+	public String approval(ModelMap model) {
+/*		User user = new User();
+		model.addAttribute("user", user);
+		model.addAttribute("edit", false);
+		model.addAttribute("loggedinuser", getPrincipal());*/
+		return "approval";
+	}
 	/**
 	 * @method  newApplication
 	 * @description 添加新的申请
@@ -153,6 +180,14 @@ public class AppController {
         return "student/application";
     }
 
+	/**
+	 * @method  addApplication
+	 * @description 获取贫困申请界面数据，记录该申请
+	 * @date: 2019/4/16 15:11
+	 * @author: Fangcheng
+	[modelMap, applicationNumber, yearlyIncome, populationSize, perCapitaIncome, naturalDisaster, unexpectedAccident, membershipSituation, unemploymentSituation, fundedSituation, otherSituation, address, postalAddress, postNumber, addressee, contactNumber, emergencyContact, emergencyContactNumber, povertyLevel, reasonsForApplication]
+	 * @return java.lang.String
+	 */
     @RequestMapping(value = { "/addapplication" }, method = RequestMethod.POST)
 	public String addApplication(@Valid  ModelMap modelMap, @RequestParam String applicationNumber,
 	@RequestParam String yearlyIncome, @RequestParam String populationSize, @RequestParam String perCapitaIncome,
@@ -218,19 +253,6 @@ public class AppController {
 	public String accessDeniedPage(ModelMap model) {
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "accessDenied";
-	}
-
-	/**
-	 * This method handles login GET requests.
-	 * If users is already logged-in and tries to goto login page again, will be redirected to list page.
-	 */
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginPage() {
-		if (isCurrentAuthenticationAnonymous()) {
-			return "login";
-	    } else {
-	    	return "redirect:/main";
-	    }
 	}
 
 

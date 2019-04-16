@@ -41,23 +41,20 @@
         var table = layui.table;
         table.render({
             elem: '#test'
-            ,url:'/${params}'
+            <%--,url:'/${params}'--%>
+            ,url:'/static/data/user.json'
             ,page: true
             ,title:'用户数据表'
             ,toolbar: '#toolbarDemo'
-            ,totalRow: true
+/*            ,totalRow: true*/
             ,id: 'testReload'
             ,cols: [[
-                {field: 'state', checkbox: true}
+               {field: 'state', checkbox: true}
                 ,{field:'id', width:70, title: '序号', sort: true}
                 ,{field:'userId', width:100, title: '用户名'}
                 ,{field:'username', width:80, title: '用户名'}
                 ,{field:'userSex', width:80, title: '性别', sort: true}
                 ,{field:'groupId', width:80, title: 'groupId'}
-                <sec:authorize access="hasRole('ADMIN') or hasRole('COLLEGE')">
-                ,{field:'sex', width:80, title: '性别', sort: true}
-                ,{field:'city', width:80, title: '城市'}
-                </sec:authorize>
                 ,{field:'sign', title: '签名', minWidth: 50}
                 ,{field:'experience', width:80, title: '积分', sort: true}
                 ,{field:'score', width:80, title: '评分', sort: true}
@@ -159,7 +156,6 @@
             }
         });
     });
-
 </script>
 </body>
 </html>

@@ -34,6 +34,8 @@ public class ResultController {
     UserService userService;
     @Autowired
     ApplicationService applicationService;
+
+
     /**
      * @method  getStudentInfo
      * @description 获取用户的信息

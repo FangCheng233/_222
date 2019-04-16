@@ -38,9 +38,8 @@ public class User implements Serializable {
     @Column(name="USER_NAME", nullable=false)
     private String userName;
     //曾用名
-    @NotNull
-    @Column(name="NAME_USED_BRFORE", nullable=false)
-    private String nameUsedBefore;
+/*    @Column(name="NAME_USED_BRFORE", nullable=false)
+    private String nameUsedBefore;*/
     //组织   学生  辅导员  系统管理员
     @NotNull
     @Column(name="GROUP_ID", nullable=false)
@@ -112,8 +111,8 @@ public class User implements Serializable {
     public String getUserName() { return userName;}
     public void setUserName(String userName) { this.userName = userName; }
 
-    public String getNameUsedBefore() {return nameUsedBefore; }
-    public void setNameUsedBefore(String nameUsedBefore) {this.nameUsedBefore = nameUsedBefore; }
+/*    public String getNameUsedBefore() {return nameUsedBefore; }
+    public void setNameUsedBefore(String nameUsedBefore) {this.nameUsedBefore = nameUsedBefore; }*/
 
     public String getGroupId() { return groupId;    }
     public void setGroupId(String groupId) { this.groupId = groupId; }
@@ -193,6 +192,6 @@ public class User implements Serializable {
                 + ", userGrade=" + userGrade + ", birthDate=" + birthDate + ", phoneNumber=" + phoneNumber
                 + ", idNumber=" + idNumber + ", nativePlace=" + nativePlace + ", bathPlace=" + basePlace
                 + ", userSecurity=" + userSecurity + ", securityAnwser=" + securityAnwser + ", idType=" + idType
-                + ", nation=" + nation +  ", nameUsedBefore=" + nameUsedBefore +", politicalOutlook=" + politicalOutlook +"]";
+                + ", nation=" + nation  +", politicalOutlook=" + politicalOutlook +"]";/*+  ", nameUsedBefore=" + nameUsedBefore*/
     }
 }

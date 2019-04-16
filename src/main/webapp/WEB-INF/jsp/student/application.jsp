@@ -197,7 +197,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">收信人</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                    <input type="text" name="email" lay-verify="required|title" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
@@ -211,7 +211,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">联系人1电话</label>
                 <div class="layui-input-inline">
-                    <input type="tel" name="contactNumbere" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                    <input type="tel" name="contactNumber" lay-verify="required|phone" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>

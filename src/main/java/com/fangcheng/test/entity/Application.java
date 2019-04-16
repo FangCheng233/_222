@@ -251,7 +251,6 @@ public class Application implements Serializable {
     public String getReasonsForApplication() {
         return reasonsForApplication;
     }
-
     public void setReasonsForApplication(String reasonsForApplication) {
         this.reasonsForApplication = reasonsForApplication;
     }

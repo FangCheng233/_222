@@ -128,8 +128,8 @@
             <li class="sub-menu system_menus system_1 0">
                 <a class="waves-effect" ><i class="zmdi zmdi-menu"></i> 申请审批管理</a><%--href="javascript:;"--%>
                 <ul>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('待处理审批', '/userInfo');">待处理审批</a></li>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('历史审批记录', '/role.jsp');">历史审批记录</a></li>
+                    <li><a class="waves-effect" href="javascript:Tab.addTab('待处理审批', '/approval');">待处理审批</a></li>
+                    <li><a class="waves-effect" href="javascript:Tab.addTab('历史审批记录', '/role');">历史审批记录</a></li>
                 </ul>
             </li>
             <li class="sub-menu system_menus system_1 1">
@@ -143,7 +143,7 @@
             <li class="sub-menu system_menus system_2 1" style="display:none;">
                 <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-menu"></i> 申请审批管理</a>
                 <ul>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('标签管理', '/manage/tag/index');">待处理审批</a></li>
+                    <li><a class="waves-effect" href="javascript:Tab.addTab('标签管理', '/approval');">待处理审批</a></li>
                     <li><a class="waves-effect" href="javascript:Tab.addTab('类目管理', '/manage/category/index');">历史审批记录</a></li>
                 </ul>
             </li>
