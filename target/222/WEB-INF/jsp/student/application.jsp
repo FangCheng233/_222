@@ -264,7 +264,7 @@
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
-    <input type="hidden" name="applicationNumber" value="param1">
+    <input type="hidden" name="applicationNumber" value="paramasa1123dadd">
 </form:form>
 <td id="time" style="color: #777; padding-left: 10px;"></td>
 <script src="/static/layui/layui.js" charset="utf-8"></script>
