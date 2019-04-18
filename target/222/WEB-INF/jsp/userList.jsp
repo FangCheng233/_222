@@ -41,16 +41,16 @@
         var table = layui.table;
         table.render({
             elem: '#test'
-            <%--,url:'/${params}'--%>
-            ,url:'/static/data/user.json'
+            ,url:'/${params}'
+            // ,url:'/static/data/user.json'
             ,page: true
             ,title:'用户数据表'
             ,toolbar: '#toolbarDemo'
 /*            ,totalRow: true*/
             ,id: 'testReload'
             ,cols: [[
-               {field: 'state', checkbox: true}
-                ,{field:'id', width:70, title: '序号', sort: true}
+                {type:'numbers'}
+                ,{field: 'state', checkbox: true}
                 ,{field:'userId', width:100, title: '用户名'}
                 ,{field:'username', width:80, title: '用户名'}
                 ,{field:'userSex', width:80, title: '性别', sort: true}
@@ -160,4 +160,4 @@
 </body>
 </html>
 
-
+<%--                --%>

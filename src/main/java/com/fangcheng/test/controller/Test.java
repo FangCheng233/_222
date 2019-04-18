@@ -58,9 +58,9 @@ public class Test {
         application.setAddress("asda");
         application.setPostalAddress("asdada");
         application.setAddressee("asdad");
-        application.setContactNumber(123);
+        application.setContactNumber("SSSS");
         application.setEmeergencyContact("asdada");
-        application.setEmeergencyContactNumber(123);
+        application.setEmeergencyContactNumber("SSSS");
         application.setReasonsForApplication("asdada");
         System.out.println(application);
 //        applicationService.save(application);

@@ -1,5 +1,6 @@
 package com.fangcheng.test.controller;
 
+import com.fangcheng.test.entity.Application;
 import com.fangcheng.test.entity.TableAuthor;
 import com.fangcheng.test.entity.User;
 import com.fangcheng.test.service.ApplicationService;
@@ -66,7 +67,7 @@ public class AppController {
 	}
 	@RequestMapping(value = { "/", "/main" }, method = RequestMethod.GET)
 	public String main(ModelMap model) {
-		model.addAttribute("loggedinuser", getPrincipal());
+		model.addAttribute("loggedinuser", getUserName());
 		return "main";
 	}
 	/**
@@ -92,7 +93,7 @@ public class AppController {
 	 */
 	@RequestMapping(value = { "/userInfo" }, method = RequestMethod.GET)
 	public String userIno(ModelMap model) {
-		model.addAttribute("loggedinuser", getPrincipal());
+		model.addAttribute("loggedinuser", getUserName());
 		return "userInfo";
 	}
 	/**
@@ -109,7 +110,7 @@ public class AppController {
 		User user = new User();
 		model.addAttribute("user", user);
 		model.addAttribute("edit", false);
-		model.addAttribute("loggedinuser", getPrincipal());
+		model.addAttribute("loggedinuser", getUserName());
 		return "admin/registration";
 	}
 	/**
@@ -133,27 +134,8 @@ public class AppController {
 		}
 		//调用业务层处理
 		userService.saveUser(user);
-/*		Application application = new Application();
-		application.setApplicationNumber("sasdada");
-		application.setUserId("12345");
-		application.setSchoolYear("asda");
-		application.setPovertyLevel("adsad");
-		application.setYearlyIncome(123);
-		application.setPopulationSize(4);
-		application.setPerCapitaIncome(1);
-		application.setSchoolYear("asdad");
-		application.setAddress("asda");
-		application.setPostalAddress("asdada");
-		application.setAddressee("asdad");
-		application.setContactNumber(123);
-		application.setEmeergencyContact("asdada");
-		application.setEmeergencyContactNumber(123);
-		application.setReasonsForApplication("asdada");
-		application.setApprovalStatus("adas");
-		application.setProcessNode("sdad");
-		applicationService.save(application);*/
 		model.addAttribute("success", "User " + user.getUserId() + " "+ user.getGroupId() + " registered successfully");
-		model.addAttribute("loggedinuser", getPrincipal());
+		model.addAttribute("loggedinuser", getUserName());
 		//return "success";
 		return "registrationsuccess";
 	}
@@ -176,7 +158,7 @@ public class AppController {
     @RequestMapping(value = { "/addapplication" }, method = RequestMethod.GET)
     public String newApplication(ModelMap model) {
         model.addAttribute("edit", false);
-        model.addAttribute("loggedinuser", getPrincipal());
+        model.addAttribute("loggedinuser", getUserName());
         return "student/application";
     }
 
@@ -190,22 +172,55 @@ public class AppController {
 	 */
     @RequestMapping(value = { "/addapplication" }, method = RequestMethod.POST)
 	public String addApplication(@Valid  ModelMap modelMap, @RequestParam String applicationNumber,
-	@RequestParam String yearlyIncome, @RequestParam String populationSize, @RequestParam String perCapitaIncome,
+	@RequestParam Integer yearlyIncome, @RequestParam Integer populationSize, @RequestParam Integer perCapitaIncome,
 	@RequestParam String naturalDisaster, @RequestParam String unexpectedAccident, @RequestParam String membershipSituation,
 	@RequestParam String unemploymentSituation, @RequestParam String fundedSituation, @RequestParam String otherSituation,
-	@RequestParam String address, @RequestParam String postalAddress, @RequestParam String postNumber,
+	@RequestParam String address, @RequestParam String postalAddress, @RequestParam Integer postNumber,
 	@RequestParam String addressee, @RequestParam String contactNumber, @RequestParam String emergencyContact,
-	@RequestParam String emergencyContactNumber, @RequestParam String povertyLevel, @RequestParam String reasonsForApplication) {
+	@RequestParam String emergencyContactNumber, @RequestParam String povertyLevel, @RequestParam String reasonsForApplication,
+	@RequestParam String liabilities,@RequestParam String _csrf) {
+    	Application application = new Application();
+		application.setApplicationNumber(applicationNumber);
+		application.setUserId(getPrincipal());
+		application.setSchoolYear("asdasdfs");
+		application.setPovertyLevel(povertyLevel);
+		application.setYearlyIncome(yearlyIncome);
+		application.setPopulationSize(populationSize);
+		application.setPerCapitaIncome(perCapitaIncome);
+		application.setLiabilities(liabilities);
+		application.setNaturalDisaster(naturalDisaster);
+		application.setUnexpectedAccident(unexpectedAccident);
+		application.setMembershipSituation(membershipSituation);
+		application.setUnemploymentSituation(unemploymentSituation);
+		application.setFundedSituation(fundedSituation);
+		application.setOtherSituation(otherSituation);
+		application.setAddress(address);
+		application.setPostalAddress(postalAddress);
+		application.setPostalCode(postNumber);
+		application.setAddressee(addressee);
+		application.setContactNumber(contactNumber);
+		application.setEmeergencyContact(emergencyContact);
+		application.setEmeergencyContactNumber(emergencyContactNumber);
+		application.setReasonsForApplication(reasonsForApplication);
+		application.setApprovalStatus("adas");
+		application.setProcessNode("sdad");
+		applicationService.save(application);
         return "registrationsuccess";
     }
 
+/*	@RequestMapping(value = { "/addapplication" }, method = RequestMethod.POST)
+	public String addApplication(@Valid  ModelMap modelMap, @RequestBody Application application,
+								 HttpServletResponse httpServletResponse) {
+		applicationService.save(application);
+		return "registrationsuccess";
+	}*/
 
 	@RequestMapping(value = { "/edit-user-{userId}" }, method = RequestMethod.GET)
 	public String editUser(@PathVariable String userId, ModelMap model) {
 		User user = userService.findByUserId(userId);
 		model.addAttribute("user", user);
 		model.addAttribute("edit", true);
-		model.addAttribute("loggedinuser", getPrincipal());
+		model.addAttribute("loggedinuser", getUserName());
 		return "admin/registration";
 	}
 	/**
@@ -225,7 +240,7 @@ public class AppController {
 		}
 		userService.updateUserData(user);
 		model.addAttribute("success", "User " + user.getUserId()  + " updated successfully");
-		model.addAttribute("loggedinuser", getPrincipal());
+		model.addAttribute("loggedinuser", getUserName());
 		return "registrationsuccess";
 	}
 
@@ -251,7 +266,7 @@ public class AppController {
 	 */
 	@RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
 	public String accessDeniedPage(ModelMap model) {
-		model.addAttribute("loggedinuser", getPrincipal());
+		model.addAttribute("loggedinuser", getUserName());
 		return "accessDenied";
 	}
 
@@ -277,21 +292,23 @@ public class AppController {
 	 */
 	private String getPrincipal(){
 		String userId = null;
-		String userName = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		if (principal instanceof UserDetails) {
 			userId = ((UserDetails)principal).getUsername();
-			User user = userService.findByUserId(userId);
-			userName = user.getUserName();
 		} else {
 			userId = principal.toString();
-			User user = userService.findByUserId(userId);
-			userName = user.getUserName();
+
 		}
+		return userId;
+	}
+	private String getUserName(){
+		String userId = getPrincipal();
+		String userName = null;
+		User user = userService.findByUserId(userId);
+		userName = user.getUserName();
 		return userName;
 	}
-	
 	/**
 	 * This method returns true if users is already authenticated [logged-in], else false.
 	 */

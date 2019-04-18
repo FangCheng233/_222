@@ -114,7 +114,7 @@ public class ResultController {
     }
     /**
      * @method  listToJson
-     * @description 条件查询，分页后信息返回用户页面
+     * @description 条件查询，分页后将用户信息返回用户列表userList页面
      * @date: 2019/4/14 16:05
      * @author: Fangcheng
     [users, pageStart, pageSize]
@@ -138,7 +138,7 @@ public class ResultController {
             JSONObject jsonObject = new JSONObject();
             user = users.get(i);
             // 向jsonObject添加属性对i
-            jsonObject.accumulate("id", ""+(i+1));//学号i
+/*            jsonObject.accumulate("id", ""+(i+1));//学号i*/
             jsonObject.accumulate("userId", user.getUserId());//学号
             jsonObject.accumulate("userName", user.getUserName());//用户名
             jsonObject.accumulate("groupId",user.getGroupId());//教师/学生/院系/管理员
@@ -152,6 +152,84 @@ public class ResultController {
         }
         jsonObject1.accumulate("data", arrayList);
         return jsonObject1.toString();
+    }
+
+
+    /**
+     * @method  getStudentApplicationList
+     * @description 描述一下方法的作用
+     * @date: 2019/4/17 19:44
+     * @author: Fangcheng
+    [model, pageStart, pageSize]
+     * @return java.lang.String
+     */
+    @ResponseBody
+    @RequestMapping(value = { "/getStudentApplicationList" }, method = RequestMethod.GET,produces = "application/json")
+    public String getStudentApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize) {
+        List<User> users = userService.findAllUsers();
+        List<User> users1 = new ArrayList<>();
+        for(User user :users){
+            if(user.getGroupId().equals("4"))
+                users1.add(user);
+        }
+        return listToJson(users1,pageStart,pageSize);
+    }
+    /**
+     * @method  getCounsellorApplicationList
+     * @description 描述一下方法的作用
+     * @date: 2019/4/17 19:43
+     * @author: Fangcheng
+    [model, pageStart, pageSize]
+     * @return java.lang.String
+     */
+    @ResponseBody
+    @RequestMapping(value = { "/getCounsellorApplicationList" }, method = RequestMethod.GET,produces = "application/json")
+    public String getCounsellorApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize) {
+        List<User> users = userService.findAllUsers();
+        List<User> users1 = new ArrayList<>();
+        for(User user :users){
+            if(user.getGroupId().equals("4"))
+                users1.add(user);
+        }
+        return listToJson(users1,pageStart,pageSize);
+    }
+    /**
+     * @method  getCollegeApplicationList
+     * @description 描述一下方法的作用
+     * @date: 2019/4/17 19:41
+     * @author: Fangcheng
+    [model, pageStart, pageSize]
+     * @return java.lang.String
+     */
+    @ResponseBody
+    @RequestMapping(value = { "/getCollegeApplicationList" }, method = RequestMethod.GET,produces = "application/json")
+    public String getCollegeApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize) {
+        List<User> users = userService.findAllUsers();
+        List<User> users1 = new ArrayList<>();
+        for(User user :users){
+            if(user.getGroupId().equals("4"))
+                users1.add(user);
+        }
+        return listToJson(users1,pageStart,pageSize);
+    }
+    /**
+     * @method  getAllApplicationList
+     * @description
+     * @date: 2019/4/17 19:40
+     * @author: Fangcheng
+    [model, pageStart, pageSize]
+     * @return java.lang.String
+     */
+    @ResponseBody
+    @RequestMapping(value = { "/getAllApplicationList" }, method = RequestMethod.GET,produces = "application/json")
+    public String getAllApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize) {
+        List<User> users = userService.findAllUsers();
+        List<User> users1 = new ArrayList<>();
+        for(User user :users){
+            if(user.getGroupId().equals("4"))
+                users1.add(user);
+        }
+        return listToJson(users1,pageStart,pageSize);
     }
 }
 

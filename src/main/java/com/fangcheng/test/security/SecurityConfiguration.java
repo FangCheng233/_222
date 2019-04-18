@@ -46,6 +46,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 				.antMatchers("/", "/main")
 				.access("hasRole('STUDENT') or hasRole('COUNSELLOR') or hasRole('COLLEGE') or hasRole('ADMIN')")
+				.antMatchers("/userList")
+				.access("hasRole('COUNSELLOR') or hasRole('COLLEGE') or hasRole('ADMIN')")
 				.antMatchers("/newuser/**", "/delete-user")
 				.access("hasRole('ADMIN') or hasRole('COLLEGE') or hasRole('STUDENT')")
 				.antMatchers("/userInfo")

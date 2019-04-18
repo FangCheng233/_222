@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -27,78 +26,81 @@ public class Application implements Serializable {
     @NotNull
     @Column(name = "APPLICATION_NUMBER")
     private String applicationNumber;
-
+    //学号
     @NotNull
     @Column(name = "USER_ID")
     private String userId;
-
+    //学年
     @NotNull
     @Column(name = "SCHOOL_YEAR")
     private String schoolYear;
-
+    //贫困申请级别
     @NotNull
     @Column(name = "POVERTY_LEVEL")
     private String povertyLevel;
-
+    //年收入
     @NotNull
     @Column(name = "YEARLY_INCOME")
     private int yearlyIncome;
-
+    //家庭人口数
     @NotNull
     @Column(name = "POPULATION_SIZE")
     private int populationSize;
-
+    //人均年收入
     @NotNull
     @Column(name = "PER_CAPITA_INCOME")
     private int perCapitaIncome;
-
+    //负债情况
     @Column(name = "LIABILITIES")
     private String liabilities;
-
+    //自然灾害
     @Column(name = "NATURAL_DISASTER")
     private String naturalDisaster;
-
+    //意外灾害
     @Column(name = "UNEXPECTED_ACCIDENT")
     private String unexpectedAccident;
-
+    //成员情况
     @Column(name = "MEMBERSHIP_SITUATION")
     private String membershipSituation;
-
+    //失业情况
     @Column(name = "UNEMPLOYMENT_SITUATION")
     private String unemploymentSituation;
-
+    //受资助情况
+    @Column(name = "FUNDED_SITUATION")
+    private String fundedSituation;
+    //其他情况
     @Column(name = "OTHER_SITUATION")
     private String otherSituation;
-
+    //地址
     @Column(name = "ADDRESS")
     private String address;
-
+    //家庭通讯地址
     @Column(name = "POSTAL_ADDRESS")
     private String postalAddress;
-
+    //邮政编码
     @Column(name = "POSTAL_CODE")
     private int postalCode;
-
+    //联系人
     @Column(name = "ADDRESSEE")
     private String addressee;
-
+    //联系人电话
     @Column(name = "CONTACT_NUMBER")
-    private int contactNumber;
-
+    private String contactNumber;
+    //紧急联系人
     @Column(name = "EMERGENCY_CONTACT")
     private String emeergencyContact;
-
+    //紧急联系人电话
     @Column(name = "EMERGENCY_CONTACT_NUMBER")
-    private int emeergencyContactNumber;
-
+    private String emeergencyContactNumber;
+    //申请理由
     @NotNull
     @Column(name = "REASONS_FOR_APPLICATION",columnDefinition = "TEXT",nullable = false)
     private String reasonsForApplication;
-
+    //申请状态
     @NotNull
     @Column(name = "APPROVAL_STATUS",nullable = false)
     private String approvalStatus;
-
+    //流程节点
     @NotNull
     @Column(name = "PROCESS_NODE",nullable = false)
     private String processNode;
@@ -176,18 +178,15 @@ public class Application implements Serializable {
         this.membershipSituation = membershipSituation;
     }
 
-    public String getUnemploymentSituation() {
-        return unemploymentSituation;
-    }
+    public String getUnemploymentSituation() { return unemploymentSituation; }
+    public void setUnemploymentSituation(String unemploymentSituation) {this.unemploymentSituation = unemploymentSituation; }
 
-    public void setUnemploymentSituation(String unemploymentSituation) {
-        this.unemploymentSituation = unemploymentSituation;
-    }
+    public String getFundedSituation() { return fundedSituation; }
+    public void setFundedSituation(String fundedSituation) { this.fundedSituation = fundedSituation; }
 
     public String getOtherSituation() {
         return otherSituation;
     }
-
     public void setOtherSituation(String otherSituation) {
         this.otherSituation = otherSituation;
     }
@@ -195,7 +194,6 @@ public class Application implements Serializable {
     public String getAddress() {
         return address;
     }
-
     public void setAddress(String address) {
         this.address = address;
     }
@@ -203,62 +201,47 @@ public class Application implements Serializable {
     public String getPostalAddress() {
         return postalAddress;
     }
-
-    public void setPostalAddress(String postalAddress) {
-        this.postalAddress = postalAddress;
-    }
+    public void setPostalAddress(String postalAddress) { this.postalAddress = postalAddress; }
 
     public int getPostalCode() {
         return postalCode;
     }
-
-    public void setPostalCode(int postalCode) {
-        this.postalCode = postalCode;
-    }
+    public void setPostalCode(int postalCode) { this.postalCode = postalCode; }
 
     public String getAddressee() {
         return addressee;
     }
-
     public void setAddressee(String addressee) {
         this.addressee = addressee;
     }
 
-    public int getContactNumber() {
+    public String getContactNumber() {
         return contactNumber;
     }
-
-    public void setContactNumber(int contactNumber) {
+    public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
 
     public String getEmeergencyContact() {
         return emeergencyContact;
     }
-
     public void setEmeergencyContact(String emeergencyContact) {
         this.emeergencyContact = emeergencyContact;
     }
 
-    public int getEmeergencyContactNumber() {
+    public String getEmeergencyContactNumber() {
         return emeergencyContactNumber;
     }
-
-    public void setEmeergencyContactNumber(int emeergencyContactNumber) {
-        this.emeergencyContactNumber = emeergencyContactNumber;
-    }
+    public void setEmeergencyContactNumber(String emeergencyContactNumber) { this.emeergencyContactNumber = emeergencyContactNumber; }
 
     public String getReasonsForApplication() {
         return reasonsForApplication;
     }
-    public void setReasonsForApplication(String reasonsForApplication) {
-        this.reasonsForApplication = reasonsForApplication;
-    }
+    public void setReasonsForApplication(String reasonsForApplication) { this.reasonsForApplication = reasonsForApplication; }
 
     public String getApprovalStatus() {
         return approvalStatus;
     }
-
     public void setApprovalStatus(String approvalStatus) {
         this.approvalStatus = approvalStatus;
     }
@@ -266,7 +249,6 @@ public class Application implements Serializable {
     public String getProcessNode() {
         return processNode;
     }
-
     public void setProcessNode(String processNode) {
         this.processNode = processNode;
     }
@@ -282,7 +264,7 @@ public class Application implements Serializable {
                 +", otherSituation=" + otherSituation + ", address=" + address + ", postalAddress=" + postalAddress
                 +", postalCode=" + postalCode + ", addressee=" + addressee + ", contactNumber=" + contactNumber
                 +", emeergencyContact=" + emeergencyContact + ", emeergencyContactNumber=" + emeergencyContactNumber + ", reasonsForApplication=" + reasonsForApplication
-                + ", approvalStatus=" + approvalStatus + ", processNode=" + processNode+",]";
+                + ", approvalStatus=" + approvalStatus + ", processNode=" + processNode + ", fundedSituation=" + fundedSituation+",]";
     }
 
 }
