@@ -1,11 +1,11 @@
 package com.fangcheng.test.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @ProjectName: _222
@@ -253,7 +253,17 @@ public class Application implements Serializable {
         this.processNode = processNode;
     }
 
+/*    @NotEmpty
+    @ManyToMany(cascade=CascadeType.REFRESH)
+    @JoinTable(name = "TABLE_APPROVAL",
+            joinColumns = { @JoinColumn(name = "APPLICATION_NUMBER") },
+            inverseJoinColumns = { @JoinColumn(name = "RF_AUTHOR_ID") })
+    private Set<TableAuthor> tableAuthors = new HashSet<TableAuthor>();
 
+    public Set<TableAuthor> getTableAuthors() { return tableAuthors; }
+
+    public void setTableAuthors(Set<TableAuthor> tableAuthors) {
+        this.tableAuthors = tableAuthors; }*/
     //申请书对象
     @Override
     public String toString() {

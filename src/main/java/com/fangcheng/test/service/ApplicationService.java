@@ -27,5 +27,4 @@ public interface ApplicationService {
 
     List<Application> findAllApplication();
     boolean isApplicationNumberUnique(String applicationNumber);
-//    boolean isUserClassUnique(String userClass);
 }

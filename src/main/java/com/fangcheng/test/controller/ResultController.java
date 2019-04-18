@@ -1,5 +1,6 @@
 package com.fangcheng.test.controller;
 
+import com.fangcheng.test.entity.Application;
 import com.fangcheng.test.entity.User;
 import com.fangcheng.test.service.ApplicationService;
 import com.fangcheng.test.service.UserService;
@@ -134,7 +135,7 @@ public class ResultController {
         jsonObject1.accumulate("msg", "");
         jsonObject1.accumulate("count", users.size());
         User user;
-        loop:for (int i = index;i < end;i++) {
+        for (int i = index;i < end;i++) {
             JSONObject jsonObject = new JSONObject();
             user = users.get(i);
             // 向jsonObject添加属性对i
@@ -223,13 +224,47 @@ public class ResultController {
     @ResponseBody
     @RequestMapping(value = { "/getAllApplicationList" }, method = RequestMethod.GET,produces = "application/json")
     public String getAllApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize) {
-        List<User> users = userService.findAllUsers();
-        List<User> users1 = new ArrayList<>();
-        for(User user :users){
-            if(user.getGroupId().equals("4"))
+        List<Application> applications = applicationService.findAllApplication();
+/*        List<Application> applications1 = new ArrayList<>();
+        for(Application application :applications){
+            if(application.getGroupId().equals("4"))
                 users1.add(user);
+        }*/
+        return applicationlistToJson(applications,pageStart,pageSize);
+    }
+    private String applicationlistToJson(List<Application> applications,Integer pageStart,Integer pageSize) {
+        ArrayList arrayList = new ArrayList();
+        JSONObject jsonObject1 = new JSONObject();
+        int index = (pageStart -1)*pageSize;//开始位置
+        int end = 0;
+        if(applications.size()-index>pageSize){
+            end = index+pageSize;
+        }else {
+            end = applications.size();
         }
-        return listToJson(users1,pageStart,pageSize);
+        jsonObject1.accumulate("code",0);
+        jsonObject1.accumulate("msg", "");
+        jsonObject1.accumulate("count", applications.size());
+        Application application;
+        for (int i = index;i < end;i++) {
+            JSONObject jsonObject = new JSONObject();
+            application = applications.get(i);
+            User user = userService.findByUserId(application.getUserId());
+            // 向jsonObject添加属性对i
+            /*            jsonObject.accumulate("id", ""+(i+1));//学号i*/
+            jsonObject.accumulate("userCollege", user.getUserCollege());//学院
+            jsonObject.accumulate("userMajor",user.getUserMajor());//专业
+            jsonObject.accumulate("userClass", user.getUserClass());//班级
+            jsonObject.accumulate("userGrade", user.getUserGrade());//年级
+            jsonObject.accumulate("povertyLevel", application.getPovertyLevel());//困难级别
+            jsonObject.accumulate("userId", application.getUserId());//学号
+            jsonObject.accumulate("userName", user.getUserName());//姓名
+            jsonObject.accumulate("processNode", application.getProcessNode());//当前节点
+            jsonObject.accumulate("approvalStatus",application.getApprovalStatus());//审批状态
+            arrayList.add(jsonObject);
+        }
+        jsonObject1.accumulate("data", arrayList);
+        return jsonObject1.toString();
     }
 }
 

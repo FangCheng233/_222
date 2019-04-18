@@ -1,6 +1,7 @@
 package com.fangcheng.test.controller;
 
 import com.fangcheng.test.entity.Application;
+import com.fangcheng.test.entity.TableApproval;
 import com.fangcheng.test.service.ApplicationService;
 import com.fangcheng.test.service.UserService;
 import com.mysql.cj.util.TestUtils;
@@ -40,14 +41,15 @@ public class Test {
     UserService userService;
     @Autowired
     ApplicationService applicationService;
+
 //    public static Test test;
     public static void main(String[] args) {
         Application application = new Application();
         Test test = new Test();
         test.getid();
     }
-    public void saveApp(Application application){
-        application.setApplicationNumber("sasdada");
+    public void saveApp(TableApproval tableApproval){
+/*        application.setApplicationNumber("sasdada");
         application.setUserId("12345");
         application.setSchoolYear("asda");
         application.setPovertyLevel("adsad");
@@ -61,9 +63,13 @@ public class Test {
         application.setContactNumber("SSSS");
         application.setEmeergencyContact("asdada");
         application.setEmeergencyContactNumber("SSSS");
-        application.setReasonsForApplication("asdada");
-        System.out.println(application);
-//        applicationService.save(application);
+        application.setReasonsForApplication("asdada");*/
+/*        tableApproval.setApplicationNumber("asdaada");
+        tableApproval.setApprovalStatus("asdaada");
+        tableApproval.setProcessNode("asdaada");
+        tableApproval.setRemarks("asdaada");
+        System.out.println(tableApproval);
+        applicationService.save(application);*/
     }
     public void get(){
        applicationService.findByApplicationNumber("asdadad");

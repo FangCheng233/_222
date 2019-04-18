@@ -2,8 +2,6 @@ package com.fangcheng.test.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 
 /**
@@ -38,13 +36,13 @@ public class TableAuthor implements Serializable {
     public void setAuthorType(String authorType) { this.authorType = authorType; }
 
 
-    @ManyToMany(cascade=CascadeType.ALL)
+/*    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "ROLE_AUTHOR",
             joinColumns = { @JoinColumn(name = "RF_AUTHOR_ID") },
             inverseJoinColumns = { @JoinColumn(name = "RF_USER_ID") })
     private Set<User> users = new HashSet<User>();
     public Set<User> getUsers(){ return users; }
-    public void setUsers(Set<User> users) { this.users = users; }
+    public void setUsers(Set<User> users) { this.users = users; }*/
 
     //重写hashCode()方法
     @Override

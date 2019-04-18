@@ -1,9 +1,11 @@
 package com.fangcheng.test.controller;
 
 import com.fangcheng.test.entity.Application;
+import com.fangcheng.test.entity.TableApproval;
 import com.fangcheng.test.entity.TableAuthor;
 import com.fangcheng.test.entity.User;
 import com.fangcheng.test.service.ApplicationService;
+import com.fangcheng.test.service.TableApprovalService;
 import com.fangcheng.test.service.TableAuthorService;
 import com.fangcheng.test.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,8 @@ public class AppController {
 	
 	@Autowired
 	TableAuthorService tableAuthorService;
+	@Autowired
+	TableApprovalService tableApprovalService;
 	
 	@Autowired
     MessageSource messageSource;
@@ -140,11 +144,8 @@ public class AppController {
 		return "registrationsuccess";
 	}
 	@RequestMapping(value = { "/approval" }, method = RequestMethod.GET)
-	public String approval(ModelMap model) {
-/*		User user = new User();
-		model.addAttribute("user", user);
-		model.addAttribute("edit", false);
-		model.addAttribute("loggedinuser", getPrincipal());*/
+	public String approval(ModelMap model,@Valid String params) {
+			model.addAttribute("params", params);
 		return "approval";
 	}
 	/**
@@ -171,7 +172,7 @@ public class AppController {
 	 * @return java.lang.String
 	 */
     @RequestMapping(value = { "/addapplication" }, method = RequestMethod.POST)
-	public String addApplication(@Valid  ModelMap modelMap, @RequestParam String applicationNumber,
+	public String addApplication(@Valid  ModelMap modelMap,  BindingResult result,@RequestParam String applicationNumber,
 	@RequestParam Integer yearlyIncome, @RequestParam Integer populationSize, @RequestParam Integer perCapitaIncome,
 	@RequestParam String naturalDisaster, @RequestParam String unexpectedAccident, @RequestParam String membershipSituation,
 	@RequestParam String unemploymentSituation, @RequestParam String fundedSituation, @RequestParam String otherSituation,
@@ -204,16 +205,23 @@ public class AppController {
 		application.setReasonsForApplication(reasonsForApplication);
 		application.setApprovalStatus("adas");
 		application.setProcessNode("sdad");
-		applicationService.save(application);
+		if(!applicationService.isApplicationNumberUnique(applicationNumber)){
+			FieldError userIdError =new FieldError("application","applicationNumber",messageSource.getMessage("non.unique.applicationNumber", new String[]{applicationNumber}, Locale.getDefault()));
+			result.addError(userIdError);
+			return "student/application";
+		}
+		/*applicationService.save(application);*/
+		TableApproval tableApproval = new TableApproval();
+		tableApproval.setApplicationNumber("asdaada");
+		tableApproval.setUserName("sadad");
+		tableApproval.setApprovalStatus("asdaada");
+		tableApproval.setProcessNode("asdaada");
+		tableApproval.setRemarks("asdaada");
+		System.out.println(tableApproval);
+		tableApprovalService.save(tableApproval);
         return "registrationsuccess";
     }
 
-/*	@RequestMapping(value = { "/addapplication" }, method = RequestMethod.POST)
-	public String addApplication(@Valid  ModelMap modelMap, @RequestBody Application application,
-								 HttpServletResponse httpServletResponse) {
-		applicationService.save(application);
-		return "registrationsuccess";
-	}*/
 
 	@RequestMapping(value = { "/edit-user-{userId}" }, method = RequestMethod.GET)
 	public String editUser(@PathVariable String userId, ModelMap model) {
