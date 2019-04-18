@@ -47,32 +47,33 @@
         table.render({
             elem: '#test'
             <%--,url:'/${params}'--%>
-            ,url:'/static/data/user.json'
+            ,url:'/${params}'
             ,page: true
             ,title:'用户数据表'
             ,toolbar: '#toolbarDemo'
             /*            ,totalRow: true*/
             ,id: 'testReload'
+            ,width: 1630
+            ,height: 332
             ,cols: [[
                 {type:'numbers'}
                 ,{type: 'checkbox'}
                 <sec:authorize access="hasRole('ADMIN')">
-                ,{field:'userCollege', title:'院系', width:100, unresize: true, sort: true}
+                ,{field:'userCollege', title:'院系', width:200, unresize: true, sort: true,align:'center'}
                 </sec:authorize>
                 <sec:authorize access="hasRole('ADMIN') or hasRole('COLLEGE') or hasRole('COUNSELLOR')">
-                ,{field:'userMajor', title:'专业', width:100}
+                ,{field:'userMajor', title:'专业', width:200,align:'center'}
                 </sec:authorize>
                 <sec:authorize access="hasRole('ADMIN') or hasRole('COLLEGE') or hasRole('COUNSELLOR')">
-                ,{field:'userClass', title:'班级', width:100}
+                ,{field:'userClass', title:'班级', width:100,align:'center'}
                 </sec:authorize>
-                ,{field:'userGrade', title: '年级', width:100}
-                ,{field:'povertyLevel', title:'申请家庭经济困难等级', width:100}
-                ,{field:'userId', title:'学号', width:100}
-                ,{field:'userName', title:'姓名', width:100}
-                ,{field:'processNode', title: '当前节点', width:100}
-                ,{field:'approvalStatus', title:'审批状态', width:100}
-                ,{field:'userGrade', title: '年级', width:100}
-                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150,align:'center'}
+                ,{field:'userGrade', title: '年级', width:100,align:'center'}
+                ,{field:'povertyLevel', title:'申请家庭经济困难等级', width:200,align:'center'}
+                ,{field:'userId', title:'学号', width:100,align:'center'}
+                ,{field:'userName', title:'姓名', width:100,align:'center'}
+                ,{field:'processNode', title: '当前节点', width:100,align:'center'}
+                ,{field:'approvalStatus', title:'审批状态', width:100,align:'center'}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', minWidth:150,align:'center', fixed: 'right'}
             ]]
             ,request:{
                 pageName: 'pageStart', //页码的参数名称，默认：page
