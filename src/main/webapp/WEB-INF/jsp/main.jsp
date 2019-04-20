@@ -121,9 +121,9 @@
         <!-- /个人资料区 -->
         <!-- 菜单区 -->
         <ul class="main-menu">
-<%--            <li>
-                <a class="waves-effect" href="/main"><i class="zmdi zmdi-home"></i> 首页</a>
-            </li>--%>
+            <li>
+                <a class="waves-effect" href="/test"><i class="zmdi zmdi-home"></i> 首页</a>
+            </li>
             <%-- 系统管理员菜单--%>
             <li class="sub-menu system_menus system_1 0">
                 <a class="waves-effect" ><i class="zmdi zmdi-menu"></i> 申请审批管理</a><%--href="javascript:;"--%>

@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" pageEncoding="UTF-8">
     <title>layui</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -29,7 +29,7 @@
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">批量审批通过</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
         <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
     </div>
@@ -54,9 +54,9 @@
             /*            ,totalRow: true*/
             ,id: 'testReload'
             ,width: 1630
-            ,height: 332
             ,cols: [[
-                {type:'numbers'}
+                {field:'applicationNumber',hide:true}
+                ,{type:'numbers'}
                 ,{type: 'checkbox'}
                 <sec:authorize access="hasRole('ADMIN')">
                 ,{field:'userCollege', title:'院系', width:200, unresize: true, sort: true,align:'center'}
@@ -71,7 +71,8 @@
                 ,{field:'povertyLevel', title:'申请家庭经济困难等级', width:200,align:'center'}
                 ,{field:'userId', title:'学号', width:100,align:'center'}
                 ,{field:'userName', title:'姓名', width:100,align:'center'}
-                ,{field:'processNode', title: '当前节点', width:100,align:'center'}
+                ,{field:'processNode', title: '上一节点', width:100,align:'center'}
+                ,{field:'teacherName', title: '审批人', width:100,align:'center'}
                 ,{field:'approvalStatus', title:'审批状态', width:100,align:'center'}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', minWidth:150,align:'center', fixed: 'right'}
             ]]
@@ -145,9 +146,9 @@
             if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
                     $.ajax({
-                        url: "/delete-user",
+                        url: "/delete-application",
                         type: "GET",
-                        data: {"userId": data.userId},//参数，（注：你后台的方法参数不好传啊）
+                        data: {"applicationNumber": data.applicationNumber},//
                         dataType: 'json',
                         contentType: 'application/json',
                         success: function (res) {//回调函数

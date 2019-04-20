@@ -1,13 +1,7 @@
 package com.fangcheng.test.controller;
 
-import com.fangcheng.test.entity.Application;
-import com.fangcheng.test.entity.TableApproval;
-import com.fangcheng.test.entity.TableAuthor;
-import com.fangcheng.test.entity.User;
-import com.fangcheng.test.service.ApplicationService;
-import com.fangcheng.test.service.TableApprovalService;
-import com.fangcheng.test.service.TableAuthorService;
-import com.fangcheng.test.service.UserService;
+import com.fangcheng.test.entity.*;
+import com.fangcheng.test.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -24,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.net.URLDecoder;
+import java.sql.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -41,6 +37,7 @@ public class AppController {
 	
 	@Autowired
 	TableAuthorService tableAuthorService;
+
 	@Autowired
 	TableApprovalService tableApprovalService;
 	
@@ -53,6 +50,8 @@ public class AppController {
 	@Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
 
+	@Autowired
+	TableClassService tableClassService;
 	/**
 	 * @method  loginPage
 	 * @description 登陆控制及页面跳转
@@ -97,7 +96,6 @@ public class AppController {
 	 */
 	@RequestMapping(value = { "/userInfo" }, method = RequestMethod.GET)
 	public String userIno(ModelMap model) {
-		model.addAttribute("loggedinuser", getUserName());
 		return "userInfo";
 	}
 	/**
@@ -110,7 +108,6 @@ public class AppController {
 	 */
 	@RequestMapping(value = { "/newuser" }, method = RequestMethod.GET)
 	public String newUser(ModelMap model) {
-
 		User user = new User();
 		model.addAttribute("user", user);
 		model.addAttribute("edit", false);
@@ -143,11 +140,20 @@ public class AppController {
 		//return "success";
 		return "registrationsuccess";
 	}
+    /**
+     * @method  approval
+     * @description 获取前端参数后台对数据进行筛选
+     * @date: 2019/4/19 15:12
+     * @author: Fangcheng
+    [model, params]
+     * @return java.lang.String
+     */
 	@RequestMapping(value = { "/approval" }, method = RequestMethod.GET)
 	public String approval(ModelMap model,@Valid String params) {
 			model.addAttribute("params", params);
 		return "approval";
 	}
+
 	/**
 	 * @method  newApplication
 	 * @description 添加新的申请
@@ -172,16 +178,54 @@ public class AppController {
 	 * @return java.lang.String
 	 */
     @RequestMapping(value = { "/addapplication" }, method = RequestMethod.POST)
-	public String addApplication(@Valid  ModelMap modelMap,  BindingResult result,@RequestParam String applicationNumber,
+	public String addApplication(@Valid  ModelMap modelMap,/* BindingResult result*/@RequestParam String applicationNumber,
 	@RequestParam Integer yearlyIncome, @RequestParam Integer populationSize, @RequestParam Integer perCapitaIncome,
 	@RequestParam String naturalDisaster, @RequestParam String unexpectedAccident, @RequestParam String membershipSituation,
 	@RequestParam String unemploymentSituation, @RequestParam String fundedSituation, @RequestParam String otherSituation,
 	@RequestParam String address, @RequestParam String postalAddress, @RequestParam Integer postNumber,
 	@RequestParam String addressee, @RequestParam String contactNumber, @RequestParam String emergencyContact,
 	@RequestParam String emergencyContactNumber, @RequestParam String povertyLevel, @RequestParam String reasonsForApplication,
-	@RequestParam String liabilities,@RequestParam String _csrf) {
+	@RequestParam String liabilities , HttpServletRequest request,HttpServletResponse response) {
     	Application application = new Application();
 		application.setApplicationNumber(applicationNumber);
+		try {
+			request.setCharacterEncoding("UTF-8");
+			response.setHeader("Content-type", "text/html;charset=UTF-8");
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	/*	try{
+			byte[] liabilitiesBytes = liabilities.getBytes("ISO-8859-1");
+			byte[] povertyLevelBytes = povertyLevel.getBytes("ISO-8859-1");
+			byte[] naturalDisasterBytes = naturalDisaster.getBytes("ISO-8859-1");
+			byte[] unexpectedAccidentBytes = unexpectedAccident.getBytes("ISO-8859-1");
+			byte[] membershipSituationBytes = membershipSituation.getBytes("ISO-8859-1");
+			byte[] unemploymentSituationBytes = unemploymentSituation.getBytes("ISO-8859-1");
+			byte[] fundedSituationBytes = fundedSituation.getBytes("ISO-8859-1");
+			byte[] otherSituationBytes = otherSituation.getBytes("ISO-8859-1");
+			byte[] addressBytes = address.getBytes("ISO-8859-1");
+			byte[] postalAddressBytes = postalAddress.getBytes("ISO-8859-1");
+			byte[] addresseeBytes = addressee.getBytes("ISO-8859-1");
+			byte[] emergencyContactBytes = emergencyContact.getBytes("ISO-8859-1");
+			byte[] reasonsForApplicationBytes = reasonsForApplication.getBytes("ISO-8859-1");
+
+			liabilities = new String(liabilitiesBytes,"utf-8");//采用utf-8去接string
+			povertyLevel = new String(povertyLevelBytes,"utf-8");//采用utf-8去接string
+			naturalDisaster = new String(naturalDisasterBytes,"utf-8");//采用utf-8去接string
+			unexpectedAccident = new String(unexpectedAccidentBytes,"utf-8");//采用utf-8去接string
+			membershipSituation = new String(membershipSituationBytes,"utf-8");//采用utf-8去接string
+			unemploymentSituation = new String(unemploymentSituationBytes,"utf-8");//采用utf-8去接string
+			fundedSituation = new String(fundedSituationBytes,"utf-8");//采用utf-8去接string
+			otherSituation = new String(otherSituationBytes,"utf-8");//采用utf-8去接string
+			address = new String(addressBytes,"utf-8");//采用utf-8去接string
+			postalAddress = new String(postalAddressBytes,"utf-8");//采用utf-8去接string
+			addressee = new String(addresseeBytes,"utf-8");//采用utf-8去接string
+			emergencyContact = new String(emergencyContactBytes,"utf-8");//采用utf-8去接string
+			reasonsForApplication = new String(reasonsForApplicationBytes,"utf-8");//采用utf-8去接string
+		}catch (Exception e){
+			e.printStackTrace();
+		}*/
+
 		application.setUserId(getPrincipal());
 		application.setSchoolYear("asdasdfs");
 		application.setPovertyLevel(povertyLevel);
@@ -205,24 +249,29 @@ public class AppController {
 		application.setReasonsForApplication(reasonsForApplication);
 		application.setApprovalStatus("adas");
 		application.setProcessNode("sdad");
-		if(!applicationService.isApplicationNumberUnique(applicationNumber)){
+/*		if(!applicationService.isApplicationNumberUnique(applicationNumber)){
 			FieldError userIdError =new FieldError("application","applicationNumber",messageSource.getMessage("non.unique.applicationNumber", new String[]{applicationNumber}, Locale.getDefault()));
 			result.addError(userIdError);
 			return "student/application";
-		}
-		/*applicationService.save(application);*/
-		TableApproval tableApproval = new TableApproval();
+		}*/
+		applicationService.save(application);
+/*		TableApproval tableApproval = new TableApproval();
 		tableApproval.setApplicationNumber("asdaada");
 		tableApproval.setUserName("sadad");
 		tableApproval.setApprovalStatus("asdaada");
 		tableApproval.setProcessNode("asdaada");
 		tableApproval.setRemarks("asdaada");
 		System.out.println(tableApproval);
-		tableApprovalService.save(tableApproval);
+		tableApprovalService.save(tableApproval);*/
         return "registrationsuccess";
     }
+/*	@RequestMapping(value = { "/addapplication" }, method = RequestMethod.POST ,headers = "Accept=application/json",consumes = "application/json" )
+	public @ResponseBody String addApplication(Application application,BindingResult result) {
+	System.out.println("asdadad");
 
-
+		applicationService.save(application);
+		return "registrationsuccess";
+	}
 	@RequestMapping(value = { "/edit-user-{userId}" }, method = RequestMethod.GET)
 	public String editUser(@PathVariable String userId, ModelMap model) {
 		User user = userService.findByUserId(userId);
@@ -230,7 +279,7 @@ public class AppController {
 		model.addAttribute("edit", true);
 		model.addAttribute("loggedinuser", getUserName());
 		return "admin/registration";
-	}
+	}*/
 	/**
 	 * @method  updateUser
 	 * @description 修改用户的信息
@@ -260,7 +309,11 @@ public class AppController {
 		userService.deleteUserByUserId(userId);
 		return "redirect:/userInfo";
 	}
-
+	@RequestMapping(value = { "/delete-application" }, method = RequestMethod.GET)
+	public String deleteApplication(@Valid String applicationNumber) {
+		applicationService.deleteApplicationByApplicationNumber(applicationNumber);
+		return "redirect:/userInfo";
+	}
 	/**
 	 * This method will provide UserProfile list to views
 	 */

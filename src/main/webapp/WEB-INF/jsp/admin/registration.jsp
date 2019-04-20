@@ -15,7 +15,7 @@
 		<%@include file="../authheader.jsp" %>
 
 		<div class="well lead">User Registration Form</div>
-	 	<form:form method="POST" modelAttribute="user" class="form-horizontal" accept-charset="UTF-8">
+	 	<form:form method="POST" modelAttribute="user" class="form-horizontal" accept-charset="UTF-8" onsubmit="document.characterSet='utf-8'">
 			<%--<form:input type="hidden" path="userId" id="userId"/>--%>
 
 			<div class="row">

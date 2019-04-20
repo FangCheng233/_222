@@ -11,7 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" pageEncoding="UTF-8">
     <title>layui</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="stylesheet" href="/static/css/style.css">
@@ -264,7 +264,7 @@
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
-    <input type="hidden" name="applicationNumber" value="paramasa1123dadd">
+    <input type="hidden" name="applicationNumber" value="pa5889add">
 </form:form>
 <td id="time" style="color: #777; padding-left: 10px;"></td>
 <script src="/static/layui/layui.js" charset="utf-8"></script>

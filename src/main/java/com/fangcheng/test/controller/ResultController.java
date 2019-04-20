@@ -1,16 +1,24 @@
 package com.fangcheng.test.controller;
 
 import com.fangcheng.test.entity.Application;
+import com.fangcheng.test.entity.TableClass;
 import com.fangcheng.test.entity.User;
 import com.fangcheng.test.service.ApplicationService;
+import com.fangcheng.test.service.TableClassService;
 import com.fangcheng.test.service.UserService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.xml.transform.Result;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +43,8 @@ public class ResultController {
     UserService userService;
     @Autowired
     ApplicationService applicationService;
+    @Autowired
+    TableClassService tableClassService;
 
 
     /**
@@ -155,15 +165,15 @@ public class ResultController {
         return jsonObject1.toString();
     }
 
-
-    /**
+/*
+    *//**
      * @method  getStudentApplicationList
      * @description 描述一下方法的作用
      * @date: 2019/4/17 19:44
      * @author: Fangcheng
     [model, pageStart, pageSize]
      * @return java.lang.String
-     */
+     *//*
     @ResponseBody
     @RequestMapping(value = { "/getStudentApplicationList" }, method = RequestMethod.GET,produces = "application/json")
     public String getStudentApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize) {
@@ -175,25 +185,26 @@ public class ResultController {
         }
         return listToJson(users1,pageStart,pageSize);
     }
-    /**
+    *//**
      * @method  getCounsellorApplicationList
      * @description 描述一下方法的作用
      * @date: 2019/4/17 19:43
      * @author: Fangcheng
     [model, pageStart, pageSize]
      * @return java.lang.String
-     */
+     *//*
     @ResponseBody
     @RequestMapping(value = { "/getCounsellorApplicationList" }, method = RequestMethod.GET,produces = "application/json")
     public String getCounsellorApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize) {
-        List<User> users = userService.findAllUsers();
-        List<User> users1 = new ArrayList<>();
-        for(User user :users){
-            if(user.getGroupId().equals("4"))
-                users1.add(user);
+        List<Application> applications = applicationService.findAllApplication();
+        List<Application> applicationList = new ArrayList<>();
+        for(Application application :applications){
+            User user = userService.findByUserId(application.getUserId());
+            if(user.getUse().equals("4"))
+                applicationList.add(application);
         }
-        return listToJson(users1,pageStart,pageSize);
-    }
+        return applicationlistToJson(applicationList,pageStart,pageSize);
+    }*/
     /**
      * @method  getCollegeApplicationList
      * @description 描述一下方法的作用
@@ -202,17 +213,19 @@ public class ResultController {
     [model, pageStart, pageSize]
      * @return java.lang.String
      */
-    @ResponseBody
+/*    @ResponseBody
     @RequestMapping(value = { "/getCollegeApplicationList" }, method = RequestMethod.GET,produces = "application/json")
     public String getCollegeApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize) {
-        List<User> users = userService.findAllUsers();
-        List<User> users1 = new ArrayList<>();
-        for(User user :users){
-            if(user.getGroupId().equals("4"))
-                users1.add(user);
+        List<Application> applications = applicationService.findAllApplication();
+        List<Application> applicationList = new ArrayList<>();
+        User userCollege = userService.findByUserId(getPrincipal());
+        for(Application application :applications){
+            User user = userService.findByUserId(application.getUserId());
+            if(user.getUserCollege().equals(userCollege.getUserCollege()))
+                applicationList.add(application);
         }
-        return listToJson(users1,pageStart,pageSize);
-    }
+        return applicationlistToJson(applicationList,pageStart,pageSize);
+    }*/
     /**
      * @method  getAllApplicationList
      * @description
@@ -222,8 +235,15 @@ public class ResultController {
      * @return java.lang.String
      */
     @ResponseBody
-    @RequestMapping(value = { "/getAllApplicationList" }, method = RequestMethod.GET,produces = "application/json")
-    public String getAllApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize) {
+    @RequestMapping(value = { "/getAllApplicationList" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String getAllApplicationList(ModelMap model, @Valid Integer pageStart, Integer pageSize, HttpServletResponse response, HttpServletRequest request) {
+        response.setHeader("Content-type", "text/html;charset=UTF-8");
+        try {
+            request.setCharacterEncoding("UTF-8");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         List<Application> applications = applicationService.findAllApplication();
 /*        List<Application> applications1 = new ArrayList<>();
         for(Application application :applications){
@@ -250,8 +270,9 @@ public class ResultController {
             JSONObject jsonObject = new JSONObject();
             application = applications.get(i);
             User user = userService.findByUserId(application.getUserId());
-            // 向jsonObject添加属性对i
-            /*            jsonObject.accumulate("id", ""+(i+1));//学号i*/
+            TableClass tableClass = tableClassService.findByClassId(user.getUserClass());
+            // 向jsonObject添加属性对
+            jsonObject.accumulate("applicationNumber", application.getApplicationNumber());//申请编号
             jsonObject.accumulate("userCollege", user.getUserCollege());//学院
             jsonObject.accumulate("userMajor",user.getUserMajor());//专业
             jsonObject.accumulate("userClass", user.getUserClass());//班级
@@ -260,11 +281,54 @@ public class ResultController {
             jsonObject.accumulate("userId", application.getUserId());//学号
             jsonObject.accumulate("userName", user.getUserName());//姓名
             jsonObject.accumulate("processNode", application.getProcessNode());//当前节点
+            jsonObject.accumulate("teacherName", tableClass.getTeacherName());//审批人
             jsonObject.accumulate("approvalStatus",application.getApprovalStatus());//审批状态
             arrayList.add(jsonObject);
         }
         jsonObject1.accumulate("data", arrayList);
         return jsonObject1.toString();
     }
-}
+    /**
+     * @method  getPrincipal
+     * @description 返回当前用户的信息
+     * @date: 2019/4/14 18:32
+     * @author: Fangcheng
+    []
+     * @return java.lang.String
+     */
+    private String getPrincipal(){
+        String userId = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            userId = ((UserDetails)principal).getUsername();
+        } else {
+            userId = principal.toString();
+
+        }
+        return userId;
+    }
+    @RequestMapping(value = { "/test" }, method = RequestMethod.GET)
+    public String test(ModelMap model) {
+        return "counsellor/adadaas";
+    }
+
+        @RequestMapping(value = "/createShop", method = RequestMethod.POST)
+
+        public @ResponseBody String createShop(@RequestBody String name, String contact,
+                                 String phone,
+                                 String twitter,
+                                String address) {
+            System.out.println("shop.name=" + name + " contact=" + contact + " phone=" + phone + twitter + address);
+            return "registrationsuccess";
+        }
+    /**
+     * 衬衫秒杀
+     */
+    @RequestMapping(value = "/killApple", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public String killOrder(HttpServletRequest request, @RequestBody TableClass tableClass){
+    return "ss";
+    }
+    }
 
