@@ -22,16 +22,22 @@
 <fieldset class="layui-elem-field">
     <legend>爱好</legend>
     <div class="layui-field-box">
+        <div class="demoTable">
+            搜索ID：
+            <div class="layui-inline">
+                <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+            </div>
+            <button class="layui-btn" data-type="reload">搜索</button>
+        </div>
         <table class="layui-hide" id="test" lay-filter="test" style="margin-left: 10px"></table>
     </div>
 </fieldset>
 
-
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">批量审批通过</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">审批通过</button>
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="isAll">驳回申请</button>
     </div>
 </script>
 <script type="text/html" id="barDemo">
@@ -62,13 +68,14 @@
                 ,{field:'userCollege', title:'院系', width:200, unresize: true, sort: true,align:'center'}
                 </sec:authorize>
                 <sec:authorize access="hasRole('ADMIN') or hasRole('COLLEGE') or hasRole('COUNSELLOR')">
-                ,{field:'userMajor', title:'专业', width:200,align:'center'}
+                ,{field:'userMajor', title:'专业', width:200,align:'center',sort:true}
                 </sec:authorize>
                 <sec:authorize access="hasRole('ADMIN') or hasRole('COLLEGE') or hasRole('COUNSELLOR')">
                 ,{field:'userClass', title:'班级', width:100,align:'center'}
                 </sec:authorize>
                 ,{field:'userGrade', title: '年级', width:100,align:'center'}
                 ,{field:'povertyLevel', title:'申请家庭经济困难等级', width:200,align:'center'}
+                ,{field:'reasonsForApplication', title:'申请理由',event: 'setSign',style:'cursor: pointer;',width:200,align:'center'}
                 ,{field:'userId', title:'学号', width:100,align:'center'}
                 ,{field:'userName', title:'姓名', width:100,align:'center'}
                 ,{field:'processNode', title: '上一节点', width:100,align:'center'}
@@ -91,9 +98,34 @@
                     break;
                 case 'getCheckLength':
                     var data = checkStatus.data;
-                    layer.msg('选中了：'+ data.length + ' 个');
+                    var sendData = [];
+                    for(var i=0;i<data.length;i++) {
+                        var applicationNumber = data[i].applicationNumber;
+                        sendData.push(applicationNumber)
+                    }
+                    layer.msg('当前选中' + data.length  +'条数据<br>确认是否通过？', {
+                        time: 20000, //20s后自动关闭
+                        btn: ['审批通过', '放弃']
+                        ,success: function(layero){
+                            var btn = layero.find('.layui-layer-btn');
+                            btn.find('.layui-layer-btn0').attr({
+                                function(){
+                                    $.ajax({
+                                        url: "/alterApplication",
+                                        type: "POST",
+                                        data: JSON.stringify(sendData),//
+                                        dataType: 'json',
+                                        contentType: 'application/json',
+                                        success: function (res) {//回调函数
+                                        }
+                                    });
+                                }
+                                ,target: '_blank'
+                            });
+                        }
+                    });
                     break;
-                case 'isAll':
+                    case 'isAll':
                     layer.msg(checkStatus.isAll ? '全选': '未全选');
                     break;
             };
@@ -167,6 +199,83 @@
                     });
                     layer.close(index);
                 });
+            }
+        });
+        var $ = layui.$, active = {
+            reload: function(){
+                var demoReload = $('#demoReload');
+                //执行重载
+                table.reload('testReload', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        key: {
+                            username: demoReload.val()
+                        }
+                    }
+                });
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+        //监听单元格事件
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'setSign'){
+                layer.open({
+                    type: 1
+                    ,title: false //不显示标题栏
+                    ,closeBtn: false
+                    ,area: '300px;'
+                    ,shade: 0.8
+                    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,btn: ['通过审批', '驳回','返回页面']
+                    ,btnAlign: 'c'
+                    ,moveType: 1 //拖拽模式，0或者1
+                    ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">申请理由<br>' +
+                        '<br>'+ data.reasonsForApplication +'</div>'
+                    ,success: function(layero){
+                        var btn = layero.find('.layui-layer-btn');
+                        btn.find('.layui-layer-btn0').attr({
+                            //链接审批通过该条申请
+                            function(){
+                                $.ajax({
+                                    url: "/delete-application",
+                                    type: "GET",
+                                    data: {"applicationNumber": data.applicationNumber},//
+                                    dataType: 'json',
+                                    contentType: 'application/json',
+                                    success: function (res) {//回调函数
+                                    }
+                                });
+                            }
+                            ,target: '_blank'
+                        });
+                        btn.find('.layui-layer-btn1').attr({
+                            //链接审批驳回该条申请
+                            href: 'http://www.layui.com/'
+                            ,target: '_blank'
+                        });
+                    }
+                }), function(value, index){
+                    layer.close(index);
+
+                    //这里一般是发送修改的Ajax请求
+
+                    //同步更新表格和缓存对应的值
+                    obj.update({
+                        sign: value
+                    });
+                };
             }
         });
     });

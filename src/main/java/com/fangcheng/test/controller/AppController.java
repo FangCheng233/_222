@@ -18,10 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.net.URLDecoder;
-import java.sql.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 
 @Controller
@@ -52,6 +49,9 @@ public class AppController {
 
 	@Autowired
 	TableClassService tableClassService;
+
+	@Autowired
+	UserFamilyService userFamilyService;
 	/**
 	 * @method  loginPage
 	 * @description 登陆控制及页面跳转
@@ -153,7 +153,49 @@ public class AppController {
 			model.addAttribute("params", params);
 		return "approval";
 	}
+	@RequestMapping(value = { "/addfamily" }, method = RequestMethod.GET)
+	public String newfamily(ModelMap model) {
+		return "student/add-family";
+	}
+	@RequestMapping(value = { "/addfamily" }, method = RequestMethod.POST)
+	public String addfamily(@Valid ModelMap modelMap,
+		@RequestParam String userName, @RequestParam Integer userAge, @RequestParam String userSex,
+		@RequestParam Integer annualIncome, @RequestParam String health, @RequestParam String occupation,
+		@RequestParam String phoneNumber,@RequestParam String workUnit, @RequestParam String relationShip,
+		HttpServletRequest request,HttpServletResponse response) {
+		UserFamily userFamily = new UserFamily();
+		List<UserFamily> userFamilyList = userFamilyService.findByUserId(getPrincipal());
+		userFamily.setId(getPrincipal()+""+userFamilyList.size());
+		userFamily.setUserId(getPrincipal());
+		userFamily.setUserName(unicode(userName));
+		userFamily.setUserAge(userAge);
+		userFamily.setUserSex(unicode(userSex));
+		userFamily.setAnnualIncome(annualIncome);
+		userFamily.setHealth(unicode(health));
+		userFamily.setOccupation(unicode(occupation));
+		userFamily.setPhoneNumber(phoneNumber);
+		userFamily.setWorkUnit(unicode(workUnit));
+		userFamily.setRelationship(unicode(relationShip));
+		try {
+			userFamilyService.save(userFamily);
+		}catch (Exception e){
+			e.printStackTrace();
+			modelMap.addAttribute("errror", "222");
+			return "student/application";
+		}
+		return "registrationsuccess";
+	}
 
+	@RequestMapping(value = { "/deletefamily" }, method = RequestMethod.GET)
+	public String deletefamily(@Valid String id,HttpServletRequest request) {
+		try {
+			userFamilyService.delete(id);
+		}catch (Exception e){
+			e.printStackTrace();
+			return  "";
+		}
+		return "redirect:/userInfo";
+	}
 	/**
 	 * @method  newApplication
 	 * @description 添加新的申请
@@ -164,8 +206,6 @@ public class AppController {
 	 */
     @RequestMapping(value = { "/addapplication" }, method = RequestMethod.GET)
     public String newApplication(ModelMap model) {
-        model.addAttribute("edit", false);
-        model.addAttribute("loggedinuser", getUserName());
         return "student/application";
     }
 
@@ -178,7 +218,7 @@ public class AppController {
 	 * @return java.lang.String
 	 */
     @RequestMapping(value = { "/addapplication" }, method = RequestMethod.POST)
-	public String addApplication(@Valid  ModelMap modelMap,/* BindingResult result*/@RequestParam String applicationNumber,
+	public String addApplication(@Valid ModelMap modelMap,
 	@RequestParam Integer yearlyIncome, @RequestParam Integer populationSize, @RequestParam Integer perCapitaIncome,
 	@RequestParam String naturalDisaster, @RequestParam String unexpectedAccident, @RequestParam String membershipSituation,
 	@RequestParam String unemploymentSituation, @RequestParam String fundedSituation, @RequestParam String otherSituation,
@@ -187,91 +227,49 @@ public class AppController {
 	@RequestParam String emergencyContactNumber, @RequestParam String povertyLevel, @RequestParam String reasonsForApplication,
 	@RequestParam String liabilities , HttpServletRequest request,HttpServletResponse response) {
     	Application application = new Application();
-		application.setApplicationNumber(applicationNumber);
-		try {
-			request.setCharacterEncoding("UTF-8");
-			response.setHeader("Content-type", "text/html;charset=UTF-8");
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-	/*	try{
-			byte[] liabilitiesBytes = liabilities.getBytes("ISO-8859-1");
-			byte[] povertyLevelBytes = povertyLevel.getBytes("ISO-8859-1");
-			byte[] naturalDisasterBytes = naturalDisaster.getBytes("ISO-8859-1");
-			byte[] unexpectedAccidentBytes = unexpectedAccident.getBytes("ISO-8859-1");
-			byte[] membershipSituationBytes = membershipSituation.getBytes("ISO-8859-1");
-			byte[] unemploymentSituationBytes = unemploymentSituation.getBytes("ISO-8859-1");
-			byte[] fundedSituationBytes = fundedSituation.getBytes("ISO-8859-1");
-			byte[] otherSituationBytes = otherSituation.getBytes("ISO-8859-1");
-			byte[] addressBytes = address.getBytes("ISO-8859-1");
-			byte[] postalAddressBytes = postalAddress.getBytes("ISO-8859-1");
-			byte[] addresseeBytes = addressee.getBytes("ISO-8859-1");
-			byte[] emergencyContactBytes = emergencyContact.getBytes("ISO-8859-1");
-			byte[] reasonsForApplicationBytes = reasonsForApplication.getBytes("ISO-8859-1");
-
-			liabilities = new String(liabilitiesBytes,"utf-8");//采用utf-8去接string
-			povertyLevel = new String(povertyLevelBytes,"utf-8");//采用utf-8去接string
-			naturalDisaster = new String(naturalDisasterBytes,"utf-8");//采用utf-8去接string
-			unexpectedAccident = new String(unexpectedAccidentBytes,"utf-8");//采用utf-8去接string
-			membershipSituation = new String(membershipSituationBytes,"utf-8");//采用utf-8去接string
-			unemploymentSituation = new String(unemploymentSituationBytes,"utf-8");//采用utf-8去接string
-			fundedSituation = new String(fundedSituationBytes,"utf-8");//采用utf-8去接string
-			otherSituation = new String(otherSituationBytes,"utf-8");//采用utf-8去接string
-			address = new String(addressBytes,"utf-8");//采用utf-8去接string
-			postalAddress = new String(postalAddressBytes,"utf-8");//采用utf-8去接string
-			addressee = new String(addresseeBytes,"utf-8");//采用utf-8去接string
-			emergencyContact = new String(emergencyContactBytes,"utf-8");//采用utf-8去接string
-			reasonsForApplication = new String(reasonsForApplicationBytes,"utf-8");//采用utf-8去接string
-		}catch (Exception e){
-			e.printStackTrace();
-		}*/
-
+    	List<TableApproval> tableApprovalList = tableApprovalService.findByApplicationNumber(getPrincipal()+getSchoolYear());
+		application.setApplicationNumber(getPrincipal()+getSchoolYear()+tableApprovalList.size());
 		application.setUserId(getPrincipal());
-		application.setSchoolYear("asdasdfs");
-		application.setPovertyLevel(povertyLevel);
+		application.setSchoolYear(getSchoolYear());
+		application.setPovertyLevel(unicode(povertyLevel));
 		application.setYearlyIncome(yearlyIncome);
 		application.setPopulationSize(populationSize);
 		application.setPerCapitaIncome(perCapitaIncome);
-		application.setLiabilities(liabilities);
-		application.setNaturalDisaster(naturalDisaster);
-		application.setUnexpectedAccident(unexpectedAccident);
-		application.setMembershipSituation(membershipSituation);
-		application.setUnemploymentSituation(unemploymentSituation);
-		application.setFundedSituation(fundedSituation);
-		application.setOtherSituation(otherSituation);
-		application.setAddress(address);
-		application.setPostalAddress(postalAddress);
+		application.setLiabilities(unicode(liabilities));
+		application.setNaturalDisaster(unicode(naturalDisaster));
+		application.setUnexpectedAccident(unicode(unexpectedAccident));
+		application.setMembershipSituation(unicode(membershipSituation));
+		application.setUnemploymentSituation(unicode(unemploymentSituation));
+		application.setFundedSituation(unicode(fundedSituation));
+		application.setOtherSituation(unicode(otherSituation));
+		application.setAddress(unicode(address));
+		application.setPostalAddress(unicode(postalAddress));
 		application.setPostalCode(postNumber);
-		application.setAddressee(addressee);
+		application.setAddressee(unicode(addressee));
 		application.setContactNumber(contactNumber);
-		application.setEmeergencyContact(emergencyContact);
+		application.setEmeergencyContact(unicode(emergencyContact));
 		application.setEmeergencyContactNumber(emergencyContactNumber);
-		application.setReasonsForApplication(reasonsForApplication);
-		application.setApprovalStatus("adas");
-		application.setProcessNode("sdad");
-/*		if(!applicationService.isApplicationNumberUnique(applicationNumber)){
-			FieldError userIdError =new FieldError("application","applicationNumber",messageSource.getMessage("non.unique.applicationNumber", new String[]{applicationNumber}, Locale.getDefault()));
-			result.addError(userIdError);
+		application.setReasonsForApplication(unicode(reasonsForApplication));
+		application.setApprovalStatus("提交申请");
+		application.setProcessNode("学生申请");
+		TableApproval tableApproval = new TableApproval();
+		tableApproval.setApplicationNumber(getPrincipal()+getSchoolYear());
+		tableApproval.setUserName(getUserName());
+		tableApproval.setApprovalStatus("提交申请");
+		tableApproval.setProcessNode("学生");
+		tableApproval.setRemarks("");
+		tableApproval.setId(getPrincipal()+getSchoolYear()+"01");
+		try {
+			applicationService.save(application);
+			tableApprovalService.save(tableApproval);
+		}catch (Exception e){
+			e.printStackTrace();
+			modelMap.addAttribute("errror", "222");
 			return "student/application";
-		}*/
-		applicationService.save(application);
-/*		TableApproval tableApproval = new TableApproval();
-		tableApproval.setApplicationNumber("asdaada");
-		tableApproval.setUserName("sadad");
-		tableApproval.setApprovalStatus("asdaada");
-		tableApproval.setProcessNode("asdaada");
-		tableApproval.setRemarks("asdaada");
-		System.out.println(tableApproval);
-		tableApprovalService.save(tableApproval);*/
-        return "registrationsuccess";
-    }
-/*	@RequestMapping(value = { "/addapplication" }, method = RequestMethod.POST ,headers = "Accept=application/json",consumes = "application/json" )
-	public @ResponseBody String addApplication(Application application,BindingResult result) {
-	System.out.println("asdadad");
-
-		applicationService.save(application);
+		}
 		return "registrationsuccess";
-	}
+    }
+
 	@RequestMapping(value = { "/edit-user-{userId}" }, method = RequestMethod.GET)
 	public String editUser(@PathVariable String userId, ModelMap model) {
 		User user = userService.findByUserId(userId);
@@ -279,7 +277,8 @@ public class AppController {
 		model.addAttribute("edit", true);
 		model.addAttribute("loggedinuser", getUserName());
 		return "admin/registration";
-	}*/
+	}
+
 	/**
 	 * @method  updateUser
 	 * @description 修改用户的信息
@@ -291,7 +290,6 @@ public class AppController {
 	@RequestMapping(value = { "/edit-user-{userId}" }, method = RequestMethod.POST)
 	public String updateUser(@Valid User user, BindingResult result,
                              ModelMap model, @PathVariable String userId) {
-
 		if (result.hasErrors()) {
 			return "registration";
 		}
@@ -300,6 +298,21 @@ public class AppController {
 		model.addAttribute("loggedinuser", getUserName());
 		return "registrationsuccess";
 	}
+	/**
+	 * @method  alterApplication
+	 * @description 修改申请状态，流程审批
+	 * @date: 2019/4/21 15:09
+	 * @author: Fangcheng
+	[applicationNumber]
+	 * @return java.lang.String
+	 */
+	@RequestMapping(value = { "/alterApplication" }, method = RequestMethod.POST)
+	@ResponseBody
+	public String alterApplication(@RequestParam List<String> applicationNumber) {
+
+		return "";
+	}
+
 
 	/**
 	 * This method will delete an user by it's UserID value.
@@ -311,7 +324,12 @@ public class AppController {
 	}
 	@RequestMapping(value = { "/delete-application" }, method = RequestMethod.GET)
 	public String deleteApplication(@Valid String applicationNumber) {
-		applicationService.deleteApplicationByApplicationNumber(applicationNumber);
+		try{
+			applicationService.deleteApplicationByApplicationNumber(applicationNumber);
+		}catch (Exception e){
+			e.printStackTrace();
+			return "redirect:/userInfo";
+		}
 		return "redirect:/userInfo";
 	}
 	/**
@@ -376,5 +394,27 @@ public class AppController {
 	private boolean isCurrentAuthenticationAnonymous() {
 	    final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    return authenticationTrustResolver.isAnonymous(authentication);
+	}
+	private String unicode(String str){
+		try{
+			byte[] strBytes = str.getBytes("ISO-8859-1");
+			str = new String(strBytes,"utf-8");//采用utf-8去接string
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return str;
+	}
+	private String getSchoolYear(){
+		String schoolYear = "";
+		Calendar date = Calendar.getInstance();
+		int year = date.get(Calendar.YEAR);
+		int month = date.get(Calendar.MONTH);
+		if(8<=month){
+			schoolYear =  year + "-" +(year+1);
+		}
+		if(month<=6){
+			schoolYear = (year-1) + "-" + year;
+		}
+		return schoolYear;
 	}
 }

@@ -44,6 +44,22 @@ public class ApplicationDaoImpl extends AbstractDao<Integer, Application> implem
     }
 
     @Override
+    public List<Application> findByUserId(String userId) {
+        Criteria criteria = createEntityCriteria().addOrder(Order.asc("userId"));
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+        List<Application> tableClassList =  criteria.add(Restrictions.eq("userId",userId)).list();
+        return tableClassList;
+    }
+
+    @Override
+    public List<Application> findBySchoolYear(String schoolYear) {
+        Criteria criteria = createEntityCriteria().addOrder(Order.asc("schoolYear"));
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+        List<Application> tableClassList =  criteria.add(Restrictions.eq("schoolYear",schoolYear)).list();
+        return tableClassList;
+    }
+
+    @Override
     public void save(Application application) {
         persist(application);
     }

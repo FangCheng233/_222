@@ -20,7 +20,8 @@ public interface ApplicationDao {
     Application findByApplicationNumber(String applicationNumber);
 
     List<Application> findAllApplication();
-
+    List<Application> findByUserId(String userId);
+    List<Application> findBySchoolYear(String schoolYear);
     void save(Application application);
 
     void  deletByApplicationNumber(String applicationNumber);

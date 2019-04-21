@@ -23,6 +23,55 @@
         </div>
     </div>
 </form>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10" >
+        <input type="button"  value="ajaxtest" onclick="ajaxtest()" class="btn btn-default" />
+    </div>
+</div>
+<script src="/static/plugins/jquery.1.12.4.min.js"></script>
+<script type="text/javascript">
+    function ajaxtest() {
+        var data = {data:{name:'pxxx',
+                paramData:[{dataSource:'a1',table:'t1',field:'f1','r':[{name1:"01",p:''},{name2:"02",p:'10,100'},{name2:"01",p:''}]},
+                    {dataSource:'a2',table:'t2',field:'f2','r':[{name1:"01",p:''},{name2:"02",p:'10,100'},{name3:"01",p:''}]}]
+            }};
+        $.ajax({
+            type:"POST",
+            async:false,
+            dataType:'json',
+            contentType : "application/json",
+            url:"/addPxx",
+            data: JSON.stringify(data),
+            success:function (data) {
+            }
+        });
+/*        $.ajax({
+            url:'/test001',
+            data:{rel:13},
+            type:'post',
+            dataType:"jsonp",
+            jsonp:"callback",
+            jsonpCallback:"success_jsonp",
+            timeout:3000,
+            dataFilter:function(json){
+                console.log("jsonp.filter:"+json);
+                return json;
+            },
+            success:function(json,textStatus){
+                console.log("jsonp.success:"+json.name);
+            },
+            error:function(XMLHttpRequest,textStatus,errorThrown){
+                console.log("jsonp.error:"+textStatus);
+            }
+        });*/
+    }
+
+
+</script>
+
+
+
+
 
 </body>
 </html>

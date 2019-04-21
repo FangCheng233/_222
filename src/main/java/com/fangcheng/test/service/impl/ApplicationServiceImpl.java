@@ -55,6 +55,16 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
+    public List<Application> findByUserId(String userId) {
+        return applicationDao.findByUserId(userId);
+    }
+
+    @Override
+    public List<Application> findBySchoolYear(String schoolYear) {
+        return applicationDao.findBySchoolYear(schoolYear);
+    }
+
+    @Override
     public boolean isApplicationNumberUnique(String applicationNumber) {
         Application application = findByApplicationNumber(applicationNumber);
         return ( application == null || application.getApplicationNumber() == applicationNumber);

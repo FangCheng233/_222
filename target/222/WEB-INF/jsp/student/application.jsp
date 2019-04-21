@@ -52,30 +52,30 @@
 </fieldset>
 <fieldset class="layui-elem-field" style="margin-top: 20px;margin-left: 20px;">
     <legend>家庭信息</legend>
-    <table class="layui-table" lay-data="{height:232, url:'/static/data/role.json', id:'idTest',toolbar: '#toolbarDemo'}" lay-filter="demo">
+    <table class="layui-table" lay-data="{height:232, url:'/getUserFamily', method:'get',id:'test',toolbar: '#toolbarDemo'}" lay-filter="test">
         <thead>
         <tr>
-            <th lay-data="{field:'username', width:90,align:'center'}">姓名</th>
-            <th lay-data="{field:'sex', width:80, sort: true, align:'center'}">年龄</th>
-            <th lay-data="{field:'classify', width:80, align:'center'}">职业</th>
-            <th lay-data="{field:'city', width:120, align:'center'}">与学生关系</th>
-            <th lay-data="{field:'sign', width:160, align:'center'}">健康状况</th>
-            <th lay-data="{field:'experience', width:80, sort: true,align:'center'}">年收入</th>
-            <th lay-data="{field:'wealth', width:200, sort: true, align:'center'}">工作（学校）单位</th>
-            <th lay-data="{field:'score', width:120, sort: true, fixed: 'right'}">联系电话</th>
+            <th lay-data="{field:'userName', width:90,align:'center'}">姓名</th>
+            <th lay-data="{field:'userAge', width:80, align:'center'}">年龄</th>
+            <th lay-data="{field:'occupation', width:80, align:'center'}">职业</th>
+            <th lay-data="{field:'relationship', width:120, align:'center'}">与学生关系</th>
+            <th lay-data="{field:'health', width:160, align:'center'}">健康状况</th>
+            <th lay-data="{field:'annualIncome', width:80,align:'center'}">年收入</th>
+            <th lay-data="{field:'workUnit', width:200, align:'center'}">工作（学校）单位</th>
+            <th lay-data="{field:'phoneNumber', width:120,  fixed: 'right'}">联系电话</th>
             <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
         </tr>
         </thead>
     </table>
-
     <script type="text/html" id="barDemo">
-        <a href="javascript:;" title="编辑" lay-event="edit"><i class="layui-icon">&#xe642;</i></a>
         <a href="javascript:;" title="删除" lay-event="del"><i class="layui-icon">&#xe640;</i></a>
     </script>
     <script type="text/html" id="toolbarDemo">
-        <div class="layui-btn-container">
-            <button class="layui-btn" id="addRole"><i class="layui-icon">&#xe61f;</i>添加家庭成员</button>
-        </div>
+        <okToolbar>
+            <button class="layui-btn" id="addRole">
+                <i class="layui-icon">&#xe61f;</i>添加角色
+            </button>
+        </okToolbar>
     </script>
 </fieldset>
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;margin-left: 20px">
@@ -129,42 +129,42 @@
         <div class="layui-form-item">
             <label class="layui-form-label">自然灾害</label>
             <div class="layui-input-block">
-                <input type="text" name="naturalDisaster" lay-verify="required|title" value="adadaadasad" autocomplete="off" class="layui-input" required=''>
+                <input type="text" name="naturalDisaster" lay-verify="required|title" value="无自然灾害" autocomplete="off" class="layui-input" required=''>
                 <label alt='家庭遭受自然灾害情况' placeholder='时间/原因/损失'></label>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">突发意外</label>
             <div class="layui-input-block">
-                <input type="text" name="unexpectedAccident" lay-verify="required|title" value="asdadadas" autocomplete="off" class="layui-input" required=''>
+                <input type="text" name="unexpectedAccident" lay-verify="required|title" value="无" autocomplete="off" class="layui-input" required=''>
                 <label alt='家庭遭受意外事件' placeholder='时间/原因/损失'></label>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">成员情况</label>
             <div class="layui-input-block">
-                <input type="text" name="membershipSituation" lay-verify="required|title" value="adadadasdasdad" autocomplete="off" class="layui-input" required=''>
+                <input type="text" name="membershipSituation" lay-verify="required|title" value="身体健康" autocomplete="off" class="layui-input" required=''>
                 <label alt='家庭成员身体状况' placeholder='因残疾/患病/年迈而劳动力弱等原因'></label>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">失业情况</label>
             <div class="layui-input-block">
-                <input type="text" name="unemploymentSituation" lay-verify="required|title" value="adsadasdsadas" autocomplete="off" class="layui-input" required=''>
+                <input type="text" name="unemploymentSituation" lay-verify="required|title" value="1人失业" autocomplete="off" class="layui-input" required=''>
                 <label alt='家庭成员失业状况' placeholder='何时失业'></label>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">获资助情况</label>
             <div class="layui-input-block">
-                <input type="text" name="fundedSituation" lay-verify="required|title" value="adasdasdsadsdas" autocomplete="off" class="layui-input" required=''>
+                <input type="text" name="fundedSituation" lay-verify="required|title" value="国奖" autocomplete="off" class="layui-input" required=''>
                 <label alt='入学以来接受过的资助情况' placeholder='包含奖学金、助学金'></label>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">其他情况</label>
             <div class="layui-input-block">
-                <input type="text" name="otherSituation" lay-verify="required|title" value="asdadasdasd" autocomplete="off" class="layui-input">
+                <input type="text" name="otherSituation" lay-verify="required|title" value="身患绝症，无钱医治" autocomplete="off" class="layui-input">
             </div>
         </div>
     </blockquote>
@@ -175,20 +175,20 @@
         <div class="layui-form-item">
             <label class="layui-form-label">家庭地址</label>
             <div class="layui-input-block">
-                <input type="text" name="address" lay-verify="title" value="adadadad" autocomplete="off" class="layui-input">
+                <input type="text" name="address" lay-verify="title" value="陕西西安" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">通讯地址</label>
             <div class="layui-input-block">
-                <input type="text" name="postalAddress" lay-verify="title" value="adadadsa" autocomplete="off" class="layui-input">
+                <input type="text" name="postalAddress" lay-verify="title" value="陕西西安" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">邮政编码</label>
                 <div class="layui-input-inline">
-                    <input type="number" name="postNumber" lay-verify="required|postNumber" value="123456" autocomplete="off" class="layui-input">
+                    <input type="number" name="postNumber" lay-verify="required|postNumber" value="710124" placeholder="请输入6位邮政编码" autocomplete="off" class="layui-input">
                 </div>
             </div>
 <%--            <div class="layui-inline">
@@ -202,13 +202,13 @@
             <div class="layui-inline">
                 <label class="layui-form-label">联系人1</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="addressee" lay-verify="required|title" value="adadadsa" autocomplete="off" class="layui-input">
+                    <input type="text" name="addressee" lay-verify="required|title" value="张三" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">联系人1电话</label>
                 <div class="layui-input-inline">
-                    <input type="tel" name="contactNumber" lay-verify="required|phone" value="17789194920" autocomplete="off" class="layui-input">
+                    <input type="tel" name="contactNumber" lay-verify="required|phone" value="17789194920"placeholder="请输入11位手机号" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
@@ -216,25 +216,25 @@
             <div class="layui-inline">
                 <label class="layui-form-label">联系人2</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="emergencyContact" lay-verify="required|title" value="adadadsa" autocomplete="off" class="layui-input">
+                    <input type="text" name="emergencyContact" lay-verify="required|title" value="李四" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">联系人2电话</label>
                 <div class="layui-input-inline">
-                    <input type="tel" name="emergencyContactNumber" lay-verify="required|phone" value="17789194920" autocomplete="off" class="layui-input">
+                    <input type="tel" name="emergencyContactNumber" lay-verify="required|phone" value="17789194920" placeholder="请输入11位手机号"autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
     </blockquote>
     <fieldset class="layui-elem-field" style="margin-top: 20px;margin-left: 20px;">
     <legend>申请记录</legend>
-    <table class="layui-table" lay-data="{url:'/static/data/role.json', id:'test2'}" lay-filter="test2">
+    <table class="layui-table" lay-data="{url:'/getStudentApplicationList?pageStart=1&pageSize=10', id:'test2'}" lay-filter="test2">
         <thead>
         <tr style="width: auto" bgcolor="#008b8b">
-            <th lay-data="{field:'id', width:80, minWidth: 100}">学年度</th>
-            <th lay-data="{field:'povertyLevel', width:150,}">家庭经济困难等级</th>
-            <th lay-data="{field:'reasonsForApplication', minWidth: 150}">申请理由</th>
+            <th lay-data="{field:'schoolYear', width:100, minWidth: 100,align: 'center'}">学年度</th>
+            <th lay-data="{field:'povertyLevel', width:150,align: 'center'}">家庭经济困难等级</th>
+            <th lay-data="{field:'reasonsForApplication', minWidth: 150, align: 'center'}">申请理由</th>
         </tr>
         </thead>
     </table>
@@ -264,11 +264,15 @@
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
-    <input type="hidden" name="applicationNumber" value="pa5889add">
 </form:form>
 <td id="time" style="color: #777; padding-left: 10px;"></td>
 <script src="/static/layui/layui.js" charset="utf-8"></script>
+<script src="/static/nprogress/nprogress.js"></script>
 <script>
+    NProgress.start();
+    window.onload = function () {
+        NProgress.done();
+    }
     layui.use(['form', 'layedit', 'laydate'], function(){
         var form = layui.form
             ,layer = layui.layer
@@ -312,89 +316,59 @@
             });
             layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
         });
-
-        //监听提交
-/*        form.on('submit(demo1)', function(){
-            var sendData = {};
-            sendData.id = $("#yearlyIncome").textbox("getValue");
-            sendData.name = $("#populationSize").textbox("getValue");
-            /!*人均年收入*!/
-            sendData.userMobile = $("#userMobile").textbox("getValue");
-            sendData.userTel = $("#userTel").textbox("getValue");
-            sendData.orgId = $("#orgId").combobox("getValue");
-            sendData.lastdate = $("#lastdate").datebox("getValue");
-            sendData.remark = $("#remark").textbox("getValue");
-            sendData.password = $("#password").val();
-            alert(JSON.stringify(sendData.field))
-            alert(sendData);
-                $.ajax({
-                    url:'/addapplication',
-                    type:'post',
-                    dataType:'json',
-                    contentType:"application/json;charset=utf-8",
-                    async:true,//异步请求
-                    cache:false,
-                    data:sendData,//使用变量sendData
-                    //执行成功的回调函数
-                    success:function(data) {
-                        alert(data)
-                    },
-                    //执行失败或错误的回调函数
-                });
-        });*/
-
-        //表单初始赋值
-        form.val('example', {
-            "username": "贤心" // "name": "value"
-            ,"password": "123456"
-            ,"interest": 1
-            ,"like[write]": true //复选框选中状态
-            ,"close": true //开关状态
-            ,"sex": "女"
-            ,"desc": "我爱 layui"
+        //添加
+        $("#addRole").click(function () {
+            layer.open({
+                title: '添加家庭成员',
+                type: 2,
+                shade: false,
+                maxmin: true,
+                shade: 0.5,
+                anim: 4,
+                area: ['50%', '80%'],
+                offset: [ //为了演示，随机坐标
+                100,280],
+                content: '/addfamily',
+                zIndex: layer.zIndex,
+                // skin: 'layui-layer-molv',
+                end: function () {
+                    $(".layui-laypage-btn")[0].click();
+                }
+            });
         })
-
 
     });
 </script>
 <script>
     layui.use('table', function(){
         var table = layui.table;
-        //监听表格复选框选择
-        table.on('checkbox(demo)', function(obj){
-            console.log(obj)
-        });
         //监听工具条
-        table.on('tool(demo)', function(obj){
+        table.on('tool(test)', function(obj){
             var data = obj.data;
-            if(obj.event === 'detail'){
-                layer.msg('ID：'+ data.id + ' 的查看操作');
-            } else if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    obj.del();
-                    layer.close(index);
-                });
-            } else if(obj.event === 'edit'){
-                layer.alert('编辑行：<br>'+ JSON.stringify(data))
+            if(obj.event === 'del'){
+                    //示范一个公告层
+                    layer.open({
+                        type: 1
+                        ,title: '要删除吗？' //不显示标题栏
+                        ,closeBtn: false
+                        ,area: '300px;'
+                        ,shade: 0.8
+                        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,btn: ['确认删除', '算了吧']
+                        ,btnAlign: 'c'
+                        ,moveType: 1 //拖拽模式，0或者1
+                        ,offset: [200,400]
+                        ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;"></div>'
+                        ,success: function(layero){
+                            var btn = layero.find('.layui-layer-btn');
+                            btn.find('.layui-layer-btn0').attr({
+                                url:asdad
+                                ,target: '_blank'
+                            });
+                        }
+                    });
             }
         });
-
-        var $ = layui.$, active = {
-            getCheckData: function(){ //获取选中数据
-                var checkStatus = table.checkStatus('idTest')
-                    ,data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
-            }
-            ,getCheckLength: function(){ //获取选中数目
-                var checkStatus = table.checkStatus('idTest')
-                    ,data = checkStatus.data;
-                layer.msg('选中了：'+ data.length + ' 个');
-            }
-            ,isAll: function(){ //验证是否全选
-                var checkStatus = table.checkStatus('idTest');
-                layer.msg(checkStatus.isAll ? '全选': '未全选')
-            }
-        };
 
         $('.demoTable .layui-btn').on('click', function(){
             var type = $(this).data('type');
@@ -418,13 +392,6 @@
             }
         });
     })
-</script>
-<script type="text/javascript">
-    function getTime(){
-        document.getElementById("time").innerHTML = new Date().toLocaleString();
-        window.setInterval("getTime();",1000); //每隔1s取一次函数值
-    }
-    window.onload = getTime();
 </script>
 </body>
 </html>

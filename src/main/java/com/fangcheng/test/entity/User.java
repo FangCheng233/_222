@@ -75,7 +75,7 @@ public class User implements Serializable {
     private Date birthDate;
     //手机号
     @Column(name="PHONE_NUMBER", nullable=true)
-    private Integer phoneNumber;
+    private String phoneNumber;
     //身份证号
     @Column(name="ID_NUMBER", nullable=true)
     private String idNumber;
@@ -141,8 +141,8 @@ public class User implements Serializable {
     public Date getBirthDate() { return birthDate;}
     public void setBirthDate(Date birthDate) { this.birthDate = birthDate; }
 
-    public Integer getPhoneNumber() { return phoneNumber;}
-    public void setPhoneNumber(Integer phoneNumber) { this.phoneNumber = phoneNumber; }
+    public String getPhoneNumber() { return phoneNumber;}
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
     public String getIdNumber() { return idNumber;}
     public void setIdNumber(String idNumber) { this.idNumber = idNumber; }

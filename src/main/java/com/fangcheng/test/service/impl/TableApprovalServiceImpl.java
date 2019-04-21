@@ -31,6 +31,12 @@ public class TableApprovalServiceImpl implements TableApprovalService {
     public List<TableApproval> findAllApproval() {
         return tableApprovalDao.findAllApproval();
     }
+
+    @Override
+    public List<TableApproval> findByApplicationNumber(String applicationNumber) {
+        return tableApprovalDao.findByApplicationNumber(applicationNumber);
+    }
+
     @Override
     public void save(TableApproval tableApproval) {
     tableApprovalDao.save(tableApproval);

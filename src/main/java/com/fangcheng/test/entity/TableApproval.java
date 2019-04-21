@@ -22,7 +22,7 @@ public class TableApproval implements Serializable {
     //主键自增
     @Id
     @Column(name = "ID")
-    private Integer id = 0;
+    private String id ;
     //审批编号
     @NotNull
     @Column(name = "APPLICATION_NUMBER")
@@ -43,11 +43,11 @@ public class TableApproval implements Serializable {
     @Column(name = "REMARKS")
     private String remarks;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

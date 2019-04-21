@@ -3,9 +3,9 @@ package com.fangcheng.test.dao.impl;
 import com.fangcheng.test.dao.AbstractDao;
 import com.fangcheng.test.dao.TableApprovalDao;
 import com.fangcheng.test.entity.TableApproval;
-import com.fangcheng.test.entity.User;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -35,6 +35,14 @@ public class TableApprovalDaoImpl extends AbstractDao<Integer, TableApproval> im
         List<TableApproval> tableApprovals = (List<TableApproval>) criteria.list();
         return tableApprovals;
         /*return null;*/
+    }
+
+    @Override
+    public List<TableApproval> findByApplicationNumber(String applicationNumber) {
+        Criteria criteria = createEntityCriteria().addOrder(Order.asc("applicationNumber"));
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+        List<TableApproval> tableApprovalList =  criteria.add(Restrictions.eq("applicationNumber",applicationNumber)).list();
+        return tableApprovalList;
     }
 
     @Override

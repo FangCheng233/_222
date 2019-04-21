@@ -26,5 +26,7 @@ public interface ApplicationService {
     void deleteApplicationByApplicationNumber(String userId);
 
     List<Application> findAllApplication();
+    List<Application> findByUserId(String userId);
+    List<Application> findBySchoolYear(String schoolYear);
     boolean isApplicationNumberUnique(String applicationNumber);
 }

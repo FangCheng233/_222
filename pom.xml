@@ -135,11 +135,11 @@
     </dependency>
     <!-- JSON -->
     <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>20180813</version>
-    </dependency>
-  </dependencies>
+  <groupId>org.json</groupId>
+  <artifactId>json</artifactId>
+  <version>20180813</version>
+</dependency>
+</dependencies>
 
   <build>
     <finalName>222</finalName>
