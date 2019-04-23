@@ -48,7 +48,7 @@
 					</div>
 				</div>
 			</div>
-	
+
 			<div class="row">
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="groupId">Group Id</label>
@@ -137,7 +137,7 @@
 			</div>
 			<div class="row">
 				<div class="form-group col-md-12">
-					<label class="col-md-3 control-lable" for="tableAuthors">Roles</label>
+					<label class="col-md-3 control-lable" for="tableAuthors">Roles</label><%--authorType--%>
 					<div class="col-md-7">
 						<form:select path="tableAuthors" items="${roles}" multiple="true" itemValue="authorId" itemLabel="authorType" class="form-control input-sm" />
 						<div class="has-error">

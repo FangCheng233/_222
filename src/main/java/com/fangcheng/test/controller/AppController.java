@@ -23,7 +23,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/")
-@SessionAttributes("roles")
+/*@SessionAttributes("roless")*/
 public class AppController {
 
 	@Autowired
@@ -95,7 +95,13 @@ public class AppController {
 	 * @return java.lang.String
 	 */
 	@RequestMapping(value = { "/userInfo" }, method = RequestMethod.GET)
-	public String userIno(ModelMap model) {
+	public String userInfo(ModelMap model) {
+		try {
+			User user = userService.findByUserId(getPrincipal());
+			model.addAttribute("userInfo",user);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 		return "userInfo";
 	}
 	/**
@@ -124,7 +130,9 @@ public class AppController {
 	 */
 	@RequestMapping(value = { "/newuser" }, method = RequestMethod.POST)
 	public String saveUser(@Valid User user, BindingResult result,
-                           ModelMap model) {
+                           ModelMap model,HttpServletResponse response) {
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+
 		if (result.hasErrors()) {
 			return "admin/registration";
 		}
@@ -134,7 +142,12 @@ public class AppController {
 			return "admin/registration";
 		}
 		//调用业务层处理
-		userService.saveUser(user);
+		try{
+			userService.saveUser(user);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
 		model.addAttribute("success", "User " + user.getUserId() + " "+ user.getGroupId() + " registered successfully");
 		model.addAttribute("loggedinuser", getUserName());
 		//return "success";
@@ -181,8 +194,9 @@ public class AppController {
 		}catch (Exception e){
 			e.printStackTrace();
 			modelMap.addAttribute("errror", "222");
-			return "student/application";
+			return "已经提交过申请了，请不要重复提交";
 		}
+//		return "已经提交过申请了";
 		return "registrationsuccess";
 	}
 
@@ -194,7 +208,7 @@ public class AppController {
 			e.printStackTrace();
 			return  "";
 		}
-		return "redirect:/userInfo";
+		return "registrationsuccess";
 	}
 	/**
 	 * @method  newApplication
@@ -206,7 +220,9 @@ public class AppController {
 	 */
     @RequestMapping(value = { "/addapplication" }, method = RequestMethod.GET)
     public String newApplication(ModelMap model) {
-        return "student/application";
+    	User user = userService.findByUserId(getPrincipal());
+        model.addAttribute("user",user);
+    	return "student/application";
     }
 
 	/**
@@ -251,7 +267,7 @@ public class AppController {
 		application.setEmeergencyContactNumber(emergencyContactNumber);
 		application.setReasonsForApplication(unicode(reasonsForApplication));
 		application.setApprovalStatus("提交申请");
-		application.setProcessNode("学生申请");
+		application.setProcessNode("学生");
 		TableApproval tableApproval = new TableApproval();
 		tableApproval.setApplicationNumber(getPrincipal()+getSchoolYear());
 		tableApproval.setUserName(getUserName());
@@ -270,6 +286,61 @@ public class AppController {
 		return "registrationsuccess";
     }
 
+	/**
+	 * @method  alterApplication
+	 * @description 修改申请状态，流程审批
+	 * @date: 2019/4/21 15:09
+	 * @author: Fangcheng
+	[applicationNumber]
+	 * @return java.lang.String
+	 */
+	@RequestMapping(value = { "/alterApplicationPass" }, method = RequestMethod.GET)
+	@ResponseBody
+	public String alterApplicationPass(@RequestParam List<String> applicationNumberList) {
+		System.out.println(applicationNumberList);
+		for(String str:applicationNumberList){
+			Application application = applicationService.findByApplicationNumber(subString(str));
+			application.setApprovalStatus(getApprovalStatus());
+			application.setProcessNode(getGroupId());
+			applicationService.alterApplication(application);
+			TableApproval tableApproval = new TableApproval();
+			List<TableApproval> tableApprovalList = tableApprovalService.findByApplicationNumber(getPrincipal()+getSchoolYear());
+			tableApproval.setApplicationNumber(getPrincipal()+getSchoolYear());
+			tableApproval.setUserName(getUserName());
+			tableApproval.setApprovalStatus(getApprovalStatus());
+			tableApproval.setProcessNode(getGroupId());
+			tableApproval.setRemarks("");
+			tableApproval.setId(getPrincipal()+getSchoolYear()+tableApprovalList.size());
+			try {
+				tableApprovalService.save(tableApproval);
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+		}
+		return "";
+	}
+	@RequestMapping(value = { "/alterApplicationRefuse" }, method = RequestMethod.GET)
+	@ResponseBody
+	public String alterApplicationRefuse(@RequestParam List<String> applicationNumberList) {
+		for(String str:applicationNumberList){
+			Application application = applicationService.findByApplicationNumber(subString(str));
+			application.setApprovalStatus("驳回");
+			application.setProcessNode("学生");
+			TableApproval tableApproval = new TableApproval();
+			tableApproval.setApplicationNumber(getPrincipal()+getSchoolYear());
+			tableApproval.setUserName(getUserName());
+			tableApproval.setApprovalStatus("驳回");
+			tableApproval.setProcessNode(getGroupId());
+			tableApproval.setRemarks("");
+			tableApproval.setId(getPrincipal()+getSchoolYear()+"01");
+			try {
+				tableApprovalService.save(tableApproval);
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+		}
+		return "";
+	}
 	@RequestMapping(value = { "/edit-user-{userId}" }, method = RequestMethod.GET)
 	public String editUser(@PathVariable String userId, ModelMap model) {
 		User user = userService.findByUserId(userId);
@@ -298,20 +369,7 @@ public class AppController {
 		model.addAttribute("loggedinuser", getUserName());
 		return "registrationsuccess";
 	}
-	/**
-	 * @method  alterApplication
-	 * @description 修改申请状态，流程审批
-	 * @date: 2019/4/21 15:09
-	 * @author: Fangcheng
-	[applicationNumber]
-	 * @return java.lang.String
-	 */
-	@RequestMapping(value = { "/alterApplication" }, method = RequestMethod.POST)
-	@ResponseBody
-	public String alterApplication(@RequestParam List<String> applicationNumber) {
 
-		return "";
-	}
 
 
 	/**
@@ -372,22 +430,39 @@ public class AppController {
 	private String getPrincipal(){
 		String userId = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
 		if (principal instanceof UserDetails) {
 			userId = ((UserDetails)principal).getUsername();
 		} else {
 			userId = principal.toString();
-
 		}
 		return userId;
 	}
 	private String getUserName(){
 		String userId = getPrincipal();
-		String userName = null;
 		User user = userService.findByUserId(userId);
-		userName = user.getUserName();
-		return userName;
+		return user.getUserName();
 	}
+	private String getGroupId(){
+		String userId = getPrincipal();
+		User user = userService.findByUserId(userId);
+		return user.getGroupId();
+	}
+	private String getApprovalStatus(){
+		String userId = getPrincipal();
+		User user = userService.findByUserId(userId);
+		if(user.getGroupId()=="学工部"){
+			return "流程结束";
+		}
+		return "审批通过";
+	}
+	private String subString(String str){
+		int index = str.indexOf("\"")+1;
+		int end = str.lastIndexOf("\"");
+		str = str.substring(index,end);
+		return str;
+	}
+
+
 	/**
 	 * This method returns true if users is already authenticated [logged-in], else false.
 	 */

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: FangCheng
-  Date: 2019/4/11
-  Time: 15:55
+  Date: 2019/4/23
+  Time: 16:32
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,15 +13,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/static/layui/css/layui.css"  media="all">
-    <%--<link rel="stylesheet" href="css/min/reset.css"/>--%>
     <link rel="stylesheet" href="/static/css/select_gj.css">
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
 </head>
 <body bgcolor="#fffafa">
 <form class="layui-form" action="##" lay-filter="example">
-<fieldset class="layui-elem-field" style="margin-top: 20px;margin-right: 37%;margin-left: 20px">
-    <legend>基本资料</legend>
-    <div class="layui-field-box">
+    <fieldset class="layui-elem-field" style="margin-top: 20px;margin-right: 37%;margin-left: 20px">
+        <legend>基本资料</legend>
+        <div class="layui-field-box">
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;姓名</label>
@@ -195,22 +194,12 @@
                         </select>
                     </div>
                 </div>
-<%--                <div class="layui-inline">
-                    <label class="layui-form-label">国家地区</label>
-                    <div class="layui-input-inline">
-                        <select name="country" class="fastbannerform__country">
-                            <option value="AND" title="AD" >Andorra</option>
-                            <option value="ARE" title="AE" >United Arab Emirates</option>
-                            <option value="AFG" title="AF" >Afghanistan</option>
-                        </select>
-                    </div>
-                </div>--%>
             </div>
-    </div>
-</fieldset>
-<fieldset class="layui-elem-field" style="margin-top: 20px;margin-right: 3%;margin-left: 20px">
-    <legend>学籍信息</legend>
-    <div class="layui-field-box">
+        </div>
+    </fieldset>
+    <fieldset class="layui-elem-field" style="margin-top: 20px;margin-right: 3%;margin-left: 20px">
+        <legend>学籍信息</legend>
+        <div class="layui-field-box">
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;学号</label>
@@ -231,49 +220,43 @@
                     </div>
                 </div>
             </div>
-        <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label"><span style="color: red">*</span>&nbsp;院系</label>
-                <div class="layui-input-inline">
-                    <select name="userCollege">
-                        <option value="">请选择省</option>
-                        <option value="浙江" selected="">浙江省</option>
-                        <option value="你的工号">江西省</option>
-                        <option value="你最喜欢的老师">福建省</option>
-                    </select>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;院系</label>
+                    <div class="layui-input-inline">
+                        <select name="userCollege">
+                            <option value="">请选择省</option>
+                            <option value="浙江" selected="">浙江省</option>
+                            <option value="你的工号">江西省</option>
+                            <option value="你最喜欢的老师">福建省</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;专业</label>
+                    <div class="layui-input-inline">
+                        <select name="userMajor">
+                            <option value="">请选择省</option>
+                            <option value="浙江" selected="">浙江省</option>
+                            <option value="你的工号">江西省</option>
+                            <option value="你最喜欢的老师">福建省</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;班级</label>
+                    <div class="layui-input-inline">
+                        <select name="userClass">
+                            <option value="">请选择省</option>
+                            <option value="浙江" selected="">浙江省</option>
+                            <option value="你的工号">江西省</option>
+                            <option value="你最喜欢的老师">福建省</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label"><span style="color: red">*</span>&nbsp;专业</label>
-                <div class="layui-input-inline">
-                    <select name="userMajor">
-                        <option value="">请选择省</option>
-                        <option value="浙江" selected="">浙江省</option>
-                        <option value="你的工号">江西省</option>
-                        <option value="你最喜欢的老师">福建省</option>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label"><span style="color: red">*</span>&nbsp;班级</label>
-                <div class="layui-input-inline">
-                    <select name="userClass">
-                        <option value="">请选择省</option>
-                        <option value="浙江" selected="">浙江省</option>
-                        <option value="你的工号">江西省</option>
-                        <option value="你最喜欢的老师">福建省</option>
-                    </select>
-                </div>
-            </div>
-        </div>
 
             <div class="layui-form-item">
-  <%--              <div class="layui-inline">
-                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;学生当前状态</label>
-                    <div class="layui-input-inline">
-                        <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
-                    </div>
-                </div>--%>
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;学制</label>
                     <div class="layui-input-inline">
@@ -287,48 +270,8 @@
                     </div>
                 </div>
             </div>
-    </div>
-</fieldset>
-<fieldset class="layui-elem-field" style="margin-top: 20px;margin-right: 37%;margin-left: 20px">
-    <legend>联系方式</legend>
-    <div class="layui-field-box">
-
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;联系电话</label>
-                    <div class="layui-input-inline">
-                        <input type="tel" name="phoneNumber" lay-verify="required|phone" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;QQ</label>
-                    <div class="layui-input-inline">
-                        <input type="number" name="QQ" <%--lay-verify=""--%> autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;邮箱</label>
-                    <div class="layui-input-inline">
-                        <input type="email" name="userEmail" lay-verify="email" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label">邮政编码</label>
-                    <div class="layui-input-inline">
-                        <input type="tel" name="postNumber" lay-verify="required|phone" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">详细通讯地址</label>
-                <div class="layui-input-block">
-                    <input type="text" name="postalAddress" lay-verify="required|postNumber" autocomplete="off" placeholder="请输入标题" class="layui-input">
-                </div>
-            </div>
-    </div>
-</fieldset>
+        </div>
+    </fieldset>
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
@@ -338,19 +281,6 @@
 </form>
 <script src="/static/layui/layui.js" charset="utf-8"></script>
 <script src="/static/plugins/jquery.1.12.4.min.js"></script>
-<script src="/static/js/area.js"></script>
-<select name="country" onchange="turn()">
-    <option value="请选择国家" selected="selected">请选择国家</option>
-    <option value="中国">中国</option>
-    <option value="美国">美国</option>
-    <option value="英国">英国</option>
-</select>
-<select name="province">
-    <option value="0" selected="selected">请选择省份</option>
-</select>
-<select name="city">
-    <option value="0" selected="selected">请选择城市</option>
-</select>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
     layui.use(['form', 'layedit', 'laydate'], function(){
@@ -386,15 +316,6 @@
                 layedit.sync(editIndex);
             }
         });
-
-        //监听指定开关
-        form.on('switch(switchTest)', function(data){
-            layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
-                offset: '6px'
-            });
-            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-        });
-
         //监听提交
         form.on('submit(demo1)', function(data){
             layer.alert(JSON.stringify(data.field), {
@@ -416,6 +337,5 @@
     }
     $(option).appendTo("#nation");
 </script>
-
 </body>
 </html>

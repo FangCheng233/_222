@@ -38,7 +38,20 @@ public class TableApprovalServiceImpl implements TableApprovalService {
     }
 
     @Override
+    public TableApproval findById(String id) {
+        return null;
+    }
+
+    @Override
     public void save(TableApproval tableApproval) {
     tableApprovalDao.save(tableApproval);
+    }
+
+    @Override
+    public void alterApprovalStatus(TableApproval tableApproval) {
+        TableApproval entity = tableApprovalDao.findById(tableApproval.getId());
+        entity.setProcessNode(tableApproval.getProcessNode());
+        entity.setApprovalStatus(tableApproval.getApprovalStatus());
+        entity.setRemarks(tableApproval.getRemarks());
     }
 }

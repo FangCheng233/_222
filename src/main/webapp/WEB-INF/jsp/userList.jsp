@@ -21,14 +21,14 @@
 </head>
 <body>
 <table class="layui-hide" id="test" lay-filter="test"></table>
-
+<sec:authorize access="hasRole('ADMIN')">
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+        <button class="layui-btn layui-btn-sm" lay-event="removeUser">删除用户</button>
+        <button class="layui-btn layui-btn-sm" lay-event="addUser">添加用户</button>
     </div>
 </script>
+</sec:authorize>
 <script type="text/html" id="barDemo">
     <a href="javascript:;" title="编辑" lay-event="edit"><i class="layui-icon">&#xe642;</i></a>
     <a href="javascript:;" title="删除" lay-event="del"><i class="layui-icon">&#xe640;</i></a>
@@ -80,7 +80,23 @@
                     layer.msg('选中了：'+ data.length + ' 个');
                     break;
                 case 'isAll':
-                    layer.msg(checkStatus.isAll ? '全选': '未全选');
+                    $("#toolbarDemo .addUser").click(function () {
+                        layer.open({
+                            title: '添加用户',
+                            type: 2,
+                            shade: false,
+                            maxmin: true,
+                            shade: 0.5,
+                            anim: 4,
+                            area: ['90%', '90%'],
+                            content: 'user-add.html',
+                            zIndex: layer.zIndex,
+                            // skin: 'layui-layer-molv',
+                            end: function () {
+                                $(".layui-laypage-btn")[0].click();
+                            }
+                        });
+                    })
                     break;
             };
         });
@@ -107,23 +123,6 @@
                     layer.msg("操作成功！", {icon: 1, time: 1000});
                 });
             }
-            $("#toolbarDemo .addUser").click(function () {
-                layer.open({
-                    title: '添加用户',
-                    type: 2,
-                    shade: false,
-                    maxmin: true,
-                    shade: 0.5,
-                    anim: 4,
-                    area: ['90%', '90%'],
-                    content: 'user-add.html',
-                    zIndex: layer.zIndex,
-                    // skin: 'layui-layer-molv',
-                    end: function () {
-                        $(".layui-laypage-btn")[0].click();
-                    }
-                });
-            })
         });
         //监听行工具事件
         table.on('tool(test)', function(obj){

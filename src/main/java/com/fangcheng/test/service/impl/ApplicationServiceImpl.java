@@ -40,7 +40,10 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public void alterApplication(Application application) {
         Application entity = applicationDao.findByApplicationNumber(application.getApplicationNumber());
-        if(entity!=null) {}
+        if(entity!=null) {
+            entity.setProcessNode(application.getProcessNode());
+            entity.setApprovalStatus(application.getApprovalStatus());
+        }
 
     }
 
@@ -62,6 +65,11 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public List<Application> findBySchoolYear(String schoolYear) {
         return applicationDao.findBySchoolYear(schoolYear);
+    }
+
+    @Override
+    public List<Application> findByProcessNode(String processNode) {
+        return applicationDao.findByProcessNode(processNode);
     }
 
     @Override

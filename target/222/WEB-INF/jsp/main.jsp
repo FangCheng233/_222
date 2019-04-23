@@ -143,7 +143,7 @@
             <li class="sub-menu system_menus system_2 1" style="display:none;">
                 <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-menu"></i> 申请审批管理</a>
                 <ul>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('标签管理', '/approval?params=getAllApplicationList');">待处理审批</a></li>
+                    <li><a class="waves-effect" href="javascript:Tab.addTab('标签管理', '/approval?params=getCollegeApplicationList');">待处理审批</a></li>
                     <li><a class="waves-effect" href="javascript:Tab.addTab('类目管理', '/manage/category/index');">历史审批记录</a></li>
                 </ul>
             </li>
@@ -158,7 +158,7 @@
             <li class="sub-menu system_menus system_3 1" style="display:none;">
                 <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-menu"></i> 申请审批管理</a>
                 <ul>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('标签管理', '/approval?params=getAllApplicationList');">待处理审批</a></li>
+                    <li><a class="waves-effect" href="javascript:Tab.addTab('标签管理', '/approval?params=getCounsellorApplicationList');">待处理审批</a></li>
                     <li><a class="waves-effect" href="javascript:Tab.addTab('类目管理', '/manage/category/index');">历史审批记录</a></li>
                 </ul>
             </li>

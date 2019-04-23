@@ -4,6 +4,7 @@ import com.fangcheng.test.dao.AbstractDao;
 import com.fangcheng.test.dao.TableApprovalDao;
 import com.fangcheng.test.entity.TableApproval;
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -36,6 +37,16 @@ public class TableApprovalDaoImpl extends AbstractDao<Integer, TableApproval> im
         return tableApprovals;
         /*return null;*/
     }
+
+    @Override
+    public TableApproval findById(String id) {
+        logger.info("id : {}", id);
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("id", id));
+        TableApproval tableApproval = (TableApproval) crit.uniqueResult();
+        return tableApproval;
+    }
+
 
     @Override
     public List<TableApproval> findByApplicationNumber(String applicationNumber) {

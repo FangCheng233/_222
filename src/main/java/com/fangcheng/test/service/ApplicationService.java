@@ -20,13 +20,12 @@ public interface ApplicationService {
     Application findByApplicationNumber(String applicationNumber);
 
     void save(Application application);
-
     void  alterApplication(Application application);
-
     void deleteApplicationByApplicationNumber(String userId);
-
     List<Application> findAllApplication();
     List<Application> findByUserId(String userId);
     List<Application> findBySchoolYear(String schoolYear);
+    List<Application> findByProcessNode(String processNode);
     boolean isApplicationNumberUnique(String applicationNumber);
+
 }

@@ -22,6 +22,7 @@ public interface ApplicationDao {
     List<Application> findAllApplication();
     List<Application> findByUserId(String userId);
     List<Application> findBySchoolYear(String schoolYear);
+    List<Application> findByProcessNode(String processNode);
     void save(Application application);
 
     void  deletByApplicationNumber(String applicationNumber);

@@ -26,14 +26,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;姓名</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="userName" lay-verify="required|title" autocomplete="off" class="layui-input">
+                        <input type="text" name="userName" lay-verify="required|title" value="${userInfo.userName}" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;性别</label>
                     <div class="layui-input-inline">
                         <select name="userSex">
-                            <option value="">请选择性别</option>
+                            <option value="" selected="">${userInfo.userSex}</option>
                             <option value="男">男</option>
                             <option value="女">女</option>
                         </select>
@@ -55,7 +55,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;证件号码</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="idNumber" lay-verify="identity" placeholder="" autocomplete="off" class="layui-input">
+                        <input type="text" name="idNumber" lay-verify="identity" value="${userInfo.idNumber}" placeholder="" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -206,40 +206,6 @@
                     </div>
                 </div>--%>
             </div>
-   <%--         <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label">血型</label>
-                    <div class="layui-input-inline">
-                        <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">健康状况</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">婚姻状况</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label">港澳台侨</label>
-                    <div class="layui-input-inline">
-                        <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">姓名拼音</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-            </div>--%>
     </div>
 </fieldset>
 <fieldset class="layui-elem-field" style="margin-top: 20px;margin-right: 3%;margin-left: 20px">
@@ -249,13 +215,13 @@
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;学号</label>
                     <div class="layui-input-inline">
-                        <input type="number" name="userId" lay-verify="required|title" autocomplete="off" class="layui-input">
+                        <input type="number" name="userId" lay-verify="required|title" value="${userInfo.userId}" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;校区</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="school" value="西北工业大学沣河校区" <%--lay-verify="email"--%> autocomplete="off" class="layui-input">
+                        <input type="text" name="school" value="${userInfo.userCollege}" <%--lay-verify="email"--%> autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -436,19 +402,6 @@
             })
             return false;
         });
-
-        //表单初始赋值
-        form.val('example', {
-            "userName": "贤心" // "name": "value"
-            ,"password": "123456"
-            ,"interest": 1
-            ,"like[write]": true //复选框选中状态
-            ,"close": true //开关状态
-            ,"sex": "女"
-            ,"desc": "我爱 layui"
-        })
-
-
     });
 </script>
 <script>

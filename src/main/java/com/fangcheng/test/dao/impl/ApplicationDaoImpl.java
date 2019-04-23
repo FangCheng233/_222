@@ -60,6 +60,14 @@ public class ApplicationDaoImpl extends AbstractDao<Integer, Application> implem
     }
 
     @Override
+    public List<Application> findByProcessNode(String processNode) {
+        Criteria criteria = createEntityCriteria().addOrder(Order.asc("processNode"));
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+        List<Application> tableClassList =  criteria.add(Restrictions.eq("processNode",processNode)).list();
+        return tableClassList;
+    }
+
+    @Override
     public void save(Application application) {
         persist(application);
     }

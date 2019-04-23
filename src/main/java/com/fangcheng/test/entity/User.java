@@ -174,9 +174,7 @@ public class User implements Serializable {
     joinColumns = { @JoinColumn(name = "RF_USER_ID") },
     inverseJoinColumns = { @JoinColumn(name = "RF_AUTHOR_ID") })
     private Set<TableAuthor> tableAuthors = new HashSet<TableAuthor>();
-
     public Set<TableAuthor> getTableAuthors() { return tableAuthors; }
-
     public void setTableAuthors(Set<TableAuthor> tableAuthors) {
         this.tableAuthors = tableAuthors; }
 

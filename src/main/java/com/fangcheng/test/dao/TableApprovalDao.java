@@ -19,5 +19,6 @@ import java.util.List;
 public interface TableApprovalDao {
     List<TableApproval> findAllApproval();
     List<TableApproval> findByApplicationNumber(String applicationNumber);
+    TableApproval findById(String id);
     void save(TableApproval tableApproval);
 }

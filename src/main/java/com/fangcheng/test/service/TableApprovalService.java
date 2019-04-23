@@ -19,5 +19,7 @@ import java.util.List;
 public interface TableApprovalService {
     List<TableApproval> findAllApproval();
     List<TableApproval> findByApplicationNumber(String applicationNumber);
+    TableApproval findById(String id);
     void save(TableApproval tableApproval);
+    void alterApprovalStatus(TableApproval tableApproval);
 }

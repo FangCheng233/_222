@@ -22,33 +22,59 @@
 <fieldset class="layui-elem-field" style="margin-top: 20px;margin-left: 20px;" >
     <legend>基本资料</legend>
     <div class="layui-field-box" style="width: 60%">
-        <div style="display:inline-block;margin-left: 20px">学号：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <div style="display:inline-block;margin-left: 20px">姓名：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <div style="display:inline-block;margin-left: 20px">年级：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <hr class="layui-bg-red">
-        <div style="display:inline-block;margin-left: 20px">院系：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <div style="display:inline-block;margin-left: 20px">专业：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <div style="display:inline-block;margin-left: 20px">班级：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <hr class="layui-bg-orange">
-        <div style="display:inline-block;margin-left: 20px">籍贯：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <div style="display:inline-block;margin-left: 20px">民族：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <div style="display:inline-block;margin-left: 20px">身份证号：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <hr class="layui-bg-green">
-        <div style="display:inline-block;margin-left: 20px">性别：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <div style="display:inline-block;margin-left: 20px">寝室：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <div style="display:inline-block;margin-left: 20px">寝室：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <hr class="layui-bg-cyan">
-        <div style="display:inline-block;margin-left: 20px">QQ：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <div style="display:inline-block;margin-left: 20px">邮箱：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <div style="display:inline-block;margin-left: 20px">手机号：</div><div style="display:inline-block;margin-left: 220px">${user}</div>
-        <%--<hr class="layui-bg-blue">--%>
-            <%--专业--%>
-        <%--<hr class="layui-bg-black">--%>
-
-        <%--灰色分割线--%>
-        <%--<hr class="layui-bg-gray">--%>
+        <table class="layui-table" lay-even="" lay-skin="nob">
+            <colgroup>
+                <col width="80">
+                <col width="200">
+                <col width="80">
+                <col width="200">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>学号：</th>
+                <th>${user.userId}</th>
+                <th>姓名：</th>
+                <th>${user.userName}</th>
+                <th>年级：</th>
+                <th>${user.userGrade}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>院系：</td>
+                <td>${user.userCollege}</td>
+                <td>专业：</td>
+                <td>${user.userMajor}</td>
+                <td>班级：</td>
+                <td>${user.userClass}</td>
+            </tr>
+            <tr>
+                <td>籍贯：</td>
+                <td>${user.nativePlace}</td>
+                <td>民族：</td>
+                <td>${user.nation}</td>
+                <td>身份证号：</td>
+                <td>${user.idNumber}</td>
+            </tr>
+            <tr>
+                <td>性别：</td>
+                <td>${user.userSex}</td>
+                <td>寝室：</td>
+                <td></td>
+                <td>1989-10-14</td>
+                <td>人生似修行</td>
+            </tr>
+            <tr>
+                <td>QQ：</td>
+                <td></td>
+                <td>邮箱：</td>
+                <td>${user.userEmail}</td>
+                <td>手机号：</td>
+                <td>${user.phoneNumber}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-
 </fieldset>
 <fieldset class="layui-elem-field" style="margin-top: 20px;margin-left: 20px;">
     <legend>家庭信息</legend>
@@ -352,24 +378,34 @@
                         ,title: '要删除吗？' //不显示标题栏
                         ,closeBtn: false
                         ,area: '300px;'
-                        ,shade: 0.8
                         ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
                         ,btn: ['确认删除', '算了吧']
+                        ,yes: function (index, layero){
+                                $.ajax({
+                                    url: "/deletefamily",
+                                    type: "GET",
+                                    data: {'id':data.id},//
+                                    dataType: 'json',
+                                    contentType: 'application/json',
+                                    success: function (res) {//回调函数
+                                    }
+                                });
+                            obj.del()
+                            layer.close(index);
+                        }
                         ,btnAlign: 'c'
                         ,moveType: 1 //拖拽模式，0或者1
                         ,offset: [200,400]
-                        ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;"></div>'
                         ,success: function(layero){
-                            var btn = layero.find('.layui-layer-btn');
+/*                            var btn = layero.find('.layui-layer-btn');
                             btn.find('.layui-layer-btn0').attr({
-                                url:asdad
+                                url:s
                                 ,target: '_blank'
-                            });
+                            });*/
                         }
                     });
             }
         });
-
         $('.demoTable .layui-btn').on('click', function(){
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';

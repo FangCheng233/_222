@@ -35,7 +35,6 @@
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">批量审批通过</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">审批通过</button>
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="isAll">驳回申请</button>
     </div>
@@ -80,7 +79,7 @@
                 ,{field:'userName', title:'姓名', width:100,align:'center'}
                 ,{field:'processNode', title: '上一节点', width:100,align:'center'}
                 ,{field:'teacherName', title: '审批人', width:100,align:'center'}
-                ,{field:'approvalStatus', title:'审批状态', width:100,align:'center'}
+                ,{field:'approvalStatus', title:'审批状态', width:100, sort:true, align:'center'}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', minWidth:150,align:'center', fixed: 'right'}
             ]]
             ,request:{
@@ -92,12 +91,16 @@
         table.on('toolbar(test)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);
             switch(obj.event){
-                case 'getCheckData':
-                    var data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
-                    break;
                 case 'getCheckLength':
                     var data = checkStatus.data;
+                    if(data.length==0){
+                        layer.msg('没有选中要修改的内容', {
+                            time: 10000 //20s后自动关闭
+                            ,btn: ['好的']
+                            ,btnAlign: 'c'
+                        });
+                        break;
+                    }
                     var sendData = [];
                     for(var i=0;i<data.length;i++) {
                         var applicationNumber = data[i].applicationNumber;
@@ -106,27 +109,56 @@
                     layer.msg('当前选中' + data.length  +'条数据<br>确认是否通过？', {
                         time: 20000, //20s后自动关闭
                         btn: ['审批通过', '放弃']
-                        ,success: function(layero){
-                            var btn = layero.find('.layui-layer-btn');
-                            btn.find('.layui-layer-btn0').attr({
-                                function(){
-                                    $.ajax({
-                                        url: "/alterApplication",
-                                        type: "POST",
-                                        data: JSON.stringify(sendData),//
-                                        dataType: 'json',
-                                        contentType: 'application/json',
-                                        success: function (res) {//回调函数
-                                        }
-                                    });
+                        ,yes: function (index, layero){
+                            $.ajax({
+                                url: "/alterApplicationPass",
+                                type: "GET",
+                                data: {applicationNumberList:JSON.stringify(sendData)},//
+                                dataType: 'json',
+                                contentType: 'application/json',
+                                success: function (res) {//回调函数
                                 }
-                                ,target: '_blank'
                             });
+                        layer.close(index);
+                        }
+                        ,success: function(layero){
                         }
                     });
                     break;
                     case 'isAll':
-                    layer.msg(checkStatus.isAll ? '全选': '未全选');
+                        var data = checkStatus.data;
+                        if(data.length==0){
+                            layer.msg('没有选中要修改的内容', {
+                                time: 10000 //20s后自动关闭
+                                ,btn: ['好的']
+                                ,btnAlign: 'c'
+                            });
+                            break;
+                        }
+                        var sendData = [];
+                        for(var i=0;i<data.length;i++) {
+                            var applicationNumber = data[i].applicationNumber;
+                            sendData.push(applicationNumber)
+                        }
+                        alert(JSON.stringify(sendData))
+                        layer.msg('当前选中' + data.length  +'条数据<br>确认是否通过？', {
+                            time: 20000, //20s后自动关闭
+                            btn: ['确认驳回？', '放弃']
+                            ,yes: function (index, layero){
+                                $.ajax({
+                                    url: "/alterApplicationRefuse",
+                                    type: "GET",
+                                    data: {'applicationNumberList':JSON.stringify(sendData)},//
+                                    dataType: 'json',
+                                    contentType: 'application/json',
+                                    success: function (res) {//回调函数
+                                    }
+                                });
+                                layer.close(index);
+                            }
+                            ,success: function(layero){
+                            }
+                        });
                     break;
             };
         });
@@ -175,6 +207,7 @@
         table.on('tool(test)', function(obj){
             var data = obj.data;
             //console.log(obj)
+            alert(JSON.stringify(obj))
             if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
                     $.ajax({
@@ -211,72 +244,15 @@
                     }
                     ,where: {
                         key: {
-                            username: demoReload.val()
+                            userName: demoReload.val()
                         }
                     }
                 });
             }
         };
-
         $('.demoTable .layui-btn').on('click', function(){
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
-        });
-    });
-</script>
-<script>
-    layui.use('table', function(){
-        var table = layui.table;
-        //监听单元格事件
-        table.on('tool(test)', function(obj){
-            var data = obj.data;
-            if(obj.event === 'setSign'){
-                layer.open({
-                    type: 1
-                    ,title: false //不显示标题栏
-                    ,closeBtn: false
-                    ,area: '300px;'
-                    ,shade: 0.8
-                    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-                    ,btn: ['通过审批', '驳回','返回页面']
-                    ,btnAlign: 'c'
-                    ,moveType: 1 //拖拽模式，0或者1
-                    ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">申请理由<br>' +
-                        '<br>'+ data.reasonsForApplication +'</div>'
-                    ,success: function(layero){
-                        var btn = layero.find('.layui-layer-btn');
-                        btn.find('.layui-layer-btn0').attr({
-                            //链接审批通过该条申请
-                            function(){
-                                $.ajax({
-                                    url: "/delete-application",
-                                    type: "GET",
-                                    data: {"applicationNumber": data.applicationNumber},//
-                                    dataType: 'json',
-                                    contentType: 'application/json',
-                                    success: function (res) {//回调函数
-                                    }
-                                });
-                            }
-                            ,target: '_blank'
-                        });
-                        btn.find('.layui-layer-btn1').attr({
-                            //链接审批驳回该条申请
-                            href: 'http://www.layui.com/'
-                            ,target: '_blank'
-                        });
-                    }
-                }), function(value, index){
-                    layer.close(index);
-
-                    //这里一般是发送修改的Ajax请求
-
-                    //同步更新表格和缓存对应的值
-                    obj.update({
-                        sign: value
-                    });
-                };
-            }
         });
     });
 </script>

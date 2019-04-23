@@ -39,7 +39,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/")
-@SessionAttributes("roles")
+/*@SessionAttributes("roles")*/
 public class ResultController {
     @Autowired
     UserService userService;
@@ -201,7 +201,7 @@ public class ResultController {
     @RequestMapping(value = { "/getCounsellorApplicationList" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public String getCounsellorApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize,HttpServletResponse response) {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
-        List<Application> applications = applicationService.findAllApplication();
+        List<Application> applications = applicationService.findByProcessNode("学生");
         List<Application> applicationList = new ArrayList<>();
         for(Application application :applications){
             User user = userService.findByUserId(application.getUserId());
@@ -223,12 +223,12 @@ public class ResultController {
     @RequestMapping(value = { "/getCollegeApplicationList" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public String getCollegeApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize,HttpServletResponse response) {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
-        List<Application> applications = applicationService.findAllApplication();
+        List<Application> applications = applicationService.findByProcessNode("辅导员");
         List<Application> applicationList = new ArrayList<>();
         User userCollege = userService.findByUserId(getPrincipal());
         for(Application application :applications){
             User user = userService.findByUserId(application.getUserId());
-            if(user.getUserCollege().equals(userCollege.getUserCollege()))
+            if(user.getUserCollege().equals(userCollege.getUserCollege())&&application.getApprovalStatus().equals("待审批"))
                 applicationList.add(application);
         }
         return applicationlistToJson(applicationList,pageStart,pageSize);
@@ -245,8 +245,13 @@ public class ResultController {
     @RequestMapping(value = { "/getAllApplicationList" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public String getAllApplicationList(ModelMap model, @Valid Integer pageStart, Integer pageSize,String userMajor,String userCollege,HttpServletResponse response) {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
-        List<Application> applications = applicationService.findAllApplication();
-        return applicationlistToJson(applications,pageStart,pageSize);
+        List<Application> applications = applicationService.findByProcessNode("学院");
+        List<Application> applicationList = new ArrayList<>();
+        for(Application application :applications){
+            if(application.getApprovalStatus().equals("待审批"))
+                applicationList.add(application);
+        }
+        return applicationlistToJson(applicationList,pageStart,pageSize);
     }
     private String applicationlistToJson(List<Application> applications,Integer pageStart,Integer pageSize) {
         ArrayList arrayList = new ArrayList();
