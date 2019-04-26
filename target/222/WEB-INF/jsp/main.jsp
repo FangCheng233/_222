@@ -20,10 +20,9 @@
     <link href="/static/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
     <link href="/static/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
     <link href="/static/css/admin.css" rel="stylesheet"/>
-
-    <link rel="stylesheet" href="/static/layui/css/layui.css">
-    <link rel="stylesheet" href="/static/css/okadmin.css">
-    <link rel="stylesheet" href="/static/font/iconfont.css">
+    <link href="/static/layui/css/layui.css" rel="stylesheet"/>
+    <link href="/static/css/okadmin.css" rel="stylesheet"/>
+    <link href="/static/font/iconfont.css" rel="stylesheet"/>
 <style>
         /** skins **/
         #student #header {background: #29A176;}
@@ -41,7 +40,6 @@
         #admin #header {background: #6539B4;}
         #admin .content_tab{background: #6539B4;}
         #admin .s-profile>a{background: url(/static/images/zheng-ucenter.png) left top no-repeat;}
-
     </style>
 </head>
 <body>
@@ -176,13 +174,13 @@
                     <li><a class="waves-effect" href="javascript:Tab.addTab('类目管理', '/approval?params=getAllApplicationList');">历史记录</a></li>
                 </ul>
             </li>
-            <li class="sub-menu system_menus system_4 2" style="display:none;">
+<%--            <li class="sub-menu system_menus system_4 2" style="display:none;">
                 <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-collection-text"></i> 其他申请</a>
                 <ul>
                     <li><a class="waves-effect" href="javascript:Tab.addTab('文章管理', '/manage/article/index');">文章管理</a></li>
                     <li><a class="waves-effect" href="javascript:Tab.addTab('回收管理', '/manage/article/recycle');">回收管理</a></li>
                 </ul>
-            </li>
+            </li>--%>
             <li>
                 <div class="upms-version">
                     &copy; FANG-CHENG V1.0.0

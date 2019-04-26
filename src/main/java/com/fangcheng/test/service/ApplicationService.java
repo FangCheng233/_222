@@ -26,6 +26,7 @@ public interface ApplicationService {
     List<Application> findByUserId(String userId);
     List<Application> findBySchoolYear(String schoolYear);
     List<Application> findByProcessNode(String processNode);
+    List<Application> findByStatusNodes(Integer statusNodes);
     boolean isApplicationNumberUnique(String applicationNumber);
 
 }

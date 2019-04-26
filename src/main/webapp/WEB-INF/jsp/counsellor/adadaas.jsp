@@ -10,68 +10,60 @@
 <html>
 <head>
     <title>Title</title>
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header"  content="${_csrf.headerName}"/>
 </head>
 <body>
-<form class="form-horizontal" role="form" method="post" action="/killApple" >
-        秒杀一：<input class="td_input" name="classId" type="number"><br>
-        秒杀二：<input class="td_input" name="className" type="number"><br>
-        秒杀三：<input class="td_input" name="teacherId" type="number"><br>
-        秒杀四：<input class="td_input" name="teacherName" type="number"><br>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10" >
-            <input type="submit" class="btn btn-default" />
+<form>
+        秒杀一：<input  name="Id" type="number"><br>
+    <div>
+        <div>
+            <input type="button" value="test" onclick="test()"/>
         </div>
     </div>
 </form>
-<div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10" >
-        <input type="button"  value="ajaxtest" onclick="ajaxtest()" class="btn btn-default" />
+<form:form class="form-horizontal" role="form" method="post" action="/test/fixLeader" >
+    秒杀一：<input class="td_input" name="id" type="number"><br>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10" >
+            <input type="submit" value="test"  class="btn btn-default" />
+        </div>
     </div>
-</div>
+</form:form>
+<form:form class="form-horizontal" role="form" method="post" action="/test/testEntity" >
+    userId：<input class="td_input" name="userId" type="number"><br>
+    password：<input class="td_input" name="password" type="number"><br>
+    userName：<input class="td_input" name="userName" type="number"><br>
+    groupId：<input class="td_input" name="groupId" type="number"><br>
+    userSex：<input class="td_input" name="userSex" type="number"><br>
+    userClass：<input class="td_input" name="userClass" type="number"><br>
+    userMajor：<input class="td_input" name="userMajor" type="number"><br>
+    userCollege：<input class="td_input" name="userCollege" type="number"><br>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10" >
+            <input type="submit" value="后台用实体类接收"  class="btn btn-default" />
+        </div>
+    </div>
+</form:form>
 <script src="/static/plugins/jquery.1.12.4.min.js"></script>
 <script type="text/javascript">
-    function ajaxtest() {
-        var data = {data:{name:'pxxx',
-                paramData:[{dataSource:'a1',table:'t1',field:'f1','r':[{name1:"01",p:''},{name2:"02",p:'10,100'},{name2:"01",p:''}]},
-                    {dataSource:'a2',table:'t2',field:'f2','r':[{name1:"01",p:''},{name2:"02",p:'10,100'},{name3:"01",p:''}]}]
-            }};
+    function test(){
+        var header = $("meta[name='_csrf_header']").attr("content");
+        var token =$("meta[name='_csrf']").attr("content");
+        var id={"id":"123"};
         $.ajax({
-            type:"POST",
-            async:false,
-            dataType:'json',
-            contentType : "application/json",
-            url:"/addPxx",
-            data: JSON.stringify(data),
-            success:function (data) {
+            url: '/test/fixLeader1',
+            contentType: "text/html,charset=utf-8",
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+            type: 'post',
+            async: false,
+            data:id,
+            success: function (result) {
             }
         });
-/*        $.ajax({
-            url:'/test001',
-            data:{rel:13},
-            type:'post',
-            dataType:"jsonp",
-            jsonp:"callback",
-            jsonpCallback:"success_jsonp",
-            timeout:3000,
-            dataFilter:function(json){
-                console.log("jsonp.filter:"+json);
-                return json;
-            },
-            success:function(json,textStatus){
-                console.log("jsonp.success:"+json.name);
-            },
-            error:function(XMLHttpRequest,textStatus,errorThrown){
-                console.log("jsonp.error:"+textStatus);
-            }
-        });*/
     }
-
-
 </script>
-
-
-
-
-
 </body>
 </html>

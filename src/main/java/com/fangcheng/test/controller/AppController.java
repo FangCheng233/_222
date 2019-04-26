@@ -86,6 +86,10 @@ public class AppController {
 		model.addAttribute("params", params);
 		return "userList";
 	}
+	@RequestMapping(value = { "/test" }, method = RequestMethod.GET)
+	public String test(ModelMap model) {
+		return "counsellor/adadaas";
+	}
 	/**
 	 * @method  userIno
 	 * @description 根据前端的请求跳转到用户信息界面
@@ -102,6 +106,9 @@ public class AppController {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
+		model.addAttribute("minYear",getYearly()-3);
+		model.addAttribute("maxYear",getYearly());
+		model.addAttribute("edit", true);
 		return "userInfo";
 	}
 	/**
@@ -143,6 +150,8 @@ public class AppController {
 		}
 		//调用业务层处理
 		try{
+			user.setUserId(unicode(user.getUserId()));
+			user.setUserName(unicode(user.getUserName()));
 			userService.saveUser(user);
 		}catch (Exception e){
 			e.printStackTrace();
@@ -171,44 +180,24 @@ public class AppController {
 		return "student/add-family";
 	}
 	@RequestMapping(value = { "/addfamily" }, method = RequestMethod.POST)
-	public String addfamily(@Valid ModelMap modelMap,
-		@RequestParam String userName, @RequestParam Integer userAge, @RequestParam String userSex,
-		@RequestParam Integer annualIncome, @RequestParam String health, @RequestParam String occupation,
-		@RequestParam String phoneNumber,@RequestParam String workUnit, @RequestParam String relationShip,
+	public void addfamily(@Valid ModelMap modelMap,UserFamily userFamily,
 		HttpServletRequest request,HttpServletResponse response) {
-		UserFamily userFamily = new UserFamily();
 		List<UserFamily> userFamilyList = userFamilyService.findByUserId(getPrincipal());
-		userFamily.setId(getPrincipal()+""+userFamilyList.size());
 		userFamily.setUserId(getPrincipal());
-		userFamily.setUserName(unicode(userName));
-		userFamily.setUserAge(userAge);
-		userFamily.setUserSex(unicode(userSex));
-		userFamily.setAnnualIncome(annualIncome);
-		userFamily.setHealth(unicode(health));
-		userFamily.setOccupation(unicode(occupation));
-		userFamily.setPhoneNumber(phoneNumber);
-		userFamily.setWorkUnit(unicode(workUnit));
-		userFamily.setRelationship(unicode(relationShip));
 		try {
 			userFamilyService.save(userFamily);
 		}catch (Exception e){
 			e.printStackTrace();
 			modelMap.addAttribute("errror", "222");
-			return "已经提交过申请了，请不要重复提交";
 		}
-//		return "已经提交过申请了";
-		return "registrationsuccess";
 	}
-
 	@RequestMapping(value = { "/deletefamily" }, method = RequestMethod.GET)
-	public String deletefamily(@Valid String id,HttpServletRequest request) {
+	public void deletefamily(@Valid Integer id,HttpServletRequest request) {
 		try {
 			userFamilyService.delete(id);
 		}catch (Exception e){
 			e.printStackTrace();
-			return  "";
 		}
-		return "registrationsuccess";
 	}
 	/**
 	 * @method  newApplication
@@ -222,7 +211,7 @@ public class AppController {
     public String newApplication(ModelMap model) {
     	User user = userService.findByUserId(getPrincipal());
         model.addAttribute("user",user);
-    	return "student/application";
+        return "student/application";
     }
 
 	/**
@@ -233,57 +222,30 @@ public class AppController {
 	[modelMap, applicationNumber, yearlyIncome, populationSize, perCapitaIncome, naturalDisaster, unexpectedAccident, membershipSituation, unemploymentSituation, fundedSituation, otherSituation, address, postalAddress, postNumber, addressee, contactNumber, emergencyContact, emergencyContactNumber, povertyLevel, reasonsForApplication]
 	 * @return java.lang.String
 	 */
-    @RequestMapping(value = { "/addapplication" }, method = RequestMethod.POST)
-	public String addApplication(@Valid ModelMap modelMap,
-	@RequestParam Integer yearlyIncome, @RequestParam Integer populationSize, @RequestParam Integer perCapitaIncome,
-	@RequestParam String naturalDisaster, @RequestParam String unexpectedAccident, @RequestParam String membershipSituation,
-	@RequestParam String unemploymentSituation, @RequestParam String fundedSituation, @RequestParam String otherSituation,
-	@RequestParam String address, @RequestParam String postalAddress, @RequestParam Integer postNumber,
-	@RequestParam String addressee, @RequestParam String contactNumber, @RequestParam String emergencyContact,
-	@RequestParam String emergencyContactNumber, @RequestParam String povertyLevel, @RequestParam String reasonsForApplication,
-	@RequestParam String liabilities , HttpServletRequest request,HttpServletResponse response) {
-    	Application application = new Application();
-    	List<TableApproval> tableApprovalList = tableApprovalService.findByApplicationNumber(getPrincipal()+getSchoolYear());
-		application.setApplicationNumber(getPrincipal()+getSchoolYear()+tableApprovalList.size());
+    @RequestMapping(value = { "/addApplication" }, method = RequestMethod.POST)
+	public void addApplication(@Valid Application application, BindingResult result,
+								 ModelMap model,HttpServletResponse response) {
+		application.setApplicationNumber(getApplicationNumber());
 		application.setUserId(getPrincipal());
 		application.setSchoolYear(getSchoolYear());
-		application.setPovertyLevel(unicode(povertyLevel));
-		application.setYearlyIncome(yearlyIncome);
-		application.setPopulationSize(populationSize);
-		application.setPerCapitaIncome(perCapitaIncome);
-		application.setLiabilities(unicode(liabilities));
-		application.setNaturalDisaster(unicode(naturalDisaster));
-		application.setUnexpectedAccident(unicode(unexpectedAccident));
-		application.setMembershipSituation(unicode(membershipSituation));
-		application.setUnemploymentSituation(unicode(unemploymentSituation));
-		application.setFundedSituation(unicode(fundedSituation));
-		application.setOtherSituation(unicode(otherSituation));
-		application.setAddress(unicode(address));
-		application.setPostalAddress(unicode(postalAddress));
-		application.setPostalCode(postNumber);
-		application.setAddressee(unicode(addressee));
-		application.setContactNumber(contactNumber);
-		application.setEmeergencyContact(unicode(emergencyContact));
-		application.setEmeergencyContactNumber(emergencyContactNumber);
-		application.setReasonsForApplication(unicode(reasonsForApplication));
 		application.setApprovalStatus("提交申请");
 		application.setProcessNode("学生");
+		application.setStatusNodes(1);
 		TableApproval tableApproval = new TableApproval();
-		tableApproval.setApplicationNumber(getPrincipal()+getSchoolYear());
+		tableApproval.setApplicationNumber(getApplicationNumber());
 		tableApproval.setUserName(getUserName());
 		tableApproval.setApprovalStatus("提交申请");
 		tableApproval.setProcessNode("学生");
 		tableApproval.setRemarks("");
+		tableApproval.setTime(getTime());
 		tableApproval.setId(getPrincipal()+getSchoolYear()+"01");
 		try {
 			applicationService.save(application);
 			tableApprovalService.save(tableApproval);
 		}catch (Exception e){
 			e.printStackTrace();
-			modelMap.addAttribute("errror", "222");
-			return "student/application";
+			model.addAttribute("errror", "222");
 		}
-		return "registrationsuccess";
     }
 
 	/**
@@ -293,16 +255,16 @@ public class AppController {
 	 * @author: Fangcheng
 	[applicationNumber]
 	 * @return java.lang.String
+	 * 状态节点 1 代表学生  2 代表辅导员 3 代表院系  4 代表学工部审批结束 归档
 	 */
-	@RequestMapping(value = { "/alterApplicationPass" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/alterApplicationPass" }, method = RequestMethod.POST)
 	@ResponseBody
-	public String alterApplicationPass(@RequestParam List<String> applicationNumberList) {
-		System.out.println(applicationNumberList);
+	public void alterApplicationPass(@RequestParam List<String> applicationNumberList) {
 		for(String str:applicationNumberList){
 			Application application = applicationService.findByApplicationNumber(subString(str));
 			application.setApprovalStatus(getApprovalStatus());
 			application.setProcessNode(getGroupId());
-			applicationService.alterApplication(application);
+			application.setStatusNodes(application.getStatusNodes()+1);
 			TableApproval tableApproval = new TableApproval();
 			List<TableApproval> tableApprovalList = tableApprovalService.findByApplicationNumber(getPrincipal()+getSchoolYear());
 			tableApproval.setApplicationNumber(getPrincipal()+getSchoolYear());
@@ -310,36 +272,58 @@ public class AppController {
 			tableApproval.setApprovalStatus(getApprovalStatus());
 			tableApproval.setProcessNode(getGroupId());
 			tableApproval.setRemarks("");
+			tableApproval.setTime(getTime());
 			tableApproval.setId(getPrincipal()+getSchoolYear()+tableApprovalList.size());
 			try {
+				applicationService.alterApplication(application);
 				tableApprovalService.save(tableApproval);
 			}catch (Exception e){
 				e.printStackTrace();
 			}
 		}
-		return "";
 	}
-	@RequestMapping(value = { "/alterApplicationRefuse" }, method = RequestMethod.GET)
+
+	/**
+	 * @method  alterApplicationRefuse
+	 * @description 申请被驳回，改变状态节点，申请重新开始
+	 * @date: 2019/4/23 20:44
+	 * @author: Fangcheng
+	[applicationNumberList]
+	 * @return java.lang.String
+	 * 	状态节点 1 代表学生  2 代表辅导员 3 代表院系  4 代表学工部
+	 */
+	@RequestMapping(value = { "/alterApplicationRefuse" }, method = RequestMethod.POST)
 	@ResponseBody
-	public String alterApplicationRefuse(@RequestParam List<String> applicationNumberList) {
+	public Map<String,Object> alterApplicationRefuse(@RequestParam List<String> applicationNumberList) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		List<String> listsuccess = new ArrayList<>();
+		List<String> listerror = new ArrayList<>();
 		for(String str:applicationNumberList){
 			Application application = applicationService.findByApplicationNumber(subString(str));
 			application.setApprovalStatus("驳回");
-			application.setProcessNode("学生");
+			application.setProcessNode("学生");//当前审批节点
+			application.setStatusNodes(1);
 			TableApproval tableApproval = new TableApproval();
-			tableApproval.setApplicationNumber(getPrincipal()+getSchoolYear());
+			List<TableApproval> tableApprovalList = tableApprovalService.findByApplicationNumber(getPrincipal()+getSchoolYear());
+			tableApproval.setApplicationNumber(getApplicationNumber());
 			tableApproval.setUserName(getUserName());
 			tableApproval.setApprovalStatus("驳回");
 			tableApproval.setProcessNode(getGroupId());
 			tableApproval.setRemarks("");
-			tableApproval.setId(getPrincipal()+getSchoolYear()+"01");
+			tableApproval.setTime(getTime());
+			tableApproval.setId(getPrincipal()+getSchoolYear()+tableApprovalList.size());
 			try {
+				applicationService.alterApplication(application);
 				tableApprovalService.save(tableApproval);
 			}catch (Exception e){
 				e.printStackTrace();
+				listerror.add(subString(str));
 			}
+			listsuccess.add(subString(str));
 		}
-		return "";
+		map.put("success",listsuccess);
+		map.put("error",listerror);
+		return map;
 	}
 	@RequestMapping(value = { "/edit-user-{userId}" }, method = RequestMethod.GET)
 	public String editUser(@PathVariable String userId, ModelMap model) {
@@ -370,25 +354,45 @@ public class AppController {
 		return "registrationsuccess";
 	}
 
-
-
 	/**
 	 * This method will delete an user by it's UserID value.
 	 */
-	@RequestMapping(value = { "/delete-user" }, method = RequestMethod.GET)
-	public String deleteUser(@Valid String userId) {
-		userService.deleteUserByUserId(userId);
-		return "redirect:/userInfo";
+	@RequestMapping(value = { "/delete-user" }, method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> deleteUser(@RequestBody String userId,ModelMap model,
+						   HttpServletRequest request,HttpServletResponse response) {
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		Map<String,Object> map = new HashMap<String, Object>();
+		try {
+			userService.deleteUserByUserId(userId);
+		}catch (Exception e) {
+			e.printStackTrace();
+			map.put("resultString",userId + "删除失败");
+			return map;
+		}
+		map.put("resultString",userId + "删除成功");
+		return map;
 	}
-	@RequestMapping(value = { "/delete-application" }, method = RequestMethod.GET)
-	public String deleteApplication(@Valid String applicationNumber) {
+	@RequestMapping(value = { "/remove-user" }, method = RequestMethod.POST)
+	public void removeUser(@Valid List<String> userIdList,ModelMap model) {
+		List<String> list = new ArrayList<>();
+		for(String userId:userIdList){
+			try {
+				userService.deleteUserByUserId(subString(userId));
+			}catch (Exception e){
+				e.printStackTrace();
+				list.add(userId);
+				model.addAttribute("error","用户" + list + "删除失败");
+			}
+		}
+	}
+	@RequestMapping(value = { "/delete-application" }, method = RequestMethod.POST)
+	public void deleteApplication(@Valid String applicationNumber) {
 		try{
 			applicationService.deleteApplicationByApplicationNumber(applicationNumber);
 		}catch (Exception e){
 			e.printStackTrace();
-			return "redirect:/userInfo";
 		}
-		return "redirect:/userInfo";
 	}
 	/**
 	 * This method will provide UserProfile list to views
@@ -455,20 +459,21 @@ public class AppController {
 		}
 		return "审批通过";
 	}
+	private String getApplicationNumber(){
+		String applicationNumber = getPrincipal() + getSchoolYear();
+		return applicationNumber;
+	}
 	private String subString(String str){
 		int index = str.indexOf("\"")+1;
 		int end = str.lastIndexOf("\"");
 		str = str.substring(index,end);
 		return str;
 	}
-
-
-	/**
-	 * This method returns true if users is already authenticated [logged-in], else false.
-	 */
-	private boolean isCurrentAuthenticationAnonymous() {
-	    final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    return authenticationTrustResolver.isAnonymous(authentication);
+	private String getTime(){
+		String time = "";
+		Date date = new Date();
+		time = date + "";
+		return time;
 	}
 	private String unicode(String str){
 		try{
@@ -492,4 +497,22 @@ public class AppController {
 		}
 		return schoolYear;
 	}
+	private Integer getYearly(){
+		Calendar date = Calendar.getInstance();
+		int year = date.get(Calendar.YEAR);
+		int month = date.get(Calendar.MONTH);
+		if(month<=8){
+			year =  year-1;
+		}
+		return year;
+	}
+
+	/**
+	 * This method returns true if users is already authenticated [logged-in], else false.
+	 */
+	private boolean isCurrentAuthenticationAnonymous() {
+	    final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    return authenticationTrustResolver.isAnonymous(authentication);
+	}
+
 }

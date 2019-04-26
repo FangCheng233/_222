@@ -1,11 +1,12 @@
 package com.fangcheng.test.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @ProjectName: _222
@@ -24,12 +25,13 @@ import java.io.Serializable;
 public class UserFamily implements Serializable {
     @Id
     @NotNull
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "ID")
-    private String id;
+    private Integer id;
 
     @NotNull
     @Column(name = "USER_ID")
-    private String userId;
+    private String userId ;
 
     @NotNull
     @Column(name = "USER_NAME")
@@ -50,7 +52,6 @@ public class UserFamily implements Serializable {
     @Column(name = "HEALTH")
     private String health;
 
-
     @Column(name = "OCCUPATION")
     private String occupation;
 
@@ -67,8 +68,8 @@ public class UserFamily implements Serializable {
     private String phoneNumber;
 
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
     public String getUserId() { return userId; }
     public void setUserId(String userId) { this.userId = userId; }

@@ -49,7 +49,7 @@
 				</div>
 			</div>
 
-			<div class="row">
+<%--			<div class="row">
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="groupId">Group Id</label>
 					<div class="col-md-7">
@@ -66,21 +66,20 @@
 						</c:choose>
 					</div>
 				</div>
-			</div>
+			</div>--%>
 	
 			<div class="row">
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="password" ng-value="2">Password</label>
 					<div class="col-md-7">
-						<form:input type="password" path="password" id="password" class="form-control input-sm" />
+						<form:input type="password" path="password" id="password" value="2" class="form-control input-sm" />
 						<div class="has-error">
 							<form:errors path="password" class="help-inline"/>
 						</div>
 					</div>
 				</div>
 			</div>
-	
-			<div class="row">
+<%--			<div class="row">
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="userSex">性别</label>
 					<div class="col-md-7">
@@ -90,8 +89,8 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
+			</div>--%>
+<%--			<div class="row">
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="userClass">班级</label>
 					<div class="col-md-7">
@@ -101,8 +100,8 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
+			</div>--%>
+<%--			<div class="row">
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="userMajor">专业</label>
 					<div class="col-md-7">
@@ -112,8 +111,8 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
+			</div>--%>
+<%--			<div class="row">
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="userCollege">院系</label>
 					<div class="col-md-7">
@@ -123,10 +122,10 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
+			</div>--%>
+<%--			<div class="row">
 				<div class="form-group col-md-12">
-					<label class="col-md-3 control-lable" for="userGrade">年纪</label>
+					<label class="col-md-3 control-lable" for="userGrade">年级</label>
 					<div class="col-md-7">
 						<form:input type="text" path="userGrade" id="userGrade" class="form-control input-sm" />
 						<div class="has-error">
@@ -134,7 +133,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>--%>
 			<div class="row">
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="tableAuthors">Roles</label><%--authorType--%>

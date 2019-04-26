@@ -20,14 +20,11 @@ public class AppConfig implements WebMvcConfigurer {
 
 	@Autowired
 	RoleToUserProfileConverter roleToUserProfileConverter;
-	
-
 	/**
      * Configure ViewResolvers to deliver preferred views.
      */
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
-
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver(); //视图解析器
 		viewResolver.setViewClass(JstlView.class);
 		viewResolver.setPrefix("/WEB-INF/jsp/");
@@ -42,7 +39,25 @@ public class AppConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("/static/");
     }
-    
+	public void addCorsMappings(CorsRegistry registry) {
+		// 允许指定的pathPattern可以进行跨域请求
+		CorsRegistration corsRegistration = registry.addMapping("/pathPattern");
+		// 设置允许哪些可以进行跨域访问，设置为"*"表示允许所有
+		// 默认设置为允许所有
+		corsRegistration.allowedOrigins("*");
+		// 设置允许的跨域请求动作，设置为"*"表示允许所有
+		// 默认设置为允许简单动作，包括GET POST HEAD
+		corsRegistration.allowedMethods("*");
+		// 设置允许的请求头，默认设置为允许所有，即"*"
+		corsRegistration.allowedHeaders("Cache-Control", "Content-Language");
+		// 设置response的头结构，不支持"*"
+		corsRegistration.exposedHeaders("Cache-Control", "Content-Language");
+		// 设置浏览器是否需要发送认证信息
+		corsRegistration.allowCredentials(true);
+		// 设置客户端保存pre-flight request缓存的时间
+		// pre-flight request 预检请求
+		corsRegistration.maxAge(1);
+	}
     /**
 	 * Configure Converter to be used.
 	 * In our example, we need a converter to convert string values[Roles] to UserProfiles in newUser.jsp

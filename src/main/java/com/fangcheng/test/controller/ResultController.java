@@ -19,10 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -66,8 +63,13 @@ public class ResultController {
         List<User> users = userService.findAllUsers();
         List<User> users1 = new ArrayList<>();
         for(User user :users){
-            if(user.getGroupId().equals("1"))
-            users1.add(user);
+            try{
+                if(user.getGroupId().equals("学生"))
+                    users1.add(user);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
         }
         return listToJson(users1,pageStart,pageSize);
     }
@@ -86,7 +88,7 @@ public class ResultController {
         List<User> users = userService.findAllUsers();
         List<User> users1 = new ArrayList<>();
         for(User user :users){
-            if(user.getGroupId().equals("2"))
+            if(user.getGroupId().equals("辅导员"))
                 users1.add(user);
         }
         return listToJson(users1,pageStart,pageSize);
@@ -106,8 +108,13 @@ public class ResultController {
         List<User> users = userService.findAllUsers();
         List<User> users1 = new ArrayList<>();
         for(User user :users){
-            if(user.getGroupId().equals("3"))
-                users1.add(user);
+            try {
+                if(user.getGroupId().equals("院系办公室")||user.getGroupId().equals("辅导员"))
+                    users1.add(user);
+            }catch (Exception e){
+                e.printStackTrace();
+                System.out.println(user);
+            }
         }
         return listToJson(users1,pageStart,pageSize);
     }
@@ -187,6 +194,11 @@ public class ResultController {
     public String getStudentApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize,HttpServletResponse response) {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         List<Application> applications = applicationService.findByUserId(getPrincipal());
+        List<Application> applicationList = new ArrayList<>();
+        for(Application application :applications){
+            if(application.getStatusNodes().equals(4))
+                applicationList.add(application);
+        }
         return applicationlistToJson(applications,pageStart,pageSize);
     }
     /**
@@ -201,7 +213,7 @@ public class ResultController {
     @RequestMapping(value = { "/getCounsellorApplicationList" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public String getCounsellorApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize,HttpServletResponse response) {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
-        List<Application> applications = applicationService.findByProcessNode("学生");
+        List<Application> applications = applicationService.findByStatusNodes(1);
         List<Application> applicationList = new ArrayList<>();
         for(Application application :applications){
             User user = userService.findByUserId(application.getUserId());
@@ -223,12 +235,12 @@ public class ResultController {
     @RequestMapping(value = { "/getCollegeApplicationList" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public String getCollegeApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize,HttpServletResponse response) {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
-        List<Application> applications = applicationService.findByProcessNode("辅导员");
+        List<Application> applications = applicationService.findByStatusNodes(2);
         List<Application> applicationList = new ArrayList<>();
         User userCollege = userService.findByUserId(getPrincipal());
         for(Application application :applications){
             User user = userService.findByUserId(application.getUserId());
-            if(user.getUserCollege().equals(userCollege.getUserCollege())&&application.getApprovalStatus().equals("待审批"))
+            if(user.getUserCollege().equals(userCollege.getUserCollege()))
                 applicationList.add(application);
         }
         return applicationlistToJson(applicationList,pageStart,pageSize);
@@ -245,13 +257,8 @@ public class ResultController {
     @RequestMapping(value = { "/getAllApplicationList" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public String getAllApplicationList(ModelMap model, @Valid Integer pageStart, Integer pageSize,String userMajor,String userCollege,HttpServletResponse response) {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
-        List<Application> applications = applicationService.findByProcessNode("学院");
-        List<Application> applicationList = new ArrayList<>();
-        for(Application application :applications){
-            if(application.getApprovalStatus().equals("待审批"))
-                applicationList.add(application);
-        }
-        return applicationlistToJson(applicationList,pageStart,pageSize);
+        List<Application> applications = applicationService.findByStatusNodes(3);
+        return applicationlistToJson(applications,pageStart,pageSize);
     }
     private String applicationlistToJson(List<Application> applications,Integer pageStart,Integer pageSize) {
         ArrayList arrayList = new ArrayList();
@@ -333,15 +340,25 @@ public class ResultController {
     private String getPrincipal(){
         String userId = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         if (principal instanceof UserDetails) {
             userId = ((UserDetails)principal).getUsername();
         } else {
             userId = principal.toString();
-
         }
         return userId;
     }
-
+    private String getSchoolYear(){
+        String schoolYear = "";
+        Calendar date = Calendar.getInstance();
+        int year = date.get(Calendar.YEAR);
+        int month = date.get(Calendar.MONTH);
+        if(8<=month){
+            schoolYear =  year + "-" +(year+1);
+        }
+        if(month<=6){
+            schoolYear = (year-1) + "-" + year;
+        }
+        return schoolYear;
+    }
     }
 

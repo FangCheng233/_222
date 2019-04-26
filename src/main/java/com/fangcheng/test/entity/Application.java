@@ -4,8 +4,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @ProjectName: _222
@@ -104,6 +102,10 @@ public class Application implements Serializable {
     @NotNull
     @Column(name = "PROCESS_NODE",nullable = false)
     private String processNode;
+    //状态节点 1 代表学生  2 代表辅导员 3 代表院系  4 代表学工部流程结束 归档
+    @NotNull
+    @Column(name = "STATUS_NODES",nullable = false)
+    private Integer statusNodes;
 
     public String getApplicationNumber() { return applicationNumber; }
     public void setApplicationNumber(String applicationNumber) { this.applicationNumber = applicationNumber; }
@@ -253,17 +255,20 @@ public class Application implements Serializable {
         this.processNode = processNode;
     }
 
-/*    @NotEmpty
-    @ManyToMany(cascade=CascadeType.REFRESH)
-    @JoinTable(name = "TABLE_APPROVAL",
-            joinColumns = { @JoinColumn(name = "APPLICATION_NUMBER") },
-            inverseJoinColumns = { @JoinColumn(name = "RF_AUTHOR_ID") })
-    private Set<TableAuthor> tableAuthors = new HashSet<TableAuthor>();
+    public Integer getStatusNodes() {return statusNodes; }
+    public void setStatusNodes(Integer statusNodes) {this.statusNodes = statusNodes; }
 
-    public Set<TableAuthor> getTableAuthors() { return tableAuthors; }
+    /*    @NotEmpty
+        @ManyToMany(cascade=CascadeType.REFRESH)
+        @JoinTable(name = "TABLE_APPROVAL",
+                joinColumns = { @JoinColumn(name = "APPLICATION_NUMBER") },
+                inverseJoinColumns = { @JoinColumn(name = "RF_AUTHOR_ID") })
+        private Set<TableAuthor> tableAuthors = new HashSet<TableAuthor>();
 
-    public void setTableAuthors(Set<TableAuthor> tableAuthors) {
-        this.tableAuthors = tableAuthors; }*/
+        public Set<TableAuthor> getTableAuthors() { return tableAuthors; }
+
+        public void setTableAuthors(Set<TableAuthor> tableAuthors) {
+            this.tableAuthors = tableAuthors; }*/
     //申请书对象
     @Override
     public String toString() {
@@ -274,7 +279,8 @@ public class Application implements Serializable {
                 +", otherSituation=" + otherSituation + ", address=" + address + ", postalAddress=" + postalAddress
                 +", postalCode=" + postalCode + ", addressee=" + addressee + ", contactNumber=" + contactNumber
                 +", emeergencyContact=" + emeergencyContact + ", emeergencyContactNumber=" + emeergencyContactNumber + ", reasonsForApplication=" + reasonsForApplication
-                + ", approvalStatus=" + approvalStatus + ", processNode=" + processNode + ", fundedSituation=" + fundedSituation+",]";
+                + ", approvalStatus=" + approvalStatus + ", processNode=" + processNode + ", fundedSituation=" + fundedSituation
+                + ", statusNodes=" + statusNodes +",]";
     }
 
 }

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 
@@ -64,6 +65,14 @@ public class ApplicationDaoImpl extends AbstractDao<Integer, Application> implem
         Criteria criteria = createEntityCriteria().addOrder(Order.asc("processNode"));
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
         List<Application> tableClassList =  criteria.add(Restrictions.eq("processNode",processNode)).list();
+        return tableClassList;
+    }
+
+    @Override
+    public List<Application> findByStatusNodes(Integer statusNodes) {
+        Criteria criteria = createEntityCriteria().addOrder(Order.asc("statusNodes"));
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+        List<Application> tableClassList =  criteria.add(Restrictions.eq("statusNodes",statusNodes)).list();
         return tableClassList;
     }
 

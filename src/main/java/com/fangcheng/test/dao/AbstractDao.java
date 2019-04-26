@@ -1,10 +1,11 @@
 package com.fangcheng.test.dao;
 
 import org.hibernate.Criteria;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaBuilder;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
@@ -44,5 +45,4 @@ public abstract class AbstractDao<PK extends Serializable, T> {
 	protected Criteria createEntityCriteria(){
 		return getSession().createCriteria(persistentClass);
 	}
-
 }

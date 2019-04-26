@@ -8,6 +8,8 @@ import com.mysql.cj.util.TestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import com.fangcheng.test.entity.User;
@@ -17,7 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +39,7 @@ import java.util.List;
  * @Version: 1.0
  */
 @Controller
-@RequestMapping("/")
-@SessionAttributes("roles")
+@RequestMapping("/test")
 public class Test {
     @Autowired
     UserService userService;
@@ -46,37 +50,32 @@ public class Test {
     public static void main(String[] args) {
         Application application = new Application();
         Test test = new Test();
-        test.getid();
     }
-    public void saveApp(TableApproval tableApproval){
-/*        application.setApplicationNumber("sasdada");
-        application.setUserId("12345");
-        application.setSchoolYear("asda");
-        application.setPovertyLevel("adsad");
-        application.setYearlyIncome(123);
-        application.setPopulationSize(4);
-        application.setPerCapitaIncome(1);
-        application.setSchoolYear("asdad");
-        application.setAddress("asda");
-        application.setPostalAddress("asdada");
-        application.setAddressee("asdad");
-        application.setContactNumber("SSSS");
-        application.setEmeergencyContact("asdada");
-        application.setEmeergencyContactNumber("SSSS");
-        application.setReasonsForApplication("asdada");*/
-/*        tableApproval.setApplicationNumber("asdaada");
-        tableApproval.setApprovalStatus("asdaada");
-        tableApproval.setProcessNode("asdaada");
-        tableApproval.setRemarks("asdaada");
-        System.out.println(tableApproval);
-        applicationService.save(application);*/
+
+    @RequestMapping(value = { "/testEntity" }, method = RequestMethod.POST)
+    public String testEntity(@Valid Application application, BindingResult result,
+                           ModelMap model,HttpServletResponse response) {
+        response.setHeader("Content-type", "text/html;charset=UTF-8");
+        //调用业务层处理
+        //return "success";
+        System.out.println(application);
+        return "registrationsuccess";
     }
-    public void get(){
-       applicationService.findByApplicationNumber("asdadad");
-        System.out.println(applicationService.findByApplicationNumber("asdadad"));
+
+    @RequestMapping(value="/fixLeader1", method = {RequestMethod.POST,RequestMethod.GET})
+    @ResponseBody
+    public String fixLeader() {
+        return "OK";
     }
-    public void getid(){
-        userService.findAllUsers();
-        System.out.println(userService.findAllUsers());
+    @RequestMapping(value = { "/fixLeader" }, method = RequestMethod.POST)
+    public void name(@Valid ModelMap modelMap,
+                          @RequestParam String id,
+                          HttpServletRequest request, HttpServletResponse response) {
+    }
+    //得到当前用户所有菜单
+    @RequestMapping("/treeMenu")
+    @ResponseBody
+    public List<User> treeMenu(){
+        return  userService.findAllUsers();
     }
 }

@@ -41,33 +41,27 @@ public class User implements Serializable {
 /*    @Column(name="NAME_USED_BRFORE", nullable=false)
     private String nameUsedBefore;*/
     //组织   学生  辅导员  系统管理员
-    @NotNull
     @Column(name="GROUP_ID", nullable=false)
     private String groupId;
     //创建时间
     @Column(name="CREAT_TIME", nullable=true)
     private String creatTime;
     //性别
-    @NotNull
     @Column(name="USER_SEX", nullable=true)
     private String userSex;
     //班级
-    @NotNull
     @Column(name="USER_CLASS", nullable=true)
     private String userClass;
     //专业
-    @NotNull
     @Column(name="USER_MAJOR", nullable=true)
     private String userMajor;
     //学院
-    @NotNull
     @Column(name="USER_COLLEGE", nullable=true)
     private String userCollege;
     //邮箱
     @Column(name="USER_EMAIL", nullable=true)
     private String userEmail;
     //年级
-    @NotNull
     @Column(name="USER_GRADE", nullable=true)
     private String userGrade;
     //出生日期
@@ -173,11 +167,11 @@ public class User implements Serializable {
     @JoinTable(name = "ROLE_AUTHOR",
     joinColumns = { @JoinColumn(name = "RF_USER_ID") },
     inverseJoinColumns = { @JoinColumn(name = "RF_AUTHOR_ID") })
+
     private Set<TableAuthor> tableAuthors = new HashSet<TableAuthor>();
     public Set<TableAuthor> getTableAuthors() { return tableAuthors; }
     public void setTableAuthors(Set<TableAuthor> tableAuthors) {
         this.tableAuthors = tableAuthors; }
-
     /*
      * DO-NOT-INCLUDE passwords in toString function.
      * It is done here just for convenience purpose.

@@ -43,6 +43,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         if(entity!=null) {
             entity.setProcessNode(application.getProcessNode());
             entity.setApprovalStatus(application.getApprovalStatus());
+            entity.setStatusNodes(application.getStatusNodes());
         }
 
     }
@@ -70,6 +71,11 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public List<Application> findByProcessNode(String processNode) {
         return applicationDao.findByProcessNode(processNode);
+    }
+
+    @Override
+    public List<Application> findByStatusNodes(Integer statusNodes) {
+        return applicationDao.findByStatusNodes(statusNodes);
     }
 
     @Override

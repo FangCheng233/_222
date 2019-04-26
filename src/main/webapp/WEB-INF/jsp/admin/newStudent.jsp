@@ -13,7 +13,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/static/layui/css/layui.css"  media="all">
-    <link rel="stylesheet" href="/static/css/select_gj.css">
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
 </head>
 <body bgcolor="#fffafa">

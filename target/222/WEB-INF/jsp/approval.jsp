@@ -12,6 +12,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" pageEncoding="UTF-8">
     <title>layui</title>
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header"  content="${_csrf.headerName}"/>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -19,11 +21,9 @@
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
-<fieldset class="layui-elem-field">
-    <legend>爱好</legend>
     <div class="layui-field-box">
         <div class="demoTable">
-            搜索ID：
+            搜索学号：
             <div class="layui-inline">
                 <input class="layui-input" name="id" id="demoReload" autocomplete="off">
             </div>
@@ -31,12 +31,11 @@
         </div>
         <table class="layui-hide" id="test" lay-filter="test" style="margin-left: 10px"></table>
     </div>
-</fieldset>
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">审批通过</button>
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="isAll">驳回申请</button>
+        <button class="layui-btn layui-btn-sm" lay-event="pass">审批通过</button>
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="refuse">驳回申请</button>
     </div>
 </script>
 <script type="text/html" id="barDemo">
@@ -47,6 +46,8 @@
 <script src="/static/plugins/jquery.1.12.4.min.js"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
+    var header = $("meta[name='_csrf_header']").attr("content");
+    var token =$("meta[name='_csrf']").attr("content");
     layui.use('table', function(){
         var table = layui.table;
         table.render({
@@ -91,7 +92,7 @@
         table.on('toolbar(test)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);
             switch(obj.event){
-                case 'getCheckLength':
+                case 'pass':
                     var data = checkStatus.data;
                     if(data.length==0){
                         layer.msg('没有选中要修改的内容', {
@@ -112,7 +113,10 @@
                         ,yes: function (index, layero){
                             $.ajax({
                                 url: "/alterApplicationPass",
-                                type: "GET",
+                                type: "POST",
+                                beforeSend : function(xhr) {
+                                    xhr.setRequestHeader(header, token);
+                                },
                                 data: {applicationNumberList:JSON.stringify(sendData)},//
                                 dataType: 'json',
                                 contentType: 'application/json',
@@ -125,7 +129,7 @@
                         }
                     });
                     break;
-                    case 'isAll':
+                    case 'refuse':
                         var data = checkStatus.data;
                         if(data.length==0){
                             layer.msg('没有选中要修改的内容', {
@@ -133,21 +137,23 @@
                                 ,btn: ['好的']
                                 ,btnAlign: 'c'
                             });
-                            break;
+                break;
                         }
                         var sendData = [];
                         for(var i=0;i<data.length;i++) {
                             var applicationNumber = data[i].applicationNumber;
                             sendData.push(applicationNumber)
                         }
-                        alert(JSON.stringify(sendData))
                         layer.msg('当前选中' + data.length  +'条数据<br>确认是否通过？', {
                             time: 20000, //20s后自动关闭
                             btn: ['确认驳回？', '放弃']
                             ,yes: function (index, layero){
                                 $.ajax({
                                     url: "/alterApplicationRefuse",
-                                    type: "GET",
+                                    type: "POST",
+                                    beforeSend : function(xhr) {
+                                        xhr.setRequestHeader(header, token);
+                                    },
                                     data: {'applicationNumberList':JSON.stringify(sendData)},//
                                     dataType: 'json',
                                     contentType: 'application/json',
@@ -212,7 +218,10 @@
                 layer.confirm('真的删除行么', function(index){
                     $.ajax({
                         url: "/delete-application",
-                        type: "GET",
+                        type: "POST",
+                        beforeSend : function(xhr) {
+                            xhr.setRequestHeader(header, token);
+                        },
                         data: {"applicationNumber": data.applicationNumber},//
                         dataType: 'json',
                         contentType: 'application/json',

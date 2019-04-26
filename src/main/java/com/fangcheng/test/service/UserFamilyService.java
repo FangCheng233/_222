@@ -20,6 +20,6 @@ public interface UserFamilyService {
    List<UserFamily> findByUserId(String userId);
    List<UserFamily> findAll();
    void save(UserFamily userFamily);
-   void delete(String id);
+   void delete(Integer id);
 }
 

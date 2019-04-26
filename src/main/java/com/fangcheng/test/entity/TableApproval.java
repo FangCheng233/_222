@@ -42,11 +42,14 @@ public class TableApproval implements Serializable {
     //备注
     @Column(name = "REMARKS")
     private String remarks;
+    //审批时间
+    @NotNull
+    @Column(name = "TIME")
+    private String time;
 
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -54,7 +57,6 @@ public class TableApproval implements Serializable {
     public String getApplicationNumber() {
         return applicationNumber;
     }
-
     public void setApplicationNumber(String applicationNumber) {
         this.applicationNumber = applicationNumber;
     }
@@ -62,7 +64,6 @@ public class TableApproval implements Serializable {
     public String getProcessNode() {
         return processNode;
     }
-
     public void setProcessNode(String processNode) {
         this.processNode = processNode;
     }
@@ -70,7 +71,6 @@ public class TableApproval implements Serializable {
     public String getApprovalStatus() {
         return approvalStatus;
     }
-
     public void setApprovalStatus(String approvalStatus) {
         this.approvalStatus = approvalStatus;
     }
@@ -78,7 +78,6 @@ public class TableApproval implements Serializable {
     public String getUserName() {
         return userName;
     }
-
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -86,13 +85,16 @@ public class TableApproval implements Serializable {
     public String getRemarks() {
         return remarks;
     }
-
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
+
+    public String getTime() { return time; }
+    public void setTime(String time) { this.time = time; }
+
     @Override
     public String toString() {
         return "TableApproval [applicationNumber=" + applicationNumber + ", processNode=" + processNode + ", approvalStatus=" + approvalStatus
-                + ", userName=" + userName + ", remarks=" + remarks + ", id=" + id+"]";
+                + ", userName=" + userName + ", remarks=" + remarks + ", id=" + id + ", time=" + time +"]";
     }
 }

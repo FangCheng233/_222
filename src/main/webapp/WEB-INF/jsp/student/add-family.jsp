@@ -20,7 +20,7 @@
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;margin-left: 20px;margin-right: 20px">
     <legend>添加家庭成员</legend>
 
-<form:form class="layui-form layui-form-pane" action="/addfamily" method="post" accept-charset="UTF-8">
+<form:form class="layui-form layui-form-pane" role="form" action="/addfamily" method="post" accept-charset="UTF-8">
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">姓名</label>
@@ -58,7 +58,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">与学生关系</label>
             <div class="layui-input-inline">
-                <input type="text" name="relationShip" lay-verify="required|title" autocomplete="off" value="本人" class="layui-input">
+                <input type="text" name="relationship" lay-verify="required|title" autocomplete="off" value="本人" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">必填</div>
         </div>

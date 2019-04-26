@@ -49,7 +49,7 @@ public class UserFamilyDaoImpl extends AbstractDao<Integer,UserFamily>implements
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Integer id) {
         Criteria crit = createEntityCriteria();
         crit.add(Restrictions.eq("id", id));
         UserFamily uniqueResult = (UserFamily)crit.uniqueResult();

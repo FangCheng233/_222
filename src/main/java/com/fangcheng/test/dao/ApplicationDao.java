@@ -23,8 +23,8 @@ public interface ApplicationDao {
     List<Application> findByUserId(String userId);
     List<Application> findBySchoolYear(String schoolYear);
     List<Application> findByProcessNode(String processNode);
+    List<Application> findByStatusNodes(Integer statusNodes);
     void save(Application application);
-
     void  deletByApplicationNumber(String applicationNumber);
 
 }
