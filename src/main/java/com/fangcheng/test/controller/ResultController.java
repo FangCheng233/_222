@@ -58,7 +58,7 @@ public class ResultController {
      */
     @ResponseBody
     @RequestMapping(value = { "/getStudentList" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
-    public String getStudentInfo(ModelMap model,@Valid Integer pageStart,Integer pageSize, HttpServletResponse response) {
+    public String getStudentInfo(ModelMap model,@Valid Integer pageStart,Integer pageSize,String select, HttpServletResponse response) {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         List<User> users = userService.findAllUsers();
         List<User> users1 = new ArrayList<>();
@@ -69,7 +69,6 @@ public class ResultController {
             }catch(Exception e){
                 e.printStackTrace();
             }
-
         }
         return listToJson(users1,pageStart,pageSize);
     }
@@ -83,13 +82,20 @@ public class ResultController {
      */
     @ResponseBody
     @RequestMapping(value = { "/getCounsellorList" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
-    public String getCounsellorList(ModelMap model,@Valid Integer pageStart,Integer pageSize, HttpServletResponse response) {
+    public String getCounsellorList(ModelMap model,@Valid Integer pageStart,Integer pageSize,String select, HttpServletResponse response) {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         List<User> users = userService.findAllUsers();
         List<User> users1 = new ArrayList<>();
         for(User user :users){
-            if(user.getGroupId().equals("辅导员"))
-                users1.add(user);
+            try {
+                if(user.getGroupId().equals("辅导员"))
+                    users1.add(user);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        if(select!=null){
+            return listToJson(dealWithSelectUser(users1,select),pageStart,pageSize);
         }
         return listToJson(users1,pageStart,pageSize);
     }
@@ -103,18 +109,20 @@ public class ResultController {
      */
     @ResponseBody
     @RequestMapping(value = { "/getCollegeList" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
-    public String getCollegeList(ModelMap model,@Valid Integer pageStart,Integer pageSize,HttpServletResponse response) {
+    public String getCollegeList(ModelMap model,@Valid Integer pageStart,Integer pageSize,String select,HttpServletResponse response) {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         List<User> users = userService.findAllUsers();
         List<User> users1 = new ArrayList<>();
         for(User user :users){
             try {
-                if(user.getGroupId().equals("院系办公室")||user.getGroupId().equals("辅导员"))
+                if(user.getGroupId().equals("院系办公室"))
                     users1.add(user);
             }catch (Exception e){
                 e.printStackTrace();
-                System.out.println(user);
             }
+        }
+        if(select!=null){
+            return listToJson(dealWithSelectUser(users1,select),pageStart,pageSize);
         }
         return listToJson(users1,pageStart,pageSize);
     }
@@ -128,13 +136,20 @@ public class ResultController {
      */
     @ResponseBody
     @RequestMapping(value = { "/getAdminList" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
-    public String getAdminList(ModelMap model,@Valid Integer pageStart,Integer pageSize,HttpServletResponse response) {
+    public String getAdminList(ModelMap model,@Valid Integer pageStart,Integer pageSize,String select,HttpServletResponse response) {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         List<User> users = userService.findAllUsers();
         List<User> users1 = new ArrayList<>();
         for(User user :users){
-            if(user.getGroupId().equals("4"))
-                users1.add(user);
+            try {
+                if(user.getGroupId().equals("学工部"))
+                    users1.add(user);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        if(select!=null){
+            return listToJson(dealWithSelectUser(users1,select),pageStart,pageSize);
         }
         return listToJson(users1,pageStart,pageSize);
     }
@@ -191,7 +206,7 @@ public class ResultController {
      */
     @ResponseBody
     @RequestMapping(value = { "/getStudentApplicationList" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
-    public String getStudentApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize,HttpServletResponse response) {
+    public String getStudentApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize,String select,HttpServletResponse response) {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         List<Application> applications = applicationService.findByUserId(getPrincipal());
         List<Application> applicationList = new ArrayList<>();
@@ -211,15 +226,23 @@ public class ResultController {
      */
     @ResponseBody
     @RequestMapping(value = { "/getCounsellorApplicationList" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
-    public String getCounsellorApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize,HttpServletResponse response) {
+    public String getCounsellorApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize,String select,HttpServletResponse response) {
+
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         List<Application> applications = applicationService.findByStatusNodes(1);
         List<Application> applicationList = new ArrayList<>();
         for(Application application :applications){
-            User user = userService.findByUserId(application.getUserId());
-            TableClass tableClass = tableClassService.findByClassId(user.getUserClass());
-            if(tableClass.getTeacherId().equals(getPrincipal()))
-                applicationList.add(application);
+            try{
+                User user = userService.findByUserId(application.getUserId());
+                TableClass tableClass = tableClassService.findByClassId(user.getUserClass());
+                if(tableClass.getTeacherId().equals(getPrincipal()))
+                    applicationList.add(application);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        if(select!=null){
+            return applicationlistToJson(dealWithSelect(applications,select),pageStart,pageSize);
         }
         return applicationlistToJson(applicationList,pageStart,pageSize);
     }
@@ -233,15 +256,22 @@ public class ResultController {
      */
     @ResponseBody
     @RequestMapping(value = { "/getCollegeApplicationList" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
-    public String getCollegeApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize,HttpServletResponse response) {
+    public String getCollegeApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize,String select,HttpServletResponse response) {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         List<Application> applications = applicationService.findByStatusNodes(2);
         List<Application> applicationList = new ArrayList<>();
         User userCollege = userService.findByUserId(getPrincipal());
         for(Application application :applications){
-            User user = userService.findByUserId(application.getUserId());
-            if(user.getUserCollege().equals(userCollege.getUserCollege()))
-                applicationList.add(application);
+            try {
+                User user = userService.findByUserId(application.getUserId());
+                if(user.getUserCollege().equals(userCollege.getUserCollege()))
+                    applicationList.add(application);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        if(select!=null){
+            return applicationlistToJson(dealWithSelect(applications,select),pageStart,pageSize);
         }
         return applicationlistToJson(applicationList,pageStart,pageSize);
     }
@@ -255,9 +285,12 @@ public class ResultController {
      */
     @ResponseBody
     @RequestMapping(value = { "/getAllApplicationList" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
-    public String getAllApplicationList(ModelMap model, @Valid Integer pageStart, Integer pageSize,String userMajor,String userCollege,HttpServletResponse response) {
+    public String getAllApplicationList(ModelMap model, @Valid Integer pageStart, Integer pageSize,String select,HttpServletResponse response) {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         List<Application> applications = applicationService.findByStatusNodes(3);
+        if(select!=null){
+            return applicationlistToJson(dealWithSelect(applications,select),pageStart,pageSize);
+        }
         return applicationlistToJson(applications,pageStart,pageSize);
     }
     private String applicationlistToJson(List<Application> applications,Integer pageStart,Integer pageSize) {
@@ -360,5 +393,55 @@ public class ResultController {
         }
         return schoolYear;
     }
+    private List<Application> dealWithSelect(List<Application> applicationList,String select){
+        List<Application> applicationList1 = new ArrayList<>();
+        User user;
+        try{
+            for(Application application:applicationList){
+                if(application.getUserId().equals(select)){
+                    applicationList1.add(application);
+                }
+                if(userService.findByUserId(application.getUserId()).getUserCollege().equals(select)){
+                    applicationList1.add(application);
+                }
+                if(userService.findByUserId(application.getUserId()).getUserMajor().equals(select)){
+                    applicationList1.add(application);
+                }
+                if(userService.findByUserId(application.getUserId()).getUserClass().equals(select)){
+                    applicationList1.add(application);
+                }
+                if(userService.findByUserId(application.getUserId()).getUserName().equals(select)){
+                    applicationList1.add(application);
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return applicationList1;
     }
-
+    private List<User> dealWithSelectUser(List<User> userList,String select){
+        List<User> userList1 = new ArrayList<>();
+        try{
+            for(User user:userList){
+                if(user.getUserId().equals(select)){
+                    userList1.add(user);
+                }
+                if(user.getUserName().equals(select)){
+                    userList1.add(user);
+                }
+                if(user.getUserClass().equals(select)){
+                    userList1.add(user);
+                }
+                if(user.getUserMajor().equals(select)){
+                    userList1.add(user);
+                }
+                if(user.getUserCollege().equals(select)){
+                    userList1.add(user);
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return userList1;
+    }
+    }

@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 import java.sql.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -38,9 +39,9 @@ public class User implements Serializable {
     @Column(name="USER_NAME", nullable=false)
     private String userName;
     //曾用名
-/*    @Column(name="NAME_USED_BRFORE", nullable=false)
-    private String nameUsedBefore;*/
-    //组织   学生  辅导员  系统管理员
+    @Column(name="NAME_USED_BEFORE", nullable=false)
+    private String nameUsedBefore;
+    //组织   学生  辅导员  学工部
     @Column(name="GROUP_ID", nullable=false)
     private String groupId;
     //创建时间
@@ -82,13 +83,15 @@ public class User implements Serializable {
     //政治面貌
     @Column(name="POLITICAL_OUTLOOK", nullable=true)
     private String politicalOutlook;
-
-    //籍贯
-    @Column(name="NATIVE_PLACE", nullable=true)
-    private String nativePlace;
-    //现住址
-    @Column(name="BASE_PLACE", nullable=true)
-    private String basePlace;
+    //籍贯-省
+    @Column(name="BASE_PLACE_P", nullable=true)
+    private String basePlaceP;
+    //籍贯-市
+    @Column(name="BASE_PLACE_C", nullable=true)
+    private String basePlaceC;
+    //籍贯-区
+    @Column(name="BASE_PLACE_A", nullable=true)
+    private String basePlaceA;
     //密保问题
     @Column(name="USER_SECURITY", nullable=true)
     private String userSecurity;
@@ -105,8 +108,8 @@ public class User implements Serializable {
     public String getUserName() { return userName;}
     public void setUserName(String userName) { this.userName = userName; }
 
-/*    public String getNameUsedBefore() {return nameUsedBefore; }
-    public void setNameUsedBefore(String nameUsedBefore) {this.nameUsedBefore = nameUsedBefore; }*/
+    public String getNameUsedBefore() {return nameUsedBefore; }
+    public void setNameUsedBefore(String nameUsedBefore) {this.nameUsedBefore = nameUsedBefore; }
 
     public String getGroupId() { return groupId;    }
     public void setGroupId(String groupId) { this.groupId = groupId; }
@@ -144,17 +147,20 @@ public class User implements Serializable {
     public String getIdType() { return idType; }
     public void setIdType(String idType) { this.idType = idType; }
 
-    public String getNation() {return nation; }
-    public void setNation(String nation) {this.nation = nation; }
-
     public String getPoliticalOutlook() {return politicalOutlook; }
     public void setPoliticalOutlook(String politicalOutlook) {this.politicalOutlook = politicalOutlook; }
 
-    public String getNativePlace() { return nativePlace;}
-    public void setNativePlace(String nativePlace) { this.nativePlace = nativePlace; }
+    public String getNation() { return nation; }
+    public void setNation(String nation) { this.nation = nation; }
 
-    public String getBasePlace() { return basePlace; }
-    public void setBasePlace(String basePlace) { this.basePlace = basePlace; }
+    public String getBasePlaceP() { return basePlaceP; }
+    public void setBasePlaceP(String basePlaceP) { this.basePlaceP = basePlaceP; }
+
+    public String getBasePlaceC() { return basePlaceC; }
+    public void setBasePlaceC(String basePlaceC) { this.basePlaceC = basePlaceC; }
+
+    public String getBasePlaceA() { return basePlaceA; }
+    public void setBasePlaceA(String basePlaceA) { this.basePlaceA = basePlaceA; }
 
     public String getUserSecurity() { return userSecurity;}
     public void setUserSecurity(String userSecurity) { this.userSecurity = userSecurity; }
@@ -170,20 +176,27 @@ public class User implements Serializable {
 
     private Set<TableAuthor> tableAuthors = new HashSet<TableAuthor>();
     public Set<TableAuthor> getTableAuthors() { return tableAuthors; }
-    public void setTableAuthors(Set<TableAuthor> tableAuthors) {
-        this.tableAuthors = tableAuthors; }
+    public void setTableAuthors(Set<TableAuthor> tableAuthors) { this.tableAuthors = tableAuthors; }
     /*
      * DO-NOT-INCLUDE passwords in toString function.
      * It is done here just for convenience purpose.
      */
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Application> applicationList;
+    public List<Application> getApplicationList() { return applicationList; }
+    public void setApplicationList(List<Application> applicationList) {
+        this.applicationList = applicationList;
+    }
+
     @Override
     public String toString() {
         return "[userId=" + userId + ", password=" + password + ", userName=" + userName
                 + ", groupId=" + groupId + ", userSex=" + userSex + ", userClass=" + userClass
                 + ", userMajor=" + userMajor + ", userCollege=" + userCollege +", userEmail=" + userEmail
                 + ", userGrade=" + userGrade + ", birthDate=" + birthDate + ", phoneNumber=" + phoneNumber
-                + ", idNumber=" + idNumber + ", nativePlace=" + nativePlace + ", bathPlace=" + basePlace
-                + ", userSecurity=" + userSecurity + ", securityAnwser=" + securityAnwser + ", idType=" + idType
-                + ", nation=" + nation  +", politicalOutlook=" + politicalOutlook +"]";/*+  ", nameUsedBefore=" + nameUsedBefore*/
+                + ", idNumber=" + idNumber +", basePlaceP=" + basePlaceP+ ", basePlaceC=" + basePlaceC
+                + ", basePlaceA=" + basePlaceA + ", userSecurity=" + userSecurity + ", securityAnwser=" + securityAnwser
+                + ", idType=" + idType + ", nation=" + nation  +", politicalOutlook=" + politicalOutlook
+                + ", nameUsedBefore=" + nameUsedBefore+"]";/**/
     }
 }

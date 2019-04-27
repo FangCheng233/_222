@@ -63,12 +63,8 @@ public class UserServiceImpl implements UserService {
             if (user.getUserClass()!=null){//班级
                 entity.setUserClass(user.getUserClass());
             }
-            entity.setUserSex(user.getUserSex());
             entity.setBirthDate(user.getBirthDate());
             entity.setPhoneNumber(user.getPhoneNumber());
-            entity.setIdNumber(user.getIdNumber());
-            entity.setNativePlace(user.getNativePlace());
-            entity.setBasePlace(user.getBasePlace());
         }
     }
     //修改用户密码

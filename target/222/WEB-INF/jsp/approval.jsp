@@ -23,9 +23,8 @@
 <body>
     <div class="layui-field-box">
         <div class="demoTable">
-            搜索学号：
             <div class="layui-inline">
-                <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+                <input class="layui-input" name="id" placeholder="学号/姓名/班级/专业/学院" id="demoReload" autocomplete="off">
             </div>
             <button class="layui-btn" data-type="reload">搜索</button>
         </div>
@@ -117,10 +116,21 @@
                                 beforeSend : function(xhr) {
                                     xhr.setRequestHeader(header, token);
                                 },
-                                data: {applicationNumberList:JSON.stringify(sendData)},//
+                                data: JSON.stringify(sendData),//
                                 dataType: 'json',
                                 contentType: 'application/json',
-                                success: function (res) {//回调函数
+                                success: function (data) {//回调函数
+                                    layer.msg(data.success,{
+                                        time:2000
+                                    })
+                                    table.reload('testReload', {
+                                        page: {
+                                            curr: 1 //重新从第 1 页开始
+                                        }
+                                    });
+                                },
+                                error:function (data) {
+
                                 }
                             });
                         layer.close(index);
@@ -137,14 +147,14 @@
                                 ,btn: ['好的']
                                 ,btnAlign: 'c'
                             });
-                break;
+                        break;
                         }
                         var sendData = [];
                         for(var i=0;i<data.length;i++) {
                             var applicationNumber = data[i].applicationNumber;
                             sendData.push(applicationNumber)
                         }
-                        layer.msg('当前选中' + data.length  +'条数据<br>确认是否通过？', {
+                        layer.msg('当前选中' + data.length  +'条数据<br>确认是否驳回？', {
                             time: 20000, //20s后自动关闭
                             btn: ['确认驳回？', '放弃']
                             ,yes: function (index, layero){
@@ -154,10 +164,11 @@
                                     beforeSend : function(xhr) {
                                         xhr.setRequestHeader(header, token);
                                     },
-                                    data: {'applicationNumberList':JSON.stringify(sendData)},//
+                                    data: JSON.stringify(sendData),//
                                     dataType: 'json',
                                     contentType: 'application/json',
-                                    success: function (res) {//回调函数
+                                    success: function (data) {//回调函数
+                                        layer.msg(data.success+'</br>'+data.error)
                                     }
                                 });
                                 layer.close(index);
@@ -168,6 +179,7 @@
                     break;
             };
         });
+
         //编辑选中行数据
         table.on('tool(tableFilter)', function (obj) {
             var data = obj.data;
@@ -185,22 +197,17 @@
                         $(".layui-laypage-btn")[0].click();
                     }
                 });
-            } else if (layEvent === 'del') {
-                layer.confirm("确定要删除吗？",
-                    {skin: 'layui-layer-lan', icon: 2, title: '提示', anim: 6}, function () {
-                        layer.msg("操作成功！", {icon: 1, time: 1000});
-                    });
             }
             $("#toolbarDemo .addUser").click(function () {
                 layer.open({
-                    title: '添加用户',
+                    title: '添加用户1',
                     type: 2,
                     shade: false,
                     maxmin: true,
                     shade: 0.5,
                     anim: 4,
                     area: ['90%', '90%'],
-                    content: 'user-add.html',
+                    content: '',
                     zIndex: layer.zIndex,
                     // skin: 'layui-layer-molv',
                     end: function () {
@@ -252,9 +259,7 @@
                         curr: 1 //重新从第 1 页开始
                     }
                     ,where: {
-                        key: {
-                            userName: demoReload.val()
-                        }
+                            select: demoReload.val()
                     }
                 });
             }

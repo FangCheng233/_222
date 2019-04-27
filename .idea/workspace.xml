@@ -12,184 +12,50 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="780278e8-57a2-4189-8792-29089bde741c" name="Default Changelist" comment="修改申请审批界面，后端交互实现">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/css/select.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/js/pca.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/js/select.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/css/layui.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/css/layui.mobile.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/css/modules/code.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/css/modules/laydate/default/laydate.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/css/modules/layer/default/icon-ext.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/css/modules/layer/default/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/css/modules/layer/default/layer.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/css/modules/layer/default/loading-0.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/css/modules/layer/default/loading-1.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/css/modules/layer/default/loading-2.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/font/iconfont.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/font/iconfont.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/font/iconfont.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/font/iconfont.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/0.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/1.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/10.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/11.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/12.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/13.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/14.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/15.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/16.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/17.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/18.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/19.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/2.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/20.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/21.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/22.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/23.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/24.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/25.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/26.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/27.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/28.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/29.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/3.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/30.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/31.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/32.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/33.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/34.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/35.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/36.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/37.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/38.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/39.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/4.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/40.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/41.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/42.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/43.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/44.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/45.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/46.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/47.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/48.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/49.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/5.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/50.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/51.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/52.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/53.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/54.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/55.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/56.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/57.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/58.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/59.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/6.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/60.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/61.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/62.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/63.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/64.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/65.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/66.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/67.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/68.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/69.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/7.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/70.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/71.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/8.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/images/face/9.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/carousel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/code.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/colorpicker.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/element.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/flow.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/form.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/jquery.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/laydate.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/layedit.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/layer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/laypage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/laytpl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/mobile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/rate.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/slider.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/table.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/tree.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/upload.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/lay/modules/util.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/layui.all.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/layui/layui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/user-add.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/select/js/cmc.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/_222_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/_222_war_exploded.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/configuration/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/configuration/AppConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/AppController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/ResultController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/ResultController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/AbstractDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/AbstractDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/ApplicationDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/ApplicationDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/UserFamilyDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/UserFamilyDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/impl/ApplicationDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/impl/ApplicationDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/impl/UserFamilyDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/impl/UserFamilyDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/TableApproval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/TableApproval.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/UserFamily.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/UserFamily.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/security/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/ApplicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/ApplicationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/UserFamilyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/UserFamilyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/impl/ApplicationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/impl/ApplicationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/impl/UserFamilyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/impl/UserFamilyServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/jdbc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/jdbc.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/newStudent.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/newStudent.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/registration.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/registration.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/manager.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/newStudent.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/registration.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/student.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/usreManager.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/user-edit.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/approval.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/approval.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/authheader.jsp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/counsellor/adadaas.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/counsellor/adadaas.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/login.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/main.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/main.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/student/add-family.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/student/add-family.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/student/application.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/student/application.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/registrationsuccess.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user-add.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/userInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/userInfo.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/userList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/userList.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/area.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/bootbox.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/js/bootbox.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/college.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/js/college.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/counsellor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/js/counsellor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/jsAddress.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/student.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/js/student.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/plugins/font-awesome-4.7.0/fonts/FontAwesome.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/plugins/font-awesome-4.7.0/fonts/FontAwesome.otf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/plugins/font-awesome-4.7.0/fonts/fontawesome-webfont.eot" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/plugins/font-awesome-4.7.0/fonts/fontawesome-webfont.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/plugins/font-awesome-4.7.0/fonts/fontawesome-webfont.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/plugins/font-awesome-4.7.0/fonts/fontawesome-webfont.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/plugins/font-awesome-4.7.0/fonts/fontawesome-webfont.woff" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/plugins/font-awesome-4.7.0/fonts/fontawesome-webfont.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/plugins/font-awesome-4.7.0/fonts/fontawesome-webfont.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/plugins/font-awesome-4.7.0/fonts/fontawesome-webfont.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/plugins/material-design-iconic-font-2.2.0/fonts/Material-Design-Iconic-Font.eot" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/plugins/material-design-iconic-font-2.2.0/fonts/Material-Design-Iconic-Font.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/plugins/material-design-iconic-font-2.2.0/fonts/Material-Design-Iconic-Font.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/plugins/material-design-iconic-font-2.2.0/fonts/Material-Design-Iconic-Font.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/plugins/material-design-iconic-font-2.2.0/fonts/Material-Design-Iconic-Font.woff" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/plugins/material-design-iconic-font-2.2.0/fonts/Material-Design-Iconic-Font.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/plugins/material-design-iconic-font-2.2.0/fonts/Material-Design-Iconic-Font.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/plugins/material-design-iconic-font-2.2.0/fonts/Material-Design-Iconic-Font.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/classes/jdbc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/WEB-INF/classes/jdbc.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/admin/newStudent.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/WEB-INF/jsp/admin/newStudent.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/admin/registration.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/WEB-INF/jsp/admin/registration.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/userslist.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/select/js/select.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/select/js/select.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/classes/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/WEB-INF/classes/messages.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/admin/manager.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/admin/newStudent.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/admin/registration.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/admin/student.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/admin/usreManager.jsp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/approval.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/WEB-INF/jsp/approval.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/authheader.jsp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/counsellor/adadaas.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/WEB-INF/jsp/counsellor/adadaas.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/WEB-INF/jsp/login.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/main.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/WEB-INF/jsp/main.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/student/add-family.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/WEB-INF/jsp/student/add-family.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/student/application.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/WEB-INF/jsp/student/application.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/registrationsuccess.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/user-add.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/userInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/WEB-INF/jsp/userInfo.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/userList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/WEB-INF/jsp/userList.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/222/static/css/select2.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/static/css/select2.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/222/static/css/select_gj.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/static/css/select_gj.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/222/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/222/static/data/test.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/static/data/test.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/222/static/js/area.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/222/static/js/bootbox.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/static/js/bootbox.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/222/static/js/college.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/static/js/college.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/222/static/js/counsellor.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/static/js/counsellor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/222/static/js/jsAddress.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/222/static/js/student.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/static/js/student.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/jdbc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/jdbc.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/222/WEB-INF/jsp/userslist.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/222/static/select/js/select.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/222/static/select/js/select.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/messages.properties" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -223,7 +89,7 @@
     <session id="-633018796">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="10" />
+          <entry key="project.closed" value="11" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.19" value="3" />
           <entry key="project.open.time.2" value="3" />
@@ -231,45 +97,46 @@
           <entry key="project.open.time.27" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="13" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="class" value="158" />
-          <entry key="css" value="42" />
+          <entry key="class" value="167" />
+          <entry key="css" value="45" />
           <entry key="gif" value="2" />
-          <entry key="html" value="19" />
+          <entry key="html" value="20" />
           <entry key="iml" value="1" />
-          <entry key="java" value="943" />
-          <entry key="js" value="61" />
+          <entry key="java" value="980" />
+          <entry key="js" value="70" />
           <entry key="json" value="23" />
-          <entry key="jsp" value="235" />
+          <entry key="jsp" value="286" />
           <entry key="map" value="1" />
-          <entry key="md" value="2" />
+          <entry key="md" value="3" />
           <entry key="png" value="2" />
-          <entry key="properties" value="21" />
+          <entry key="properties" value="22" />
           <entry key="tld" value="1" />
           <entry key="ts" value="1" />
-          <entry key="xml" value="24" />
+          <entry key="xml" value="25" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="158" />
-          <entry key="CSS" value="42" />
-          <entry key="HTML" value="19" />
+          <entry key="CLASS" value="167" />
+          <entry key="CSS" value="45" />
+          <entry key="HTML" value="20" />
           <entry key="IDEA_MODULE" value="1" />
           <entry key="Image" value="4" />
-          <entry key="JAVA" value="943" />
+          <entry key="JAVA" value="980" />
           <entry key="JSON" value="23" />
-          <entry key="JSP" value="235" />
-          <entry key="JavaScript" value="61" />
-          <entry key="Markdown" value="2" />
-          <entry key="Properties" value="21" />
+          <entry key="JSP" value="286" />
+          <entry key="JavaScript" value="70" />
+          <entry key="Markdown" value="3" />
+          <entry key="Properties" value="22" />
           <entry key="SourceMap" value="1" />
           <entry key="TypeScript" value="1" />
-          <entry key="XML" value="25" />
+          <entry key="XML" value="26" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -277,26 +144,26 @@
           <entry key="css" value="363" />
           <entry key="dummy" value="24" />
           <entry key="html" value="38" />
-          <entry key="java" value="18352" />
-          <entry key="js" value="385" />
+          <entry key="java" value="19660" />
+          <entry key="js" value="1014" />
           <entry key="json" value="86" />
-          <entry key="jsp" value="11992" />
-          <entry key="properties" value="85" />
+          <entry key="jsp" value="13053" />
+          <entry key="properties" value="119" />
           <entry key="txt" value="62" />
-          <entry key="xml" value="508" />
+          <entry key="xml" value="509" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="363" />
           <entry key="HTML" value="49" />
-          <entry key="JAVA" value="18352" />
+          <entry key="JAVA" value="19660" />
           <entry key="JSON" value="86" />
-          <entry key="JSP" value="11986" />
-          <entry key="JavaScript" value="380" />
+          <entry key="JSP" value="13047" />
+          <entry key="JavaScript" value="1009" />
           <entry key="PLAIN_TEXT" value="86" />
-          <entry key="Properties" value="85" />
-          <entry key="XML" value="508" />
+          <entry key="Properties" value="119" />
+          <entry key="XML" value="509" />
         </counts>
       </usages-collector>
     </session>
@@ -309,22 +176,49 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/userList.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3645">
-              <caret line="135" column="36" lean-forward="true" selection-start-line="135" selection-start-column="36" selection-end-line="135" selection-end-column="36" />
+            <state relative-caret-position="-4753">
+              <caret line="122" column="55" lean-forward="true" selection-start-line="122" selection-start-column="55" selection-end-line="122" selection-end-column="55" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/User.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="465">
+              <caret line="187" column="24" lean-forward="true" selection-start-line="187" selection-start-column="24" selection-end-line="187" selection-end-column="24" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#6690#6691#0" expanded="true" />
+                <element signature="e#6744#6745#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/Application.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1865">
+              <caret line="112" column="31" selection-start-line="112" selection-start-column="31" selection-end-line="112" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/userInfo.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="399" column="32" lean-forward="true" selection-start-line="399" selection-start-column="32" selection-end-line="399" selection-end-column="32" />
-              <folding>
-                <element signature="e#1131#1137#0#HTML" expanded="true" />
-                <element signature="n#style#0;n#fieldset#1;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#fieldset#2;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="263">
+              <caret line="193" column="41" selection-start-line="193" selection-start-column="41" selection-end-line="193" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/approval.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="42">
+              <caret line="26" column="80" selection-start-line="26" selection-start-column="80" selection-end-line="26" selection-end-column="80" />
             </state>
           </provider>
         </entry>
@@ -332,25 +226,25 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/AppController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="85" selection-start-line="85" selection-end-line="85" />
+            <state relative-caret-position="548">
+              <caret line="461" selection-start-line="461" selection-end-line="461" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2599#2600#0" expanded="true" />
-                <element signature="e#2633#2634#0" expanded="true" />
-                <element signature="method#addfamily#0;class#AppController#0" />
-                <element signature="method#addApplication#0;class#AppController#0" />
-                <element signature="e#9867#9883#0" expanded="true" />
-                <element signature="e#12503#12519#0" expanded="true" />
-                <element signature="docComment;method#getPrincipal#0;class#AppController#0" />
-                <element signature="method#getPrincipal#0;class#AppController#0" />
-                <element signature="method#getUserName#0;class#AppController#0" />
-                <element signature="method#getGroupId#0;class#AppController#0" />
-                <element signature="method#getApprovalStatus#0;class#AppController#0" />
-                <element signature="method#getApplicationNumber#0;class#AppController#0" />
-                <element signature="method#subString#0;class#AppController#0" />
-                <element signature="method#getTime#0;class#AppController#0" />
-                <element signature="method#unicode#0;class#AppController#0" />
+                <element signature="e#10115#11668#0" />
+                <element signature="e#11671#13339#0" />
+                <element signature="e#14304#14320#0" expanded="true" />
+                <element signature="e#16655#16656#0" expanded="true" />
+                <element signature="e#16697#16698#0" expanded="true" />
+                <element signature="e#16014#16469#0" />
+                <element signature="e#16471#16614#0" />
+                <element signature="e#16616#16757#0" />
+                <element signature="e#16759#16950#0" />
+                <element signature="e#16952#17084#0" />
+                <element signature="e#17086#17244#0" />
+                <element signature="e#17246#17355#0" />
+                <element signature="e#17357#17573#0" />
+                <element signature="e#17575#17894#0" />
+                <element signature="e#17896#18101#0" />
               </folding>
             </state>
           </provider>
@@ -359,24 +253,49 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/ResultController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="62" selection-start-line="62" selection-end-line="62" />
+            <state relative-caret-position="-1968">
+              <caret line="84" column="139" lean-forward="true" selection-start-line="84" selection-start-column="139" selection-end-line="84" selection-end-column="139" />
               <folding>
                 <element signature="docComment;method#getCollegeApplicationList#0;class#ResultController#0" />
                 <element signature="docComment;method#getAllApplicationList#0;class#ResultController#0" />
+                <element signature="method#userFamilylistToJson#0;class#ResultController#0" />
                 <element signature="method#getPrincipal#0;class#ResultController#0" />
-                <element signature="method#getSchoolYear#0;class#ResultController#0" />
-                <marker date="1556250921677" expanded="true" signature="5816:6701" ph="{...}" />
+                <marker date="1556361556680" expanded="true" signature="6383:7268" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/registration.jsp">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/main.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="26" column="129" lean-forward="true" selection-start-line="26" selection-start-column="129" selection-end-line="26" selection-end-column="129" />
+            <state relative-caret-position="-162">
+              <caret line="46" column="18" lean-forward="true" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
+              <folding>
+                <element signature="n#style#0;n#li#5;n#ul#0;n#aside#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/messages.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="81">
+              <caret line="3" column="31" lean-forward="true" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/counsellor/adadaas.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="102" column="6" lean-forward="true" selection-start-line="102" selection-start-column="6" selection-end-line="102" selection-end-column="6" />
+              <folding>
+                <element signature="n#style#0;n#fieldset#1;n#body#0;n#html#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#blockquote#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -387,18 +306,15 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="spring-beans.schema" />
-        <option value="JavaScript File" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="JavaScript File" />
         <option value="Jsp File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>run</find>
-      <find>server</find>
-      <find>zheng</find>
       <find>admin</find>
       <find>首页</find>
       <find>数据</find>
@@ -426,6 +342,9 @@
       <find>Tomcat</find>
       <find>pca.</find>
       <find>getY</find>
+      <find>p1</find>
+      <find>P1</find>
+      <find>addressd</find>
     </findStrings>
     <dirStrings>
       <dir>C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main</dir>
@@ -434,6 +353,7 @@
       <dir>C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\java</dir>
       <dir>C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src</dir>
       <dir>C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp\static</dir>
+      <dir>C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp\static\select</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -442,31 +362,18 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/static/plugins/frame/js/fsMenu.js" />
-        <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/configuration/RestAuthenticationAccessDeniedHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/Approval.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/TableApprovalServiceDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/TableClassDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/impl/TableClassServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/TableClassService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/TableClass.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/student/asdada.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/impl/TableClassDaoImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/TableApprovalService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/impl/TableApprovalDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/TableApprovalDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/impl/TableApprovalServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/TableAuthor.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/newUser.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/TableApproval.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/registration.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/ApplicationService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/ApplicationDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/impl/ApplicationServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/security/SecurityConfiguration.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/Application.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/configuration/AppConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/counsellor/adadaas.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/Test.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/student/add-family.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/UserFamilyDao.java" />
@@ -479,20 +386,33 @@
         <option value="$PROJECT_DIR$/src/main/webapp/static/css/select2.min.css" />
         <option value="$PROJECT_DIR$/src/main/webapp/static/js/login.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/static/js/area.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/main.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/student/application.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/approval.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/BookCategoryRepository.java" />
         <option value="$PROJECT_DIR$/src/main/resources/jdbc.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/UserFamily.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/static/select/js/select.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/static/select/js/pca.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/login.jsp" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/registration.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/user-add.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/userInfo.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/AppController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/impl/UserServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/static/select/js/cmc.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/static/select/js/select.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/counsellor-add.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/college-add.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/user-edit.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/manager-add.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/student-add.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/approval.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/ResultController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/authheader.jsp" />
+        <option value="$PROJECT_DIR$/src/main/resources/messages.properties" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/main.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/userList.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/AppController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/User.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/counsellor/adadaas.jsp" />
       </list>
     </option>
   </component>
@@ -527,9 +447,9 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="281" />
-    <option name="y" value="120" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="137" />
+    <option name="y" value="121" />
     <option name="width" value="1615" />
     <option name="height" value="941" />
   </component>
@@ -542,6 +462,34 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="_222" type="58d84e3e:PackageViewProjectNode" />
+              <item name="_222" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="_222" type="58d84e3e:PackageViewProjectNode" />
+              <item name="_222" type="616d4139:PackageViewModuleNode" />
+              <item name="com.fangcheng.test" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="_222" type="58d84e3e:PackageViewProjectNode" />
+              <item name="_222" type="616d4139:PackageViewModuleNode" />
+              <item name="com.fangcheng.test" type="1f31426a:PackageElementNode" />
+              <item name="configuration" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="_222" type="58d84e3e:PackageViewProjectNode" />
+              <item name="_222" type="616d4139:PackageViewModuleNode" />
+              <item name="com.fangcheng.test" type="1f31426a:PackageElementNode" />
+              <item name="controller" type="1f31426a:PackageElementNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -607,6 +555,24 @@
               <item name="_222" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="_222" type="b2602c69:ProjectViewProjectNode" />
+              <item name="_222" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="_222" type="b2602c69:ProjectViewProjectNode" />
+              <item name="_222" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -659,7 +625,7 @@
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
               <item name="jsp" type="462c0819:PsiDirectoryNode" />
-              <item name="error" type="462c0819:PsiDirectoryNode" />
+              <item name="counsellor" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="_222" type="b2602c69:ProjectViewProjectNode" />
@@ -680,41 +646,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="_222" type="58d84e3e:PackageViewProjectNode" />
-              <item name="_222" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="_222" type="58d84e3e:PackageViewProjectNode" />
-              <item name="_222" type="616d4139:PackageViewModuleNode" />
-              <item name="com.fangcheng.test" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="_222" type="58d84e3e:PackageViewProjectNode" />
-              <item name="_222" type="616d4139:PackageViewModuleNode" />
-              <item name="com.fangcheng.test" type="1f31426a:PackageElementNode" />
-              <item name="configuration" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="_222" type="58d84e3e:PackageViewProjectNode" />
-              <item name="_222" type="616d4139:PackageViewModuleNode" />
-              <item name="com.fangcheng.test" type="1f31426a:PackageElementNode" />
-              <item name="controller" type="1f31426a:PackageElementNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556255557135" />
-    <property name="last_opened_file_path" value="D:/BISHE/jpa-onetomany-springboot-maven-mysql" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556367888851" />
+    <property name="last_opened_file_path" value="D:/BISHE/oneToMany" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Problems" />
@@ -723,12 +661,12 @@
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp\static\select" />
       <recent name="C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp\static\css" />
-      <recent name="C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp\WEB-INF\jsp\student" />
-      <recent name="C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp\WEB-INF\jsp\error" />
-      <recent name="C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp\WEB-INF\jsp\admin" />
-      <recent name="C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp\static" />
+      <recent name="C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp\static\js" />
+      <recent name="C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp" />
+      <recent name="C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp\static\lay" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.fangcheng.test.dao" />
@@ -736,12 +674,12 @@
       <recent name="com.fangcheng.test.controller" />
       <recent name="com.fc.test.converter" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp\static\select" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp\WEB-INF\jsp\admin" />
       <recent name="C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp\static\css" />
-      <recent name="C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp\static\js" />
-      <recent name="C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp" />
-      <recent name="C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp\static\lay" />
+      <recent name="C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp\WEB-INF\jsp\student" />
+      <recent name="C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp\WEB-INF\jsp\error" />
+      <recent name="C:\Users\FangCheng\Downloads\SpringMVCHibernateWithSpringSecurityExample\_222\src\main\webapp\static" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -889,7 +827,8 @@
       <workItem from="1555294137740" duration="77126000" />
       <workItem from="1555733714192" duration="190121000" />
       <workItem from="1556196079536" duration="2842000" />
-      <workItem from="1556199613483" duration="15678000" />
+      <workItem from="1556199613483" duration="18859000" />
+      <workItem from="1556258814196" duration="56473000" />
     </task>
     <task id="LOCAL-00001" summary="修改申请审批界面，后端交互实现">
       <created>1555228325836</created>
@@ -979,10 +918,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="719408000" />
+    <option name="totallyTimeSpent" value="779062000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Designer" order="0" />
@@ -992,7 +931,7 @@
       <window_info id="Capture Tool" order="4" />
       <window_info id="Web" order="5" side_tool="true" />
       <window_info id="Persistence" order="6" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="7" sideWeight="0.721519" visible="true" weight="0.15191898" />
+      <window_info active="true" content_ui="combo" id="Project" order="7" sideWeight="0.721519" visible="true" weight="0.2249467" />
       <window_info id="Structure" order="8" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Spring" order="0" weight="0.32952183" />
       <window_info anchor="bottom" id="Terminal" order="1" weight="0.32952183" />
@@ -1000,12 +939,12 @@
       <window_info anchor="bottom" id="Java Enterprise" order="3" sideWeight="0.49946696" weight="0.32952183" />
       <window_info anchor="bottom" id="Database Changes" order="4" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="5" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Messages" order="6" sideWeight="0.49946696" weight="0.28720084" />
+      <window_info anchor="bottom" id="Messages" order="6" sideWeight="0.49946696" weight="0.13735692" />
       <window_info anchor="bottom" id="Application Servers" order="7" sideWeight="0.49946696" weight="0.14864865" />
       <window_info anchor="bottom" id="Message" order="8" />
-      <window_info anchor="bottom" id="Find" order="9" sideWeight="0.49946696" weight="0.21490683" />
+      <window_info anchor="bottom" id="Find" order="9" sideWeight="0.49946696" weight="0.25494277" />
       <window_info anchor="bottom" id="Run" order="10" sideWeight="0.49946696" weight="0.3257024" />
-      <window_info anchor="bottom" id="Debug" order="11" sideWeight="0.49687716" visible="true" weight="0.144641" />
+      <window_info anchor="bottom" id="Debug" order="11" sideWeight="0.49687716" visible="true" weight="0.23309053" />
       <window_info anchor="bottom" id="Cvs" order="12" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="13" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="14" />
@@ -1016,10 +955,10 @@
       <window_info anchor="right" id="Theme Preview" order="4" />
       <window_info anchor="right" id="Palette" order="5" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="6" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Bean Validation" order="7" weight="0.32889125" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="8" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="7" weight="0.25" />
+      <window_info anchor="right" id="Bean Validation" order="8" weight="0.32889125" />
       <window_info anchor="right" id="Ant Build" order="9" weight="0.25" />
-      <window_info anchor="right" id="Database" order="10" weight="0.3293379" />
+      <window_info anchor="right" id="Database" order="10" weight="0.32889125" />
     </layout>
     <layout-to-restore>
       <window_info id="Designer" order="0" />
@@ -1029,7 +968,7 @@
       <window_info id="Capture Tool" order="4" />
       <window_info id="Web" order="5" side_tool="true" />
       <window_info id="Persistence" order="6" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.721519" visible="true" weight="0.28819695" />
+      <window_info active="true" content_ui="combo" id="Project" order="7" sideWeight="0.721519" visible="true" weight="0.2249467" />
       <window_info id="Structure" order="8" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Spring" order="0" weight="0.32952183" />
       <window_info anchor="bottom" id="Terminal" order="1" weight="0.32952183" />
@@ -1037,26 +976,26 @@
       <window_info anchor="bottom" id="Java Enterprise" order="3" sideWeight="0.49946696" weight="0.32952183" />
       <window_info anchor="bottom" id="Database Changes" order="4" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="5" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Messages" order="6" sideWeight="0.49946696" weight="0.25093168" />
+      <window_info anchor="bottom" id="Messages" order="6" sideWeight="0.49946696" weight="0.13735692" />
       <window_info anchor="bottom" id="Application Servers" order="7" sideWeight="0.49946696" weight="0.14864865" />
       <window_info anchor="bottom" id="Message" order="8" />
-      <window_info anchor="bottom" id="Find" order="9" sideWeight="0.49946696" weight="0.21490683" />
+      <window_info anchor="bottom" id="Find" order="9" sideWeight="0.49946696" weight="0.25494277" />
       <window_info anchor="bottom" id="Run" order="10" sideWeight="0.49946696" weight="0.3257024" />
-      <window_info active="true" anchor="bottom" id="Debug" order="11" sideWeight="0.49687716" visible="true" weight="0.33540374" />
+      <window_info anchor="bottom" id="Debug" order="11" sideWeight="0.49687716" visible="true" weight="0.26951092" />
       <window_info anchor="bottom" id="Cvs" order="12" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="13" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="14" />
       <window_info anchor="right" id="Coverage" order="0" sideWeight="0.50143266" side_tool="true" weight="0.3283582" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
-      <window_info anchor="right" id="Maven Projects" order="2" sideWeight="0.49856734" weight="0.58528787" />
+      <window_info anchor="right" id="Maven Projects" order="2" sideWeight="0.49856734" weight="0.10181237" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info anchor="right" id="Theme Preview" order="4" />
       <window_info anchor="right" id="Palette" order="5" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="6" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Bean Validation" order="7" weight="0.32889125" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="8" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="7" weight="0.25" />
+      <window_info anchor="right" id="Bean Validation" order="8" weight="0.32889125" />
       <window_info anchor="right" id="Ant Build" order="9" weight="0.25" />
-      <window_info anchor="right" id="Database" order="10" weight="0.3293379" />
+      <window_info anchor="right" id="Database" order="10" weight="0.32889125" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1103,11 +1042,17 @@
           <properties />
           <option name="timeStamp" value="263" />
         </line-breakpoint>
-        <line-breakpoint type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/UserService.java</url>
-          <line>21</line>
-          <properties class="com.fangcheng.test.service.UserService" method="saveUser" />
-          <option name="timeStamp" value="47" />
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/AppController.java</url>
+          <line>447</line>
+          <properties />
+          <option name="timeStamp" value="367" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/AppController.java</url>
+          <line>452</line>
+          <properties />
+          <option name="timeStamp" value="368" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/Test.java</url>
@@ -1132,6 +1077,14 @@
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="258" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/AppController.java</url>
+          <line>444</line>
+          <properties class="com.fangcheng.test.controller.AppController" method="removeUser">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="366" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1158,223 +1111,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/UserFamilyService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="22" column="27" lean-forward="true" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/impl/UserFamilyServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="48" column="1" lean-forward="true" selection-start-line="48" selection-start-column="1" selection-end-line="48" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/ApplicationDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="25" column="61" selection-start-line="25" selection-start-column="61" selection-end-line="25" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/impl/ApplicationDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="84" column="68" selection-start-line="84" selection-start-column="68" selection-end-line="84" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/AbstractDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="972">
-          <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1110#1111#0" expanded="true" />
-            <element signature="e#1168#1169#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/static/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-405" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/newStudent.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="577">
-          <caret line="336" column="31" selection-start-line="336" selection-start-column="25" selection-end-line="336" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/static/css/select2.min.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/static/css/fs.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-449" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/static/font/demo_index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="7" column="31" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/static/js/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="9" column="3" lean-forward="true" selection-start-line="9" selection-start-column="3" selection-end-line="9" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/static/plugins/awesome-bootstrap-checkbox/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/static/lay/modules/code.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user-add.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/student/add-family.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1620">
-          <caret line="60" column="53" selection-start-line="60" selection-start-column="53" selection-end-line="60" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/static/js/area.js" />
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/main.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-810">
-          <caret line="24" column="61" selection-start-line="24" selection-start-column="61" selection-end-line="24" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/static/js/bootbox.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/manager.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-540">
-          <caret line="61" column="24" selection-start-line="61" selection-start-column="24" selection-end-line="61" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="70" column="46" lean-forward="true" selection-start-line="70" selection-start-column="46" selection-end-line="70" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/TableAuthor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/lang/ClassLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="762" selection-start-line="762" selection-end-line="762" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/counsellor/adadaas.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="41" column="28" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/BookCategoryRepository.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/jdbc.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/dao/UserDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="173" column="43" selection-start-line="173" selection-start-column="43" selection-end-line="173" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/UserFamily.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="102" selection-start-line="102" selection-end-line="102" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="162" column="17" selection-start-line="162" selection-start-column="17" selection-end-line="162" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/security/SecurityWebApplicationInitializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/security/SecurityConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-621">
-          <caret line="23" column="71" selection-start-line="23" selection-start-column="43" selection-end-line="23" selection-end-column="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/security/CustomUserDetailsService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="635">
-          <caret line="42" column="68" lean-forward="true" selection-start-line="42" selection-start-column="68" selection-end-line="42" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/converter/RoleToUserProfileConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-13">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/configuration/RestAuthenticationAccessDeniedHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
@@ -1409,117 +1145,342 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/static/css/select.css">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/static/css/select.css" />
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/static/js/pca.js" />
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/login.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-355">
+          <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/static/js/pca.js">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="27">
+            <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="705">
+          <caret line="62" column="5" lean-forward="true" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="715">
+          <caret line="94" column="17" selection-start-line="94" selection-start-column="17" selection-end-line="94" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/TableApproval.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/5.1.5.RELEASE/spring-beans-5.1.5.RELEASE-sources.jar!/org/springframework/beans/AbstractNestablePropertyAccessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="481" selection-start-line="481" selection-end-line="481" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/5.1.5.RELEASE/spring-beans-5.1.5.RELEASE-sources.jar!/org/springframework/beans/BeanWrapperImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="333" selection-start-line="333" selection-end-line="333" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/5.1.5.RELEASE/spring-aop-5.1.5.RELEASE.jar!/org/springframework/aop/framework/JdkDynamicAopProxy.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="22" column="145" selection-start-line="22" selection-start-column="145" selection-end-line="22" selection-end-column="145" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.1.5.RELEASE/spring-webmvc-5.1.5.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="140" column="263" selection-start-line="140" selection-start-column="263" selection-end-line="140" selection-end-column="263" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.1.5.RELEASE/spring-webmvc-5.1.5.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/ServletInvocableHandlerMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="17" column="239" selection-start-line="17" selection-start-column="239" selection-end-line="17" selection-end-column="239" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/TableAuthor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-154">
+          <caret line="28" column="29" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/static/css/app.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="33" column="1" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/impl/UserServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="64" column="13" lean-forward="true" selection-start-line="64" selection-start-column="13" selection-end-line="64" selection-end-column="13" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/static/select/css/select.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/static/select/js/pca.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25623">
-          <caret line="949" column="25" selection-start-line="949" selection-start-column="21" selection-end-line="949" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/userslist.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/static/select/layui/css/layui.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/student/application.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/static/select/js/pca.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2801">
-          <caret line="375" column="55" selection-start-line="375" selection-start-column="55" selection-end-line="375" selection-end-column="55" />
+        <state relative-caret-position="2139">
+          <caret line="97" column="24" selection-start-line="97" selection-start-column="24" selection-end-line="97" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/static/select/js/select.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-189">
-          <caret line="20" column="60" lean-forward="true" selection-start-line="20" selection-start-column="60" selection-end-line="20" selection-end-column="60" />
-          <folding>
-            <element signature="n#style#0;n#span#0;n#dd#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="621">
+          <caret line="76" column="108" selection-start-line="76" selection-start-column="108" selection-end-line="76" selection-end-column="108" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/approval.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/static/select/js/cmc.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="100" column="37" selection-start-line="100" selection-start-column="29" selection-end-line="100" selection-end-column="37" />
+        <state relative-caret-position="3753">
+          <caret line="139" column="75" selection-start-line="139" selection-start-column="75" selection-end-line="139" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/student/application.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="13" selection-start-line="13" selection-end-line="13" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/counsellor-add.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2097">
+          <caret line="99" column="22" lean-forward="true" selection-start-line="99" selection-start-column="22" selection-end-line="99" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/college-add.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1975">
+          <caret line="132" column="42" lean-forward="true" selection-start-line="132" selection-start-column="42" selection-end-line="132" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/user-edit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2945">
+          <caret line="247" column="52" lean-forward="true" selection-start-line="247" selection-start-column="52" selection-end-line="247" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/usreManager.jsp">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/manager-add.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="208" column="62" lean-forward="true" selection-start-line="208" selection-start-column="62" selection-end-line="208" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/service/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/user-add.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="154" column="79" selection-start-line="154" selection-start-column="57" selection-end-line="154" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/student/applicatioRrecord.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-567" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/newStudent.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-891" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/student/user-edit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="60" selection-start-line="60" selection-end-line="60" selection-end-column="136" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/registration.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="26" column="129" lean-forward="true" selection-start-line="26" selection-start-column="129" selection-end-line="26" selection-end-column="129" />
+        <state relative-caret-position="489">
+          <caret line="66" column="26" lean-forward="true" selection-start-line="66" selection-start-column="26" selection-end-line="66" selection-end-column="26" />
+          <folding>
+            <element signature="e#2961#3370#0#JSP" />
+            <element signature="e#3371#3766#0#JSP" />
+            <element signature="e#3767#4162#0#JSP" />
+            <element signature="e#4163#4566#0#JSP" />
+            <element signature="e#4567#4962#0#JSP" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.5.RELEASE/spring-web-5.1.5.RELEASE-sources.jar!/org/springframework/web/method/support/InvocableHandlerMethod.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/student.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="137" selection-start-line="137" selection-end-line="137" />
+        <state relative-caret-position="-4941" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/userslist.jsp">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/registrationsuccess.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-183" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/userInfo.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="193" column="41" selection-start-line="193" selection-start-column="41" selection-end-line="193" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/authheader.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/messages.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="3" column="31" lean-forward="true" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/approval.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="26" column="80" selection-start-line="26" selection-start-column="80" selection-end-line="26" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/main.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-162">
+          <caret line="46" column="18" lean-forward="true" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
+          <folding>
+            <element signature="n#style#0;n#li#5;n#ul#0;n#aside#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/ResultController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="62" selection-start-line="62" selection-end-line="62" />
+        <state relative-caret-position="-1968">
+          <caret line="84" column="139" lean-forward="true" selection-start-line="84" selection-start-column="139" selection-end-line="84" selection-end-column="139" />
           <folding>
             <element signature="docComment;method#getCollegeApplicationList#0;class#ResultController#0" />
             <element signature="docComment;method#getAllApplicationList#0;class#ResultController#0" />
+            <element signature="method#userFamilylistToJson#0;class#ResultController#0" />
             <element signature="method#getPrincipal#0;class#ResultController#0" />
-            <element signature="method#getSchoolYear#0;class#ResultController#0" />
-            <marker date="1556250921677" expanded="true" signature="5816:6701" ph="{...}" />
+            <marker date="1556361556680" expanded="true" signature="6383:7268" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/AppController.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.5.RELEASE/spring-web-5.1.5.RELEASE-sources.jar!/org/springframework/web/method/support/InvocableHandlerMethod.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="85" selection-start-line="85" selection-end-line="85" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2599#2600#0" expanded="true" />
-            <element signature="e#2633#2634#0" expanded="true" />
-            <element signature="method#addfamily#0;class#AppController#0" />
-            <element signature="method#addApplication#0;class#AppController#0" />
-            <element signature="e#9867#9883#0" expanded="true" />
-            <element signature="e#12503#12519#0" expanded="true" />
-            <element signature="docComment;method#getPrincipal#0;class#AppController#0" />
-            <element signature="method#getPrincipal#0;class#AppController#0" />
-            <element signature="method#getUserName#0;class#AppController#0" />
-            <element signature="method#getGroupId#0;class#AppController#0" />
-            <element signature="method#getApprovalStatus#0;class#AppController#0" />
-            <element signature="method#getApplicationNumber#0;class#AppController#0" />
-            <element signature="method#subString#0;class#AppController#0" />
-            <element signature="method#getTime#0;class#AppController#0" />
-            <element signature="method#unicode#0;class#AppController#0" />
-          </folding>
+        <state relative-caret-position="278">
+          <caret line="190" column="45" lean-forward="true" selection-start-line="190" selection-start-column="45" selection-end-line="190" selection-end-column="45" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/userList.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3645">
-          <caret line="135" column="36" lean-forward="true" selection-start-line="135" selection-start-column="36" selection-end-line="135" selection-end-column="36" />
+        <state relative-caret-position="-4753">
+          <caret line="122" column="55" lean-forward="true" selection-start-line="122" selection-start-column="55" selection-end-line="122" selection-end-column="55" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/userInfo.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="399" column="32" lean-forward="true" selection-start-line="399" selection-start-column="32" selection-end-line="399" selection-end-column="32" />
+        <state relative-caret-position="465">
+          <caret line="187" column="24" lean-forward="true" selection-start-line="187" selection-start-column="24" selection-end-line="187" selection-end-column="24" />
           <folding>
-            <element signature="e#1131#1137#0#HTML" expanded="true" />
-            <element signature="n#style#0;n#fieldset#1;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#fieldset#2;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#6690#6691#0" expanded="true" />
+            <element signature="e#6744#6745#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/entity/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1865">
+          <caret line="112" column="31" selection-start-line="112" selection-start-column="31" selection-end-line="112" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/fangcheng/test/controller/AppController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="548">
+          <caret line="461" selection-start-line="461" selection-end-line="461" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#10115#11668#0" />
+            <element signature="e#11671#13339#0" />
+            <element signature="e#14304#14320#0" expanded="true" />
+            <element signature="e#16655#16656#0" expanded="true" />
+            <element signature="e#16697#16698#0" expanded="true" />
+            <element signature="e#16014#16469#0" />
+            <element signature="e#16471#16614#0" />
+            <element signature="e#16616#16757#0" />
+            <element signature="e#16759#16950#0" />
+            <element signature="e#16952#17084#0" />
+            <element signature="e#17086#17244#0" />
+            <element signature="e#17246#17355#0" />
+            <element signature="e#17357#17573#0" />
+            <element signature="e#17575#17894#0" />
+            <element signature="e#17896#18101#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/counsellor/adadaas.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="102" column="6" lean-forward="true" selection-start-line="102" selection-start-column="6" selection-end-line="102" selection-end-column="6" />
+          <folding>
+            <element signature="n#style#0;n#fieldset#1;n#body#0;n#html#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#blockquote#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

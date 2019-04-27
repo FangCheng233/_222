@@ -60,22 +60,6 @@
         </li>
         <li class="pull-right">
             <ul class="hi-menu">
-                <!-- 搜索 -->
-                <li class="dropdown">
-                    <a class="waves-effect waves-light" data-toggle="dropdown" href="javascript:;">
-                        <i class="him-icon zmdi zmdi-search"></i>
-                    </a>
-                    <ul class="dropdown-menu dm-icon pull-right">
-                        <form id="search-form" class="form-inline">
-                            <div class="input-group">
-                                <input id="keywords" type="text" name="keywords" class="form-control" placeholder="搜索"/>
-                                <div class="input-group-btn">
-                                    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                                </div>
-                            </div>
-                        </form>
-                    </ul>
-                </li>
                 <li class="dropdown">
                     <a class="waves-effect waves-light" data-toggle="dropdown" href="javascript:;">
                         <i class="him-icon zmdi zmdi-more-vert"></i>
@@ -133,7 +117,9 @@
             <li class="sub-menu system_menus system_1 1">
                 <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-accounts"></i> 用户管理</a>
                 <ul>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('管理员信息', '/userList?params=getCollegeList');">管理员信息管理</a></li>
+                    <li><a class="waves-effect" href="javascript:Tab.addTab('学工部人员管理', '/userList?params=getAdminList');">学工部人员管理</a></li>
+                    <li><a class="waves-effect" href="javascript:Tab.addTab('院系办公室人员信息', '/userList?params=getCollegeList');">院系办公室人员管理</a></li>
+                    <li><a class="waves-effect" href="javascript:Tab.addTab('辅导员信息', '/userList?params=getCounsellorList');">辅导员信息管理</a></li>
                     <li><a class="waves-effect" href="javascript:Tab.addTab('学生信息', '/userList?params=getStudentList');">学生信息管理</a></li>
                 </ul>
             </li>
@@ -142,14 +128,7 @@
                 <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-menu"></i> 申请审批管理</a>
                 <ul>
                     <li><a class="waves-effect" href="javascript:Tab.addTab('标签管理', '/approval?params=getCollegeApplicationList');">待处理审批</a></li>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('类目管理', '/manage/category/index');">历史审批记录</a></li>
-                </ul>
-            </li>
-            <li class="sub-menu system_menus system_2 2">
-                <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-accounts"></i> 用户管理</a>
-                <ul>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('管理员信息', '/userList?params=getCounsellorList');">管理员信息管理</a></li>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('学生信息', '/userList?params=getStudentList');">学生信息管理</a></li>
+                    <li><a class="waves-effect" id="test" href="javascript:Tab.addTab('类目管理', 'javascript:;');">历史审批记录</a></li>
                 </ul>
             </li>
             <%-- 辅导员管理菜单--%>
@@ -160,12 +139,6 @@
                     <li><a class="waves-effect" href="javascript:Tab.addTab('类目管理', '/manage/category/index');">历史审批记录</a></li>
                 </ul>
             </li>
-            <li class="sub-menu system_menus system_3 2">
-                <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-accounts"></i> 用户管理</a>
-                <ul>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('学生信息', '/userList?params=getStudentList');">学生信息管理</a></li>
-                </ul>
-            </li>
             <%-- 学生端菜单--%>
             <li class="sub-menu system_menus system_4 1" style="display:none;">
                 <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-menu"></i> 贫困申请</a>
@@ -174,13 +147,6 @@
                     <li><a class="waves-effect" href="javascript:Tab.addTab('类目管理', '/approval?params=getAllApplicationList');">历史记录</a></li>
                 </ul>
             </li>
-<%--            <li class="sub-menu system_menus system_4 2" style="display:none;">
-                <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-collection-text"></i> 其他申请</a>
-                <ul>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('文章管理', '/manage/article/index');">文章管理</a></li>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('回收管理', '/manage/article/recycle');">回收管理</a></li>
-                </ul>
-            </li>--%>
             <li>
                 <div class="upms-version">
                     &copy; FANG-CHENG V1.0.0
@@ -215,7 +181,7 @@
                 <i class="iconfont icon-dianliyonghuzongshu"></i>
                 </div>
                 <div class="md2-sub2">
-                <span>100</span>
+                <span>${pending}</span>
                 <cite>待处理审批</cite>
                 </div>
                 </div>
@@ -224,7 +190,7 @@
                 <i class="iconfont icon-wenzhang2"></i>
                 </div>
                 <div class="md2-sub2">
-                <span>100</span>
+                <span>${solved}</span>
                 <cite>已处理审批</cite>
                 </div>
                 </div>
@@ -233,7 +199,7 @@
                 <i class="iconfont icon-pinglun"></i>
                 </div>
                 <div class="md2-sub2">
-                <span>100</span>
+                <span>${count}</span>
                 <cite>审批总数</cite>
                 </div>
                 </div>

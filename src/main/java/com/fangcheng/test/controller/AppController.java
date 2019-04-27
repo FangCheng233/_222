@@ -70,7 +70,13 @@ public class AppController {
 	}
 	@RequestMapping(value = { "/", "/main" }, method = RequestMethod.GET)
 	public String main(ModelMap model) {
+		List<Application> applications = applicationService.findByStatusNodes(3);
+		List<Application> applications1 = applicationService.findByStatusNodes(4);
+		List<Application> applicationslist = applicationService.findAllApplication();
 		model.addAttribute("loggedinuser", getUserName());
+		model.addAttribute("pending",applications.size());
+		model.addAttribute("solved",applications1.size());
+		model.addAttribute("count",applicationslist.size());
 		return "main";
 	}
 	/**
@@ -84,10 +90,26 @@ public class AppController {
 	@RequestMapping(value = { "/userList" }, method = RequestMethod.GET)
 	public String userList(ModelMap model,@Valid String params) {
 		model.addAttribute("params", params);
+		if(params.equals("getStudentList")){
+			model.addAttribute("getStudentList",true);
+		}
+		if(params.equals("getCounsellorList")){
+			model.addAttribute("getCounsellorList",true);
+		}
+		if(params.equals("getCollegeList")){
+			model.addAttribute("getCollegeList",true);
+		}
+		if(params.equals("getAdminList")){
+			model.addAttribute("getAdminList",true);
+		}
 		return "userList";
 	}
 	@RequestMapping(value = { "/test" }, method = RequestMethod.GET)
 	public String test(ModelMap model) {
+		User user = new User();
+		model.addAttribute("user", user);
+		model.addAttribute("edit", false);
+		model.addAttribute("loggedinuser", getUserName());
 		return "counsellor/adadaas";
 	}
 	/**
@@ -106,8 +128,6 @@ public class AppController {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-		model.addAttribute("minYear",getYearly()-3);
-		model.addAttribute("maxYear",getYearly());
 		model.addAttribute("edit", true);
 		return "userInfo";
 	}
@@ -139,29 +159,97 @@ public class AppController {
 	public String saveUser(@Valid User user, BindingResult result,
                            ModelMap model,HttpServletResponse response) {
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
-
 		if (result.hasErrors()) {
-			return "admin/registration";
+			return "admin/student-add";
 		}
 		if(!userService.isUserIdUnique(user.getUserId())){
 			FieldError userIdError =new FieldError("user","userId",messageSource.getMessage("non.unique.userId", new String[]{user.getUserId()}, Locale.getDefault()));
 		    result.addError(userIdError);
 			return "admin/registration";
 		}
-		//调用业务层处理
 		try{
-			user.setUserId(unicode(user.getUserId()));
 			user.setUserName(unicode(user.getUserName()));
+			user.setGroupId(unicode(user.getGroupId()));
+			user.setUserCollege(unicode(user.getUserCollege()));
+			user.setUserMajor(unicode(user.getUserMajor()));
+			user.setUserSex(unicode(user.getUserSex()));
+			user.setBasePlaceA(unicode(user.getBasePlaceA()));
+			user.setBasePlaceP(unicode(user.getBasePlaceP()));
+			user.setBasePlaceC(unicode(user.getBasePlaceC()));
+			user.setPoliticalOutlook(unicode(user.getPoliticalOutlook()));
+			user.setIdType(unicode(user.getIdType()));
+			user.setNation(unicode(user.getNation()));
 			userService.saveUser(user);
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-
 		model.addAttribute("success", "User " + user.getUserId() + " "+ user.getGroupId() + " registered successfully");
 		model.addAttribute("loggedinuser", getUserName());
 		//return "success";
 		return "registrationsuccess";
 	}
+	@RequestMapping(value = { "/addStudent" }, method = RequestMethod.GET)
+	public String addStudent(ModelMap model) {
+		User user = new User();
+		model.addAttribute("user", user);
+		model.addAttribute("getStudentList",true);
+		model.addAttribute("minYear",getYearly()-3);
+		model.addAttribute("maxYear",getYearly());
+		model.addAttribute("date",getdate());
+		return "admin/user-add";
+	}
+	@RequestMapping(value = { "/addCounsellor" }, method = RequestMethod.GET)
+	public String addCounsellor(ModelMap model,HttpServletResponse response) {
+		User user = new User();
+		model.addAttribute("user", user);
+		model.addAttribute("getCounsellorList",true);
+		model.addAttribute("date",getdate());
+		return "admin/user-add";
+	}
+	@RequestMapping(value = { "/addCollege" }, method = RequestMethod.GET)
+	public String addCollege(ModelMap model) {
+		User user = new User();
+		model.addAttribute("user", user);
+		model.addAttribute("getCollegeList",true);
+		model.addAttribute("date",getdate());
+		return "admin/user-add";
+	}
+	@RequestMapping(value = { "/addAdmin" }, method = RequestMethod.GET)
+	public String addAdmin(ModelMap model) {
+		User user = new User();
+		model.addAttribute("user", user);
+		model.addAttribute("getAdminList",true);
+		model.addAttribute("date",getdate());
+		return "admin/user-add";
+	}
+	@RequestMapping(value = { "/edit-user-{userId}" }, method = RequestMethod.GET)
+	public String editUser(@PathVariable String userId, ModelMap model) {
+		User user = userService.findByUserId(userId);
+		model.addAttribute("user", user);
+		model.addAttribute("edit", true);
+		model.addAttribute("loggedinuser", getUserName());
+		return "admin/registration";
+	}
+	/**
+	 * @method  updateUser
+	 * @description 修改用户的信息
+	 * @date: 2019/4/1 19:16
+	 * @author: Fangcheng
+	[user, result, model, userId]
+	 * @return java.lang.String
+	 */
+	@RequestMapping(value = { "/edit-user-{userId}" }, method = RequestMethod.POST)
+	public String updateUser(@Valid User user, BindingResult result,
+							 ModelMap model, @PathVariable String userId) {
+		if (result.hasErrors()) {
+			return "registration";
+		}
+		userService.updateUserData(user);
+		model.addAttribute("success", "User " + user.getUserId()  + " updated successfully");
+		model.addAttribute("loggedinuser", getUserName());
+		return "registrationsuccess";
+	}
+
     /**
      * @method  approval
      * @description 获取前端参数后台对数据进行筛选
@@ -182,6 +270,7 @@ public class AppController {
 	@RequestMapping(value = { "/addfamily" }, method = RequestMethod.POST)
 	public void addfamily(@Valid ModelMap modelMap,UserFamily userFamily,
 		HttpServletRequest request,HttpServletResponse response) {
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		List<UserFamily> userFamilyList = userFamilyService.findByUserId(getPrincipal());
 		userFamily.setUserId(getPrincipal());
 		try {
@@ -225,6 +314,7 @@ public class AppController {
     @RequestMapping(value = { "/addApplication" }, method = RequestMethod.POST)
 	public void addApplication(@Valid Application application, BindingResult result,
 								 ModelMap model,HttpServletResponse response) {
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		application.setApplicationNumber(getApplicationNumber());
 		application.setUserId(getPrincipal());
 		application.setSchoolYear(getSchoolYear());
@@ -259,9 +349,11 @@ public class AppController {
 	 */
 	@RequestMapping(value = { "/alterApplicationPass" }, method = RequestMethod.POST)
 	@ResponseBody
-	public void alterApplicationPass(@RequestParam List<String> applicationNumberList) {
+	public Map<String,Object> alterApplicationPass(@RequestBody String[] applicationNumberList) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		List<String> listsuccess = new ArrayList<>();
 		for(String str:applicationNumberList){
-			Application application = applicationService.findByApplicationNumber(subString(str));
+			Application application = applicationService.findByApplicationNumber(str);
 			application.setApprovalStatus(getApprovalStatus());
 			application.setProcessNode(getGroupId());
 			application.setStatusNodes(application.getStatusNodes()+1);
@@ -281,6 +373,8 @@ public class AppController {
 				e.printStackTrace();
 			}
 		}
+	map.put("success","删除成功");
+return map;
 	}
 
 	/**
@@ -294,7 +388,7 @@ public class AppController {
 	 */
 	@RequestMapping(value = { "/alterApplicationRefuse" }, method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> alterApplicationRefuse(@RequestParam List<String> applicationNumberList) {
+	public Map<String,Object> alterApplicationRefuse(@RequestBody String[] applicationNumberList) {
 		Map<String,Object> map = new HashMap<String, Object>();
 		List<String> listsuccess = new ArrayList<>();
 		List<String> listerror = new ArrayList<>();
@@ -325,34 +419,7 @@ public class AppController {
 		map.put("error",listerror);
 		return map;
 	}
-	@RequestMapping(value = { "/edit-user-{userId}" }, method = RequestMethod.GET)
-	public String editUser(@PathVariable String userId, ModelMap model) {
-		User user = userService.findByUserId(userId);
-		model.addAttribute("user", user);
-		model.addAttribute("edit", true);
-		model.addAttribute("loggedinuser", getUserName());
-		return "admin/registration";
-	}
 
-	/**
-	 * @method  updateUser
-	 * @description 修改用户的信息
-	 * @date: 2019/4/1 19:16
-	 * @author: Fangcheng
-	[user, result, model, userId]
-	 * @return java.lang.String
-	 */
-	@RequestMapping(value = { "/edit-user-{userId}" }, method = RequestMethod.POST)
-	public String updateUser(@Valid User user, BindingResult result,
-                             ModelMap model, @PathVariable String userId) {
-		if (result.hasErrors()) {
-			return "registration";
-		}
-		userService.updateUserData(user);
-		model.addAttribute("success", "User " + user.getUserId()  + " updated successfully");
-		model.addAttribute("loggedinuser", getUserName());
-		return "registrationsuccess";
-	}
 
 	/**
 	 * This method will delete an user by it's UserID value.
@@ -374,17 +441,25 @@ public class AppController {
 		return map;
 	}
 	@RequestMapping(value = { "/remove-user" }, method = RequestMethod.POST)
-	public void removeUser(@Valid List<String> userIdList,ModelMap model) {
-		List<String> list = new ArrayList<>();
+	@ResponseBody
+	public Map<String,Object> removeUser(@RequestBody String[] userIdList,ModelMap model,HttpServletResponse response) {
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		Map<String,Object> map = new HashMap<String, Object>();
+		List<String> listerror = new ArrayList<>();
+		List<String> listsuccess = new ArrayList<>();
 		for(String userId:userIdList){
+			listsuccess.add(userId);
 			try {
-				userService.deleteUserByUserId(subString(userId));
+				userService.deleteUserByUserId(userId);
 			}catch (Exception e){
 				e.printStackTrace();
-				list.add(userId);
-				model.addAttribute("error","用户" + list + "删除失败");
+				listerror.add(userId);
+				listsuccess.remove(userId);
+				map.put("error","用户" + listerror + "删除失败");
 			}
 		}
+		map.put("success","用户"+listsuccess+"删除成功");
+		return map;
 	}
 	@RequestMapping(value = { "/delete-application" }, method = RequestMethod.POST)
 	public void deleteApplication(@Valid String applicationNumber) {
@@ -401,7 +476,6 @@ public class AppController {
 	public List<TableAuthor> initializeProfiles() {
 		return tableAuthorService.findAll();
 	}
-	
 	/**
 	 * This method handles Access-Denied redirect.
 	 */
@@ -505,6 +579,11 @@ public class AppController {
 			year =  year-1;
 		}
 		return year;
+	}
+	private Date getdate() {
+		Date date=new java.sql.Date(System.currentTimeMillis());
+		System.out.println(date);
+		return date;
 	}
 
 	/**

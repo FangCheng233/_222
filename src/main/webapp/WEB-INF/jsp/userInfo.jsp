@@ -12,6 +12,8 @@
 <head>
     <meta charset="utf-8">
     <title>Title</title>
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header"  content="${_csrf.headerName}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="/static/layui/css/layui.css"rel="stylesheet" media="all">
@@ -28,74 +30,34 @@
 </head>
 <body bgcolor="#fffafa">
 <form class="layui-form" action="##" lay-filter="example">
-<fieldset class="layui-elem-field" style="margin-top: 20px;margin-right: 37%;margin-left: 20px">
+<fieldset class="layui-elem-field" style="margin-top: 20px;margin-right: 30%;margin-left: 20px">
     <legend>基本资料</legend>
     <div class="layui-field-box">
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;姓名</label>
                     <div class="layui-input-inline">
-                        <c:choose>
-                            <c:when test="${edit}">
-                                <input type="text" name="userName" lay-verify="required|title" value="${userInfo.userName}" autocomplete="off" class="layui-input" disabled="disabled">
-                            </c:when>
-                            <c:otherwise>
-                                <input type="text" name="userName" lay-verify="required|title" value="${userInfo.userName}" autocomplete="off" class="layui-input">
-                                <div class="has-error">
-                                    <form:errors path="userName" class="help-inline"/>
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
+                        <input type="text" name="userName" lay-verify="required|title" value="${userInfo.userName}" autocomplete="off" class="layui-input" disabled="disabled">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;性别</label>
                     <div class="layui-input-inline">
-                        <c:choose>
-                            <c:when test="${edit}">
-                                <select name="userSex"  disabled="true">
-                                    <option value="" selected="">${userInfo.userSex}</option>
-                                    <option value="男">男</option>
-                                    <option value="女">女</option>
-                                </select>
-                            </c:when>
-                            <c:otherwise>
-                                <select name="userSex">
-                                    <option value="" selected="">${userInfo.userSex}</option>
-                                    <option value="男">男</option>
-                                    <option value="女">女</option>
-                                </select>
-                                <div class="has-error">
-                                    <form:errors path="userSex" class="help-inline"/>
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
+                        <select name="userSex"  disabled="true">
+                            <option value="" selected="">${userInfo.userSex}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;证件类别</label>
                     <div class="layui-input-inline">
-                        <c:choose>
-                            <c:when test="${edit}">
-                                <select name="idType" disabled="true">
-                                    <option value="身份证" select="">身份证</option>
-                                    <option value="护照">护照</option>
-                                    <option value="港澳台居民居住证">港澳台居民居住证</option>
-                                    <option value="出入境许可证">出入境许可证</option>
-                                </select>
-                            </c:when>
-                            <c:otherwise>
-                                <select name="idType">
-                                    <option value="身份证" select="">身份证</option>
-                                    <option value="护照">护照</option>
-                                    <option value="港澳台居民居住证">港澳台居民居住证</option>
-                                    <option value="出入境许可证">出入境许可证</option>
-                                </select>
-                                <div class="has-error">
-                                    <form:errors path="idType" class="help-inline"/>
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
+                        <select name="idType" disabled="disabled">
+                            <option value="" select="">${userInfo.idType}</option>
+                            <option value="身份证">身份证</option>
+                            <option value="护照">护照</option>
+                            <option value="港澳台居民居住证">港澳台居民居住证</option>
+                            <option value="出入境许可证">出入境许可证</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -103,120 +65,31 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">曾用名</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="nameUsedBefore" <%--lay-verify="email" --%>autocomplete="off" class="layui-input">
+                        <input type="text" name="nameUsedBefore" lay-verify="title" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;出生日期</label>
                     <div class="layui-input-inline">
-                        <c:choose>
-                            <c:when test="${edit}">
-                                <input type="date" name="birthDate" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input" disabled="disabled">
-                            </c:when>
-                            <c:otherwise>
-                                <input type="date" name="birthDate" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
-                                <div class="has-error">
-                                    <form:errors path="birthDate" class="help-inline"/>
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
-
+                        <input type="date" name="birthDate" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input" disabled="disabled">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;证件号码</label>
                     <div class="layui-input-inline">
-                        <c:choose>
-                            <c:when test="${edit}">
-                                <input type="text" name="idNumber" lay-verify="identity" value="${userInfo.idNumber}" placeholder="" autocomplete="off" class="layui-input" disabled="disabled">
-                            </c:when>
-                            <c:otherwise>
-                                <input type="text" name="idNumber" lay-verify="identity" value="${userInfo.idNumber}" placeholder="" autocomplete="off" class="layui-input">
-                                <div class="has-error">
-                                    <form:errors path="birthDate" class="help-inline"/>
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;出生地-省</label>
-                    <div class="layui-input-inline">
-                        <select name="province1">
-                            <option value="">请选择省</option>
-                            <option value="浙江" selected="">浙江省</option>
-                            <option value="你的工号">江西省</option>
-                            <option value="你最喜欢的老师">福建省</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;市</label>
-                    <div class="layui-input-inline">
-                        <select name="city1">
-                            <option value="">请选择省</option>
-                            <option value="浙江" selected="">浙江省</option>
-                            <option value="你的工号">江西省</option>
-                            <option value="你最喜欢的老师">福建省</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;县/区</label>
-                    <div class="layui-input-inline">
-                        <select name="county1">
-                            <option value="">请选择省</option>
-                            <option value="浙江" selected="">浙江省</option>
-                            <option value="你的工号">江西省</option>
-                            <option value="你最喜欢的老师">福建省</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;籍贯-省</label>
-                    <div class="layui-input-inline">
-                        <select name="province2">
-                            <option value="">请选择省</option>
-                            <option value="浙江" selected="">浙江省</option>
-                            <option value="你的工号">江西省</option>
-                            <option value="你最喜欢的老师">福建省</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;市</label>
-                    <div class="layui-input-inline">
-                        <select name="city2">
-                            <option value="">请选择省</option>
-                            <option value="浙江" selected="">浙江省</option>
-                            <option value="你的工号">江西省</option>
-                            <option value="你最喜欢的老师">福建省</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;县/区</label>
-                    <div class="layui-input-inline">
-                        <select name="county2">
-                            <option value="">请选择省</option>
-                            <option value="浙江" selected="">浙江省</option>
-                            <option value="你的工号">江西省</option>
-                            <option value="你最喜欢的老师">福建省</option>
-                        </select>
+                        <input type="text" name="idNumber" lay-verify="identity" value="${userInfo.idNumber}" placeholder="" autocomplete="off" class="layui-input" disabled="disabled">
                     </div>
                 </div>
             </div>
             <div class="layui-form-item" id="addressDiv">
                 <div class="layui-inline">
-                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;生源地-省</label>
+                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;籍贯-省</label>
                     <div class="layui-input-inline">
-                        <select name="P1" lay-filter="province" id="province">
-                            <option></option>
-                        </select>
+                        <div class="layui-input-inline">
+                            <select name="P1" lay-filter="province" id="province">
+                                <option></option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -240,19 +113,8 @@
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;民族</label>
                     <div class="layui-input-inline">
-                        <c:choose>
-                            <c:when test="${edit}">
-                                <select name="nation" id="nation" disabled="disabled">
-                                </select>
-                            </c:when>
-                            <c:otherwise>
-                                <select name="nation" id="nation">
-                                </select>
-                                <div class="has-error">
-                                    <form:errors path="birthDate" class="help-inline"/>
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
+                        <select name="nation" id="nation" disabled="disabled">
+                        </select>
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -269,61 +131,28 @@
             </div>
     </div>
 </fieldset>
-<fieldset class="layui-elem-field" style="margin-top: 20px;margin-right: 37%;margin-left: 20px">
+<fieldset class="layui-elem-field" style="margin-top: 20px;margin-right: 30%;margin-left: 20px">
     <legend>学籍信息</legend>
     <div class="layui-field-box">
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;学号</label>
                     <div class="layui-input-inline">
-                        <c:choose>
-                            <c:when test="${edit}">
-                                <input type="text" name="userId" lay-verify="required|title" value="${userInfo.userId}" autocomplete="off" class="layui-input" disabled="disabled">
-                                </select>
-                            </c:when>
-                            <c:otherwise>
-                                <input type="text" name="userId" lay-verify="required|title" value="${userInfo.userId}" autocomplete="off" class="layui-input">
-                                <div class="has-error">
-                                    <form:errors path="userId" class="help-inline"/>
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
-
+                        <input type="text" name="userId" lay-verify="required|title" value="${userInfo.userId}" autocomplete="off" class="layui-input" disabled="disabled">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;校区</label>
                     <div class="layui-input-inline">
-                        <c:choose>
-                            <c:when test="${edit}">
-                                <input type="text" name="school" value="${userInfo.userCollege}" <%--lay-verify="email"--%> autocomplete="off" class="layui-input" disabled="disabled"
-                                </select>
-                            </c:when>
-                            <c:otherwise>
-                                <input type="text" name="school" value="${userInfo.userCollege}" <%--lay-verify="email"--%> autocomplete="off" class="layui-input">
-                                <div class="has-error">
-                                    <form:errors path="school" class="help-inline"/>
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
+                        <select name="school" disabled="disabled">
+                            <option value="">西北工业大学沣河校区</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;年级</label>
                     <div class="layui-input-inline">
-                        <c:choose>
-                            <c:when test="${edit}">
-                                <input type="number" name="userGrade" lay-verify="required" value="${userInfo.userGrade}" autocomplete="off" class="layui-input" disabled="disabled">
-                                </select>
-                            </c:when>
-                            <c:otherwise>
-                                <input type="number" name="userGrade" lay-verify="title"  autocomplete="off" class="layui-input"  min="${minYear}" max="${maxYear}">
-                                <div class="has-error">
-                                    <form:errors path="birthDate" class="help-inline"/>
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
-
+                        <input type="number" name="userGrade" lay-verify="required" value="${userInfo.userGrade}" autocomplete="off" class="layui-input" disabled="disabled">
                     </div>
                 </div>
             </div>
@@ -362,25 +191,7 @@
                 </div>
             </div>
         </div>
-
             <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;学制</label>
-                    <div class="layui-input-inline">
-                        <c:choose>
-                            <c:when test="${edit}">
-                                <input type="number" name="xuezhi" <%--lay-verify="email" --%> value="" autocomplete="off" class="layui-input" disabled="disabled">
-                                </select>
-                            </c:when>
-                            <c:otherwise>
-                                <input type="number" name="xuezhi" <%--lay-verify="email" --%>autocomplete="off" class="layui-input" min="2" max="4">
-                                <div class="has-error">
-                                    <form:errors path="birthDate" class="help-inline"/>
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
-                </div>
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;入学年月</label>
                     <div class="layui-input-inline">
@@ -390,49 +201,55 @@
             </div>
     </div>
 </fieldset>
-<fieldset class="layui-elem-field" style="margin-top: 20px;margin-right: 37%;margin-left: 20px">
-    <legend>联系方式</legend>
-    <div class="layui-field-box">
-
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;联系电话</label>
-                    <div class="layui-input-inline">
-                        <input type="tel" name="phoneNumber" lay-verify="required|phone" autocomplete="off" class="layui-input">
+    <c:choose>
+        <c:when test="${edit}">
+            <fieldset class="layui-elem-field" style="margin-top: 20px;margin-right: 30%;margin-left: 20px">
+                <legend>联系方式</legend>
+                <div class="layui-field-box">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label"><span style="color: red">*</span>&nbsp;联系电话</label>
+                            <div class="layui-input-inline">
+                                <input type="tel" name="phoneNumber" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label"><span style="color: red">*</span>&nbsp;QQ</label>
+                            <div class="layui-input-inline">
+                                <input type="number" name="QQ" <%--lay-verify=""--%> autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label"><span style="color: red">*</span>&nbsp;邮箱</label>
+                            <div class="layui-input-inline">
+                                <input type="email" name="userEmail" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">邮政编码</label>
+                            <div class="layui-input-inline">
+                                <input type="tel" name="postNumber" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">详细通讯地址</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="postalAddress" lay-verify="required|postNumber" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                        </div>
                     </div>
                 </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;QQ</label>
-                    <div class="layui-input-inline">
-                        <input type="number" name="QQ" <%--lay-verify=""--%> autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;邮箱</label>
-                    <div class="layui-input-inline">
-                        <input type="email" name="userEmail" lay-verify="email" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
+            </fieldset>
+            <div class="has-error">
+                <form:errors path="birthDate" class="help-inline"/>
             </div>
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label">邮政编码</label>
-                    <div class="layui-input-inline">
-                        <input type="tel" name="postNumber" lay-verify="required|phone" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">详细通讯地址</label>
-                <div class="layui-input-block">
-                    <input type="text" name="postalAddress" lay-verify="required|postNumber" autocomplete="off" placeholder="请输入标题" class="layui-input">
-                </div>
-            </div>
-    </div>
-</fieldset>
+        </c:when>
+    </c:choose>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+            <button class="layui-btn" lay-submit="" lay-filter="demo1">保存信息</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
@@ -444,6 +261,8 @@
 <script src="/static/layui/layui.js" charset="utf-8"></script>
 <script src="/static/plugins/jquery.1.12.4.min.js"></script>
 <script>
+    var header = $("meta[name='_csrf_header']").attr("content");
+    var token =$("meta[name='_csrf']").attr("content");
     layui.use(['form', 'layedit', 'laydate'], function(){
         var form = layui.form
             ,layer = layui.layer
@@ -464,7 +283,13 @@
         form.verify({
             title: function(value){
                 var re= /select|update|delete|exec|count|’|"|=|;|>|<|%/i;
-                if(re.test(value.toLowerCase())||value.length < 2){
+                if(re.test(value.toLowerCase())){
+                    return '不能含有敏感字符';
+                }
+            }
+            ,reasons: function(value){
+                var re= /select|update|delete|exec|count|’|"|=|;|>|<|%/i;
+                if(re.test(value.toLowerCase())||value.length < 10){
                     return '标题至少得5个字符啊';
                 }
             }
@@ -479,9 +304,26 @@
 
         //监听提交
         form.on('submit(demo1)', function(data){
+            var sendData = JSON.stringify(data.field)
             layer.alert(JSON.stringify(data.field), {
                 title: '最终的提交信息'
             })
+            $.ajax({
+                url: "/newuser",
+                type: "POST",
+                beforeSend : function(xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                data: sendData,//参数，（注：你后台的方法参数不好传啊）
+                contentType: 'application/json',
+                async : true,
+                success:function (data) {
+                    layer.msg(data.resultString)
+                },
+                error:function (data) {
+                    alert("data:" +JSON.stringify(data));
+                }
+            });
             return false;
         });
     });
