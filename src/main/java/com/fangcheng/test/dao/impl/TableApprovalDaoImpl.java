@@ -57,6 +57,14 @@ public class TableApprovalDaoImpl extends AbstractDao<Integer, TableApproval> im
     }
 
     @Override
+    public void deleteById(String id) {
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("id", id));
+        TableApproval tableApproval = (TableApproval) crit.uniqueResult();
+        delete(tableApproval);
+    }
+
+    @Override
     public void save(TableApproval tableApproval) {
         persist(tableApproval);
     }

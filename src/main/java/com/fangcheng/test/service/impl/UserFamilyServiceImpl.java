@@ -46,4 +46,17 @@ public class UserFamilyServiceImpl implements UserFamilyService {
     public void delete(Integer id) {
         userFamilyDao.delete(id);
     }
+
+    @Override
+    public void deleteByUserId(String userId) {
+        List<UserFamily> userFamilyList = userFamilyDao.findByUserId(userId);{
+            for (UserFamily userFamily:userFamilyList){
+                try {
+                    userFamilyDao.delete(userFamily.getId());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }

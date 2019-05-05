@@ -1,6 +1,8 @@
 package com.fangcheng.test.service.impl;
 
+import com.fangcheng.test.dao.ApplicationDao;
 import com.fangcheng.test.dao.TableApprovalDao;
+import com.fangcheng.test.entity.Application;
 import com.fangcheng.test.entity.TableApproval;
 import com.fangcheng.test.service.TableApprovalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ import java.util.List;
 public class TableApprovalServiceImpl implements TableApprovalService {
     @Autowired
     private TableApprovalDao tableApprovalDao;
+    @Autowired
+    private ApplicationDao applicationDao;
 
     @Override
     public List<TableApproval> findAllApproval() {
@@ -53,5 +57,20 @@ public class TableApprovalServiceImpl implements TableApprovalService {
         entity.setProcessNode(tableApproval.getProcessNode());
         entity.setApprovalStatus(tableApproval.getApprovalStatus());
         entity.setRemarks(tableApproval.getRemarks());
+    }
+
+    @Override
+    public void deleteAllApprovalByUserId(String userId) {
+        List<Application> applicationList = applicationDao.findByUserId(userId);
+        for(Application application:applicationList){
+            List<TableApproval> tableApprovalList = tableApprovalDao.findByApplicationNumber(application.getApplicationNumber());
+            for(TableApproval tableApproval:tableApprovalList){
+                try{
+                    tableApprovalDao.deleteById(tableApproval.getId());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

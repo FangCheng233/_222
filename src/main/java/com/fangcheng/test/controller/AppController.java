@@ -72,7 +72,7 @@ public class AppController {
 		List<Application> applications = applicationService.findByStatusNodes(3);
 		List<Application> applications1 = applicationService.findByStatusNodes(4);
 		List<Application> applicationslist = applicationService.findAllApplication();
-		model.addAttribute("loggedinuser", getUserName());
+//		model.addAttribute("loggedinuser", getUserName());
 		model.addAttribute("pending",applications.size());
 		model.addAttribute("solved",applications1.size());
 		model.addAttribute("count",applicationslist.size());
@@ -370,41 +370,60 @@ public class AppController {
 		model.addAttribute("application",application);
 		return "viewApplication";
 	}
-	@RequestMapping(value = { "/findpassword" }, method = RequestMethod.GET)
-	public String findpassword(ModelMap model,String userId) {
+	/**
+	 * @method  findpassword
+	 * @description 跳转至验证密保问题的界面
+	 * @date: 2019/5/5 11:10
+	 * @author: Fangcheng
+	[model, userId]
+	 * @return java.lang.String
+	 */
+	@RequestMapping(value = { "/getUserSecurity" }, method = RequestMethod.GET)
+	public String getUserSecurity(ModelMap model,String userId) {
 		User user = userService.findByUserId(userId);
 		model.addAttribute("user",user);
-		return "alterpwd";
+		return "userSecurity";
 	}
 	@RequestMapping(value = { "/alterpwd" }, method = RequestMethod.GET)
 	public String alterpassword(ModelMap model,String userId) {
 		User user = userService.findByUserId(userId);
 		model.addAttribute("user",user);
-		return "findpwd";
+		return "alterpwd";
 	}
-	@RequestMapping(value = { "/alterpwd" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/alterPassword" }, method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> alterPassword(@RequestBody String[] anwser) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		if(anwser[0].equals(anwser[1])){
+			User user = userService.findByUserId(anwser[2]);
+			try {
+				user.setPassword(anwser[0]);
+				userService.alterUserPassword(user);
+				map.put("success","修改成功");
+				return map;
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+		}
+		map.put("error","两次输入的密码不一致");
+		return map;
+	}
+	@RequestMapping(value = { "/compareAnwser" }, method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> alterpwd(@RequestBody String[] anwser) {
 		Map<String,Object> map = new HashMap<String, Object>();
-		User user = userService.findByUserId(getPrincipal());
+		User user = userService.findByUserId(anwser[2]);
 		if(user.getSecurityAnwser().length()>0){
 			try {
 				if(anwser[1].equals(user.getSecurityAnwser())){
 					map.put("success",true);
+					return map;
 				}
+				map.put("error","答案错误");
 			}catch (Exception e){
 				e.printStackTrace();
 			}
-			return map;
 		}
-		user.setUserSecurity(anwser[0]);
-		user.setSecurityAnwser(anwser[1]);
-		try {
-			userService.alterUserSecurityQuestion(user);
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-		map.put("success","修改成功");
 		return map;
 	}
 	/**
@@ -536,6 +555,9 @@ public class AppController {
 		Map<String,Object> map = new HashMap<String, Object>();
 		try {
 			userService.deleteUserByUserId(userId);
+			applicationService.deleteAllApplicationByUserId(userId);
+			userFamilyService.deleteByUserId(userId);
+			tableApprovalService.deleteAllApprovalByUserId(userId);
 		}catch (Exception e) {
 			e.printStackTrace();
 			map.put("resultString",userId + "删除失败");
@@ -555,6 +577,9 @@ public class AppController {
 			listsuccess.add(userId);
 			try {
 				userService.deleteUserByUserId(userId);
+				applicationService.deleteAllApplicationByUserId(userId);
+				userFamilyService.deleteByUserId(userId);
+				tableApprovalService.deleteAllApprovalByUserId(userId);
 			}catch (Exception e){
 				e.printStackTrace();
 				listerror.add(userId);

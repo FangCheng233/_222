@@ -45,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.headers().frameOptions().sameOrigin();
 		http.exceptionHandling().accessDeniedHandler(getAccessDeniedHandler());
 		http.authorizeRequests()
-				.antMatchers("/", "/main","/alterApplication","/approval","/userInfo","/test/*")
+				.antMatchers( "/","/main","/alterApplication","/approval","/userInfo")
 				.access("hasRole('STUDENT') or hasRole('COUNSELLOR') or hasRole('COLLEGE') or hasRole('ADMIN')")
 				.antMatchers("/userList")
 				.access("hasRole('COUNSELLOR') or hasRole('COLLEGE') or hasRole('ADMIN')")

@@ -22,4 +22,5 @@ public interface TableApprovalService {
     TableApproval findById(String id);
     void save(TableApproval tableApproval);
     void alterApprovalStatus(TableApproval tableApproval);
+    void deleteAllApprovalByUserId(String userId);
 }

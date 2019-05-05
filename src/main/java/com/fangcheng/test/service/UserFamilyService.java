@@ -21,5 +21,6 @@ public interface UserFamilyService {
    List<UserFamily> findAll();
    void save(UserFamily userFamily);
    void delete(Integer id);
+   void deleteByUserId(String userId);
 }
 
