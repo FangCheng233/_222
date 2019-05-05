@@ -216,25 +216,6 @@
                     break;
             };
         });
-        //编辑选中行数据
-        table.on('tool(tableFilter)', function (obj) {
-            var data = obj.data;
-            var layEvent = obj.event;
-            if (layEvent === 'edit') {
-                layer.open({
-                    title: '编辑用户',
-                    type: 2,
-                    shade: false,
-                    maxmin: true,
-                    area: ['90%', '90%'],
-                    content: 'user-edit.jsp',
-                    zIndex: layer.zIndex,
-                    end: function () {
-                        $(".layui-laypage-btn")[0].click();
-                    }
-                });
-            }
-        });
         //监听行工具事件
         table.on('tool(test)', function(obj){
             var data = obj.data;
@@ -268,15 +249,36 @@
                 });
 
             } else if(obj.event === 'edit'){
-                layer.prompt({
-                    formType: 2
-                    ,value: data.email
-                }, function(value, index){
-                    obj.update({
-                        email: value
-                    });
-                    layer.close(index);
+                layer.open({
+                    title: '修改密码',
+                    type: 2,
+                    shade: false,
+                    maxmin: true,
+                    shade: 0.5,
+                    anim: 4,
+                    area: ['20%', '20%'],
+                    content: '/alterpwd',
+                    zIndex: layer.zIndex,
+                    // skin: 'layui-layer-molv',
+                    end: function () {
+                        $(".layui-laypage-btn")[0].click();
+                    }
                 });
+/*                layer.open({
+                    title: '修改权限分组',
+                    type: 2,
+                    shade: false,
+                    maxmin: true,
+                    shade: 0.5,
+                    anim: 4,
+                    area: ['30%', '30%'],
+                    content: '/editRole?userId='+sendData,
+                    zIndex: layer.zIndex,
+                    // skin: 'layui-layer-molv',
+                    end: function () {
+                        $(".layui-laypage-btn")[0].click();
+                    }
+                });*/
             }
         });
         var $ = layui.$, active = {

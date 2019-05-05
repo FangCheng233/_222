@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.*;
@@ -94,7 +93,7 @@ public class ResultController {
                 e.printStackTrace();
             }
         }
-        if(select!=null){
+        if(select!=null&&!"".equals(select)){
             return listToJson(dealWithSelectUser(users1,select),pageStart,pageSize);
         }
         return listToJson(users1,pageStart,pageSize);
@@ -121,7 +120,7 @@ public class ResultController {
                 e.printStackTrace();
             }
         }
-        if(select!=null){
+        if(select!=null&&!"".equals(select)){
             return listToJson(dealWithSelectUser(users1,select),pageStart,pageSize);
         }
         return listToJson(users1,pageStart,pageSize);
@@ -148,7 +147,7 @@ public class ResultController {
                 e.printStackTrace();
             }
         }
-        if(select!=null){
+        if(select!=null&&!"".equals(select)){
             return listToJson(dealWithSelectUser(users1,select),pageStart,pageSize);
         }
         return listToJson(users1,pageStart,pageSize);
@@ -195,8 +194,7 @@ public class ResultController {
         return jsonObject1.toString();
     }
 
-/*
-    *//**
+   /**
      * @method  getStudentApplicationList
      * @description 获取当前登陆用户历史申请记录
      * @date: 2019/4/17 19:44
@@ -211,8 +209,9 @@ public class ResultController {
         List<Application> applications = applicationService.findByUserId(getPrincipal());
         List<Application> applicationList = new ArrayList<>();
         for(Application application :applications){
-            if(application.getStatusNodes().equals(4))
+            if(application.getStatusNodes().equals(4)){
                 applicationList.add(application);
+            }
         }
         return applicationlistToJson(applications,pageStart,pageSize);
     }
@@ -227,7 +226,6 @@ public class ResultController {
     @ResponseBody
     @RequestMapping(value = { "/getCounsellorApplicationList" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public String getCounsellorApplicationList(ModelMap model,@Valid Integer pageStart,Integer pageSize,String select,HttpServletResponse response) {
-
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         List<Application> applications = applicationService.findByStatusNodes(1);
         List<Application> applicationList = new ArrayList<>();
@@ -235,13 +233,15 @@ public class ResultController {
             try{
                 User user = userService.findByUserId(application.getUserId());
                 TableClass tableClass = tableClassService.findByClassId(user.getUserClass());
-                if(tableClass.getTeacherId().equals(getPrincipal()))
+                if(tableClass.getTeacherId().equals(getPrincipal())&&(application.getSchoolYear().equals(getSchoolYear()))){
+                    String ss = getSchoolYear();
                     applicationList.add(application);
+                }
             }catch(Exception e){
                 e.printStackTrace();
             }
         }
-        if(select!=null){
+        if(select!=null&&!"".equals(select)){
             return applicationlistToJson(dealWithSelect(applications,select),pageStart,pageSize);
         }
         return applicationlistToJson(applicationList,pageStart,pageSize);
@@ -264,13 +264,13 @@ public class ResultController {
         for(Application application :applications){
             try {
                 User user = userService.findByUserId(application.getUserId());
-                if(user.getUserCollege().equals(userCollege.getUserCollege()))
+                if(user.getUserCollege().equals(userCollege.getUserCollege())&&(application.getSchoolYear().equals(getSchoolYear())))
                     applicationList.add(application);
             }catch (Exception e){
                 e.printStackTrace();
             }
         }
-        if(select!=null){
+        if(select!=null&&!"".equals(select)){
             return applicationlistToJson(dealWithSelect(applications,select),pageStart,pageSize);
         }
         return applicationlistToJson(applicationList,pageStart,pageSize);
@@ -288,7 +288,16 @@ public class ResultController {
     public String getAllApplicationList(ModelMap model, @Valid Integer pageStart, Integer pageSize,String select,HttpServletResponse response) {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         List<Application> applications = applicationService.findByStatusNodes(3);
-        if(select!=null){
+        List<Application> applicationList = new ArrayList<>();
+        for(Application application :applications){
+            try {
+                if(application.getSchoolYear().equals(getSchoolYear()))
+                    applicationList.add(application);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        if(select!=null&&!"".equals(select)){
             return applicationlistToJson(dealWithSelect(applications,select),pageStart,pageSize);
         }
         return applicationlistToJson(applications,pageStart,pageSize);
@@ -336,6 +345,13 @@ public class ResultController {
     public String getUserFamily(ModelMap model,@Valid HttpServletResponse response) {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         List<UserFamily> userFamilyList = userFamilyService.findByUserId(getPrincipal());
+        return userFamilylistToJson(userFamilyList);
+    }
+    @ResponseBody
+    @RequestMapping(value = { "/viewUserFamily" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String viewUserFamily(ModelMap model,@Valid HttpServletResponse response,String userId){
+        response.setHeader("Content-type", "text/html;charset=UTF-8");
+        List<UserFamily> userFamilyList = userFamilyService.findByUserId(userId);
         return userFamilylistToJson(userFamilyList);
     }
     private String userFamilylistToJson(List<UserFamily> userFamilyList) {

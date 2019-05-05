@@ -18,8 +18,6 @@ import java.util.List;
  */
 public interface UserDao {
     User findByUserId(String userId);
-//    User findByUserClass(String userClass);
-//    User findBy
 
     void save(User user);
 

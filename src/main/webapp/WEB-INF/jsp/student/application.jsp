@@ -50,7 +50,7 @@
             </tr>
             <tr>
                 <td>籍贯：</td>
-                <td>${user.nativePlace}</td>
+                <td>${user.basePlaceP}${user.basePlaceC}</td>
                 <td>民族：</td>
                 <td>${user.nation}</td>
                 <td>身份证号：</td>
@@ -61,12 +61,12 @@
                 <td>${user.userSex}</td>
                 <td>寝室：</td>
                 <td></td>
-                <td>1989-10-14</td>
-                <td>人生似修行</td>
+                <td>其他</td>
+                <td></td>
             </tr>
             <tr>
                 <td>QQ：</td>
-                <td></td>
+                <td>${user.QQ}</td>
                 <td>邮箱：</td>
                 <td>${user.userEmail}</td>
                 <td>手机号：</td>
@@ -191,11 +191,11 @@
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;margin-left: 20px">
         <legend>家庭联系方式</legend>
     </fieldset>
-    <blockquote class="layui-elem-quote layui-quote-nm" STYLE="margin-top: 30px;margin-left: 20px">
+    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 30px;margin-left: 20px">
         <div class="layui-form-item">
             <label class="layui-form-label">家庭地址</label>
             <div class="layui-input-block">
-                <input type="text" name="address" lay-verify="required|itle" value="陕西西安" autocomplete="off" class="layui-input">
+                <input type="text" name="address" lay-verify="required|title" value="陕西西安" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -208,7 +208,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">邮政编码</label>
                 <div class="layui-input-inline">
-                    <input type="number" name="postNumber" lay-verify="required|postNumber" value="710124" placeholder="请输入6位邮政编码" autocomplete="off" class="layui-input">
+                    <input type="number" name="postalCode" lay-verify="required|postalCode" value="710124" placeholder="请输入6位邮政编码" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
@@ -296,9 +296,7 @@
         //日期
         laydate.render({
             elem: '#date'
-        });
-        laydate.render({
-            elem: '#date1'
+            ,lang: 'zh'
         });
 
         //创建一个编辑器
@@ -318,7 +316,7 @@
                     return '标题至少得5个字符啊';
                 }
             }
-            ,postNumber:[
+            ,postalCode:[
                 /^[1-9][0-9]{5}$/
                 ,'6位邮政编码，只能为数字且不能出现空格'
             ]

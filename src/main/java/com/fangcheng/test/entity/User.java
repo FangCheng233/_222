@@ -59,6 +59,9 @@ public class User implements Serializable {
     //学院
     @Column(name="USER_COLLEGE", nullable=true)
     private String userCollege;
+    //QQ
+    @Column(name="QQ", nullable=true)
+    private String QQ;
     //邮箱
     @Column(name="USER_EMAIL", nullable=true)
     private String userEmail;
@@ -92,6 +95,12 @@ public class User implements Serializable {
     //籍贯-区
     @Column(name="BASE_PLACE_A", nullable=true)
     private String basePlaceA;
+    //地址
+    @Column(name="ADDRESS", nullable=true)
+    private String postalAddress;
+    //邮编
+    @Column(name="POSTALNUMBER", nullable=true)
+    private String postalNumber;
     //密保问题
     @Column(name="USER_SECURITY", nullable=true)
     private String userSecurity;
@@ -129,6 +138,9 @@ public class User implements Serializable {
     public String getUserCollege() { return userCollege;}
     public void setUserCollege(String userCollege) { this.userCollege = userCollege; }
 
+    public String getQQ() { return QQ; }
+    public void setQQ(String QQ) { this.QQ = QQ; }
+
     public String getUserEmail() { return userEmail;}
     public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
 
@@ -162,11 +174,22 @@ public class User implements Serializable {
     public String getBasePlaceA() { return basePlaceA; }
     public void setBasePlaceA(String basePlaceA) { this.basePlaceA = basePlaceA; }
 
+    public String getPostalNumber() {
+        return postalNumber;
+    }
+
+    public void setPostalNumber(String postalNumber) {
+        this.postalNumber = postalNumber;
+    }
+
     public String getUserSecurity() { return userSecurity;}
     public void setUserSecurity(String userSecurity) { this.userSecurity = userSecurity; }
 
     public String getSecurityAnwser() { return securityAnwser;}
     public void setSecurityAnwser(String securityAnwser) { this.securityAnwser = securityAnwser; }
+
+    public String getPostalAddress() { return postalAddress; }
+    public void setPostalAddress(String postalAddress) { this.postalAddress = postalAddress; }
 
     @NotEmpty
     @ManyToMany(cascade=CascadeType.REFRESH)
@@ -177,16 +200,6 @@ public class User implements Serializable {
     private Set<TableAuthor> tableAuthors = new HashSet<TableAuthor>();
     public Set<TableAuthor> getTableAuthors() { return tableAuthors; }
     public void setTableAuthors(Set<TableAuthor> tableAuthors) { this.tableAuthors = tableAuthors; }
-    /*
-     * DO-NOT-INCLUDE passwords in toString function.
-     * It is done here just for convenience purpose.
-     */
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Application> applicationList;
-    public List<Application> getApplicationList() { return applicationList; }
-    public void setApplicationList(List<Application> applicationList) {
-        this.applicationList = applicationList;
-    }
 
     @Override
     public String toString() {
@@ -197,6 +210,7 @@ public class User implements Serializable {
                 + ", idNumber=" + idNumber +", basePlaceP=" + basePlaceP+ ", basePlaceC=" + basePlaceC
                 + ", basePlaceA=" + basePlaceA + ", userSecurity=" + userSecurity + ", securityAnwser=" + securityAnwser
                 + ", idType=" + idType + ", nation=" + nation  +", politicalOutlook=" + politicalOutlook
-                + ", nameUsedBefore=" + nameUsedBefore+"]";/**/
+                + ", nameUsedBefore=" + nameUsedBefore + ", QQ=" + QQ + ", postalAddress=" + postalAddress
+                + ", postalNumber=" + postalNumber+"]";/**/
     }
 }

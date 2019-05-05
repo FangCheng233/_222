@@ -52,6 +52,17 @@ public class ApplicationServiceImpl implements ApplicationService {
     public void deleteApplicationByApplicationNumber(String applicationNumber) {
         applicationDao.deletByApplicationNumber(applicationNumber);
     }
+    @Override
+    public void deleteAllApplicationByUserId(String userId) {
+        List<Application> applicationList = applicationDao.findByUserId(userId);
+        for(Application application:applicationList){
+            try{
+                applicationDao.deletByApplicationNumber(application.getApplicationNumber());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public List<Application> findAllApplication() {

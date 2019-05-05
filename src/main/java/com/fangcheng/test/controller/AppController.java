@@ -23,7 +23,6 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/")
-/*@SessionAttributes("roless")*/
 public class AppController {
 
 	@Autowired
@@ -129,7 +128,7 @@ public class AppController {
 			e.printStackTrace();
 		}
 		model.addAttribute("edit", true);
-		return "userInfo";
+		return "user-edit";
 	}
 	/**
 	 * @method  newUser
@@ -156,16 +155,20 @@ public class AppController {
 	 * @return java.lang.String
 	 */
 	@RequestMapping(value = { "/newuser" }, method = RequestMethod.POST)
-	public String saveUser(@Valid User user, BindingResult result,
+	@ResponseBody
+	public Map<String,Object> saveUser(@Valid User user, BindingResult result,
                            ModelMap model,HttpServletResponse response) {
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		Map<String,Object> map = new HashMap<String, Object>();
 		if (result.hasErrors()) {
-			return "admin/student-add";
+			map.put("error","信息不正确");
+			return map;
 		}
 		if(!userService.isUserIdUnique(user.getUserId())){
 			FieldError userIdError =new FieldError("user","userId",messageSource.getMessage("non.unique.userId", new String[]{user.getUserId()}, Locale.getDefault()));
 		    result.addError(userIdError);
-			return "admin/registration";
+			map.put("error","学号/工号重复");
+			return map;
 		}
 		try{
 			user.setUserName(unicode(user.getUserName()));
@@ -185,8 +188,8 @@ public class AppController {
 		}
 		model.addAttribute("success", "User " + user.getUserId() + " "+ user.getGroupId() + " registered successfully");
 		model.addAttribute("loggedinuser", getUserName());
-		//return "success";
-		return "registrationsuccess";
+		map.put("success","添加成功");
+		return map;
 	}
 	@RequestMapping(value = { "/addStudent" }, method = RequestMethod.GET)
 	public String addStudent(ModelMap model) {
@@ -222,14 +225,14 @@ public class AppController {
 		model.addAttribute("date",getdate());
 		return "admin/user-add";
 	}
-	@RequestMapping(value = { "/edit-user-{userId}" }, method = RequestMethod.GET)
+/*	@RequestMapping(value = { "/edit-user-{userId}" }, method = RequestMethod.GET)
 	public String editUser(@PathVariable String userId, ModelMap model) {
 		User user = userService.findByUserId(userId);
 		model.addAttribute("user", user);
 		model.addAttribute("edit", true);
 		model.addAttribute("loggedinuser", getUserName());
 		return "admin/registration";
-	}
+	}*/
 	/**
 	 * @method  updateUser
 	 * @description 修改用户的信息
@@ -238,18 +241,58 @@ public class AppController {
 	[user, result, model, userId]
 	 * @return java.lang.String
 	 */
-	@RequestMapping(value = { "/edit-user-{userId}" }, method = RequestMethod.POST)
-	public String updateUser(@Valid User user, BindingResult result,
-							 ModelMap model, @PathVariable String userId) {
-		if (result.hasErrors()) {
-			return "registration";
+	@RequestMapping(value = { "/edit-user" }, method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> updateUser(@RequestBody  String[] value
+										 ,ModelMap modelMap,HttpServletRequest request,HttpServletResponse response) {
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		Map<String,Object> map = new HashMap<String, Object>();
+		User user = userService.findByUserId(getPrincipal());
+		user.setPhoneNumber(value[0]);
+		user.setQQ(value[1]);
+		user.setUserEmail(value[2]);
+		user.setPostalNumber(value[3]);
+		user.setPostalAddress(value[4]);
+		user.setUserSecurity(value[5]);
+		user.setSecurityAnwser(value[6]);
+		try{
+			userService.updateUserData(user);
+		}catch (Exception e){
+			e.printStackTrace();
+			map.put("error",getPrincipal() + "修改失败");
+			return map;
 		}
-		userService.updateUserData(user);
-		model.addAttribute("success", "User " + user.getUserId()  + " updated successfully");
-		model.addAttribute("loggedinuser", getUserName());
-		return "registrationsuccess";
+		map.put("resultString",getPrincipal() + "修改成功");
+		return map;
 	}
-
+	@RequestMapping(value = { "/editRole" }, method = RequestMethod.GET)
+	public String editUserRole(@Valid String userId, ModelMap model) {
+		User user = userService.findByUserId(userId);
+		model.addAttribute("user", user);
+		return "edit-Role";
+	}
+	/**
+	 * @method  saveUser
+	 * @description 获取页面提交的参数创建新用户
+	 * @date: 2019/4/1 19:13
+	 * @author: Fangcheng
+	[user, result, model]
+	 * @return java.lang.String
+	 */
+	@RequestMapping(value = { "/editRole" }, method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> editRole(@Valid User user, BindingResult result,
+									   ModelMap model,HttpServletResponse response) {
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		Map<String,Object> map = new HashMap<String, Object>();
+		try{
+			userService.updateUserRole(user);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		map.put("success","修改成功");
+		return map;
+	}
     /**
      * @method  approval
      * @description 获取前端参数后台对数据进行筛选
@@ -261,10 +304,19 @@ public class AppController {
 	@RequestMapping(value = { "/approval" }, method = RequestMethod.GET)
 	public String approval(ModelMap model,@Valid String params) {
 			model.addAttribute("params", params);
+			model.addAttribute("schoolYearly",getSchoolYear());
+			System.out.println(getSchoolYear());
 		return "approval";
+	}
+	@RequestMapping(value = { "/applicationRecord" }, method = RequestMethod.GET)
+	public String applicationRecord(ModelMap model,@Valid String params) {
+		model.addAttribute("params", params);
+		model.addAttribute("yearly",getYearly());
+		return "applicationRecord";
 	}
 	@RequestMapping(value = { "/addfamily" }, method = RequestMethod.GET)
 	public String newfamily(ModelMap model) {
+		model.addAttribute("yearly",getYearly());
 		return "student/add-family";
 	}
 	@RequestMapping(value = { "/addfamily" }, method = RequestMethod.POST)
@@ -302,7 +354,59 @@ public class AppController {
         model.addAttribute("user",user);
         return "student/application";
     }
-
+	/**
+	 * @method  newApplication
+	 * @description 添加新的申请
+	 * @date: 2019/4/13 13:03
+	 * @author: Fangcheng
+	[model]
+	 * @return java.lang.String
+	 */
+	@RequestMapping(value = { "/viewapplication" }, method = RequestMethod.GET)
+	public String viewapplication(ModelMap model,String userId,String applicationNumber) {
+		User user = userService.findByUserId(userId);
+		Application application = applicationService.findByApplicationNumber(applicationNumber);
+		model.addAttribute("user",user);
+		model.addAttribute("application",application);
+		return "viewApplication";
+	}
+	@RequestMapping(value = { "/findpassword" }, method = RequestMethod.GET)
+	public String findpassword(ModelMap model,String userId) {
+		User user = userService.findByUserId(userId);
+		model.addAttribute("user",user);
+		return "alterpwd";
+	}
+	@RequestMapping(value = { "/alterpwd" }, method = RequestMethod.GET)
+	public String alterpassword(ModelMap model,String userId) {
+		User user = userService.findByUserId(userId);
+		model.addAttribute("user",user);
+		return "findpwd";
+	}
+	@RequestMapping(value = { "/alterpwd" }, method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> alterpwd(@RequestBody String[] anwser) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		User user = userService.findByUserId(getPrincipal());
+		if(user.getSecurityAnwser().length()>0){
+			try {
+				if(anwser[1].equals(user.getSecurityAnwser())){
+					map.put("success",true);
+				}
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+			return map;
+		}
+		user.setUserSecurity(anwser[0]);
+		user.setSecurityAnwser(anwser[1]);
+		try {
+			userService.alterUserSecurityQuestion(user);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		map.put("success","修改成功");
+		return map;
+	}
 	/**
 	 * @method  addApplication
 	 * @description 获取贫困申请界面数据，记录该申请
@@ -359,13 +463,13 @@ public class AppController {
 			application.setStatusNodes(application.getStatusNodes()+1);
 			TableApproval tableApproval = new TableApproval();
 			List<TableApproval> tableApprovalList = tableApprovalService.findByApplicationNumber(getPrincipal()+getSchoolYear());
-			tableApproval.setApplicationNumber(getPrincipal()+getSchoolYear());
+			tableApproval.setApplicationNumber(str);
 			tableApproval.setUserName(getUserName());
 			tableApproval.setApprovalStatus(getApprovalStatus());
 			tableApproval.setProcessNode(getGroupId());
 			tableApproval.setRemarks("");
 			tableApproval.setTime(getTime());
-			tableApproval.setId(getPrincipal()+getSchoolYear()+tableApprovalList.size());
+			tableApproval.setId(str+getSchoolYear()+tableApprovalList.size());
 			try {
 				applicationService.alterApplication(application);
 				tableApprovalService.save(tableApproval);
@@ -374,7 +478,7 @@ public class AppController {
 			}
 		}
 	map.put("success","删除成功");
-return map;
+	return map;
 	}
 
 	/**
@@ -393,7 +497,7 @@ return map;
 		List<String> listsuccess = new ArrayList<>();
 		List<String> listerror = new ArrayList<>();
 		for(String str:applicationNumberList){
-			Application application = applicationService.findByApplicationNumber(subString(str));
+			Application application = applicationService.findByApplicationNumber(str);
 			application.setApprovalStatus("驳回");
 			application.setProcessNode("学生");//当前审批节点
 			application.setStatusNodes(1);
@@ -411,9 +515,9 @@ return map;
 				tableApprovalService.save(tableApproval);
 			}catch (Exception e){
 				e.printStackTrace();
-				listerror.add(subString(str));
+				listerror.add(str);
 			}
-			listsuccess.add(subString(str));
+			listsuccess.add(str);
 		}
 		map.put("success",listsuccess);
 		map.put("error",listerror);
@@ -591,7 +695,7 @@ return map;
 	 */
 	private boolean isCurrentAuthenticationAnonymous() {
 	    final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    System.out.println(authentication);
 	    return authenticationTrustResolver.isAnonymous(authentication);
 	}
-
 }

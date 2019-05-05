@@ -32,7 +32,7 @@ layui.define(['table', 'form', 'layer', 'jquery', 'element'], function (exports)
             }
             form.render('select');
             $(userMajor).next().find('.layui-this').removeClass('layui-this').click();
-            cmc.formHidden('province', data.value);
+            cmc.formHidden('userCollege', data.value);
             $('.cmc-label-province').html(data.value);//此处可以自己修改 显示的位置, 不想显示可以直接去掉
         });
         if (inituserCollege) $(userCollege).next().find('[lay-value="' + inituserCollege + '"]').click();

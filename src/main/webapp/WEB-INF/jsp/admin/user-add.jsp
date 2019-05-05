@@ -212,7 +212,6 @@
                         </div>
                     </c:when>
                 </c:choose>
-
             </div>
         </div>
     </fieldset>

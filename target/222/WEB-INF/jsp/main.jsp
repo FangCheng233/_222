@@ -93,7 +93,7 @@
                     <a class="waves-effect" href="javascript:Tab.addTab('个人资料', '/userInfo')"><i class="zmdi zmdi-account"></i> 个人资料</a>
                 </li>
                 <li>
-                    <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-lock-outline"></i> 修改密码</a>
+                    <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-lock-outline" lay-event="test"></i> 修改密码</a>
                 </li>
                 <li>
                     <a class="waves-effect" href="/logout"><i class="zmdi zmdi-run"></i> 退出登录</a>
@@ -111,7 +111,7 @@
                 <a class="waves-effect" ><i class="zmdi zmdi-menu"></i> 申请审批管理</a><%--href="javascript:;"--%>
                 <ul>
                     <li><a class="waves-effect" href="javascript:Tab.addTab('待处理审批', '/approval?params=getAllApplicationList');">待处理审批</a></li>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('历史审批记录', '/role');">历史审批记录</a></li>
+                    <li><a class="waves-effect" href="javascript:Tab.addTab('历史审批记录', '/applicationRecord?params=getAllApplicationListOld');">历史审批记录</a></li>
                 </ul>
             </li>
             <li class="sub-menu system_menus system_1 1">
@@ -127,16 +127,16 @@
             <li class="sub-menu system_menus system_2 1" style="display:none;">
                 <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-menu"></i> 申请审批管理</a>
                 <ul>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('标签管理', '/approval?params=getCollegeApplicationList');">待处理审批</a></li>
-                    <li><a class="waves-effect" id="test" href="javascript:Tab.addTab('类目管理', 'javascript:;');">历史审批记录</a></li>
+                    <li><a class="waves-effect" href="javascript:Tab.addTab('待处理审批', '/approval?params=getCollegeApplicationList');">待处理审批</a></li>
+                    <%--<li><a class="waves-effect" id="test" href="javascript:Tab.addTab('历史申请', '/applicationRecord?params=getCollegeApplicationList');">历史审批记录</a></li>--%>
                 </ul>
             </li>
             <%-- 辅导员管理菜单--%>
             <li class="sub-menu system_menus system_3 1" style="display:none;">
                 <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-menu"></i> 申请审批管理</a>
                 <ul>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('标签管理', '/approval?params=getCounsellorApplicationList');">待处理审批</a></li>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('类目管理', '/manage/category/index');">历史审批记录</a></li>
+                    <li><a class="waves-effect" href="javascript:Tab.addTab('待处理审批', '/approval?params=getCounsellorApplicationList');">待处理审批</a></li>
+                    <%--<li><a class="waves-effect" href="javascript:Tab.addTab('历史审批记录', '/applicationRecord?params=getCounsellorApplicationList');">历史审批记录</a></li>--%>
                 </ul>
             </li>
             <%-- 学生端菜单--%>
@@ -144,7 +144,7 @@
                 <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-menu"></i> 贫困申请</a>
                 <ul>
                     <li><a class="waves-effect" href="javascript:Tab.addTab('提交申请', '/addapplication');">提交申请</a></li>
-                    <li><a class="waves-effect" href="javascript:Tab.addTab('类目管理', '/approval?params=getAllApplicationList');">历史记录</a></li>
+                    <%--<li><a class="waves-effect" href="javascript:Tab.addTab('历史记录', '/applicationRecord?params=getStudentApplicationList');">历史记录</a></li>--%>
                 </ul>
             </li>
             <li>
@@ -239,7 +239,12 @@
 <script src="/static/plugins/fullPage/jquery.fullPage.min.js"></script>
 <script src="/static/plugins/fullPage/jquery.jdirk.min.js"></script>
 <script src="/static/plugins/jquery.cookie.js"></script>
-
+<script type="text/javascript">
+    if(window!=top){ //代表这是iframe页面 ->解决main主页面里刷新重新加载时tab中出现嵌套页面
+        // window.top.location("/login");
+        top.location.href = "/login";
+    }
+</script>
 <%-- 对不同用户登陆成功后展示不同的界面--%>
 <sec:authorize access="hasRole('ADMIN')">
     <script src="/static/js/admin.js"></script>

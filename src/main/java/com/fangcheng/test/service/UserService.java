@@ -22,7 +22,7 @@ public interface UserService {
     void saveUser(User user);
 
     void  alterUserPassword(User user);
-
+    void updateUserRole(User user);
     void updateUserData(User user);
 
     void alterUserSecurityQuestion(User user);

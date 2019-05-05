@@ -86,10 +86,10 @@ public class Application implements Serializable {
     private String contactNumber;
     //紧急联系人
     @Column(name = "EMERGENCY_CONTACT")
-    private String emeergencyContact;
+    private String emergencyContact;
     //紧急联系人电话
     @Column(name = "EMERGENCY_CONTACT_NUMBER")
-    private String emeergencyContactNumber;
+    private String emergencyContactNumber;
     //申请理由
     @NotNull
     @Column(name = "REASONS_FOR_APPLICATION",columnDefinition = "TEXT",nullable = false)
@@ -224,17 +224,15 @@ public class Application implements Serializable {
         this.contactNumber = contactNumber;
     }
 
-    public String getEmeergencyContact() {
-        return emeergencyContact;
+    public String getEmergencyContact() {
+        return emergencyContact;
     }
-    public void setEmeergencyContact(String emeergencyContact) {
-        this.emeergencyContact = emeergencyContact;
-    }
+    public void setEmergencyContact(String emergencyContact) { this.emergencyContact = emergencyContact; }
 
-    public String getEmeergencyContactNumber() {
-        return emeergencyContactNumber;
+    public String getEmergencyContactNumber() {
+        return emergencyContactNumber;
     }
-    public void setEmeergencyContactNumber(String emeergencyContactNumber) { this.emeergencyContactNumber = emeergencyContactNumber; }
+    public void setEmergencyContactNumber(String emergencyContactNumber) { this.emergencyContactNumber = emergencyContactNumber; }
 
     public String getReasonsForApplication() {
         return reasonsForApplication;
@@ -278,7 +276,7 @@ public class Application implements Serializable {
                 + ", unexpectedAccident=" + unexpectedAccident + ", membershipSituation=" + membershipSituation + ", unemploymentSituation=" + unemploymentSituation
                 +", otherSituation=" + otherSituation + ", address=" + address + ", postalAddress=" + postalAddress
                 +", postalCode=" + postalCode + ", addressee=" + addressee + ", contactNumber=" + contactNumber
-                +", emeergencyContact=" + emeergencyContact + ", emeergencyContactNumber=" + emeergencyContactNumber + ", reasonsForApplication=" + reasonsForApplication
+                +", emergencyContact=" + emergencyContact + ", emergencyContactNumber=" + emergencyContactNumber + ", reasonsForApplication=" + reasonsForApplication
                 + ", approvalStatus=" + approvalStatus + ", processNode=" + processNode + ", fundedSituation=" + fundedSituation
                 + ", statusNodes=" + statusNodes +",]";
     }

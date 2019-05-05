@@ -24,7 +24,7 @@
     <div class="layui-field-box">
         <div class="demoTable">
             <div class="layui-inline">
-                <input class="layui-input" name="id" placeholder="学号/姓名/班级/专业/学院" id="demoReload" autocomplete="off">
+                <input class="layui-input" name="select" placeholder="学号/姓名/班级/专业/学院" id="demoReload" autocomplete="off">
             </div>
             <button class="layui-btn" data-type="reload">搜索</button>
         </div>

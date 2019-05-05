@@ -53,7 +53,7 @@ public class Test {
     }
 
     @RequestMapping(value = { "/testEntity" }, method = RequestMethod.POST)
-    public String testEntity(@Valid Application application, BindingResult result,
+    public String testEntity(@Valid User application, BindingResult result,
                            ModelMap model,HttpServletResponse response) {
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         //调用业务层处理
@@ -64,7 +64,7 @@ public class Test {
 
     @RequestMapping(value="/fixLeader1", method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
-    public String fixLeader() {
+    public String fixLeader(@Valid User user) {
         return "OK";
     }
     @RequestMapping(value = { "/fixLeader" }, method = RequestMethod.POST)

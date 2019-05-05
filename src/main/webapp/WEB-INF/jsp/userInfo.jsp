@@ -1,12 +1,13 @@
+<%--
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%--
+&lt;%&ndash;
   Created by IntelliJ IDEA.
   User: FangCheng
   Date: 2019/4/11
   Time: 15:55
   To change this template use File | Settings | File Templates.
---%>
+&ndash;%&gt;
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -71,7 +72,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;出生日期</label>
                     <div class="layui-input-inline">
-                        <input type="date" name="birthDate" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input" disabled="disabled">
+                        <input type="date" name="birthDate" id="date" value="${userInfo.birthDate}" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input" disabled="disabled">
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -81,34 +82,32 @@
                     </div>
                 </div>
             </div>
-            <div class="layui-form-item" id="addressDiv">
-                <div class="layui-inline">
-                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;籍贯-省</label>
-                    <div class="layui-input-inline">
-                        <div class="layui-input-inline">
-                            <select name="P1" lay-filter="province" id="province">
-                                <option></option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;市</label>
-                    <div class="layui-input-inline">
-                        <select name="C1" lay-filter="city" id="city">
-                            <option></option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label"><span style="color: red">*</span>&nbsp;县/区</label>
-                    <div class="layui-input-inline">
-                        <select name="A1" lay-filter="area" id="area">
-                            <option></option>
-                        </select>
-                    </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label"><span style="color: red">*</span>&nbsp;籍贯-省</label>
+                <div class="layui-input-inline">
+                    <select name="basePlaceP" lay-filter="province" id="province">
+                        <option></option>
+                    </select>
                 </div>
             </div>
+            <div class="layui-inline">
+                <label class="layui-form-label"><span style="color: red">*</span>&nbsp;市</label>
+                <div class="layui-input-inline">
+                    <select name="basePlaceC" lay-filter="city" id="city">
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label"><span style="color: red">*</span>&nbsp;县/区</label>
+                <div class="layui-input-inline">
+                    <select name="basePlaceA" lay-filter="area" id="area">
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+        </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;民族</label>
@@ -161,10 +160,6 @@
                 <label class="layui-form-label"><span style="color: red">*</span>&nbsp;院系</label>
                 <div class="layui-input-inline">
                     <select name="userCollege">
-                        <option value="">请选择省</option>
-                        <option value="浙江" selected="">浙江省</option>
-                        <option value="你的工号">江西省</option>
-                        <option value="你最喜欢的老师">福建省</option>
                     </select>
                 </div>
             </div>
@@ -172,10 +167,6 @@
                 <label class="layui-form-label"><span style="color: red">*</span>&nbsp;专业</label>
                 <div class="layui-input-inline">
                     <select name="userMajor">
-                        <option value="">请选择省</option>
-                        <option value="浙江" selected="">浙江省</option>
-                        <option value="你的工号">江西省</option>
-                        <option value="你最喜欢的老师">福建省</option>
                     </select>
                 </div>
             </div>
@@ -183,10 +174,6 @@
                 <label class="layui-form-label"><span style="color: red">*</span>&nbsp;班级</label>
                 <div class="layui-input-inline">
                     <select name="userClass">
-                        <option value="">请选择省</option>
-                        <option value="浙江" selected="">浙江省</option>
-                        <option value="你的工号">江西省</option>
-                        <option value="你最喜欢的老师">福建省</option>
                     </select>
                 </div>
             </div>
@@ -216,7 +203,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label"><span style="color: red">*</span>&nbsp;QQ</label>
                             <div class="layui-input-inline">
-                                <input type="number" name="QQ" <%--lay-verify=""--%> autocomplete="off" class="layui-input">
+                                <input type="number" name="QQ" &lt;%&ndash;lay-verify=""&ndash;%&gt; autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -230,7 +217,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">邮政编码</label>
                             <div class="layui-input-inline">
-                                <input type="tel" name="postNumber" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                                <input type="tel" name="postNumber" lay-verify="required|postNumber" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </div>
@@ -271,9 +258,7 @@
         //日期
         laydate.render({
             elem: '#date'
-        });
-        laydate.render({
-            elem: '#date1'
+            ,lang: 'zh'
         });
 
         //创建一个编辑器
@@ -293,6 +278,10 @@
                     return '标题至少得5个字符啊';
                 }
             }
+            ,postNumber:[
+                /^[1-9][0-9]{5}$/
+                ,'6位邮政编码，只能为数字且不能出现空格'
+            ]
             ,pass: [
                 /^[\S]{6,12}$/
                 ,'密码必须6到12位，且不能出现空格'
@@ -309,7 +298,7 @@
                 title: '最终的提交信息'
             })
             $.ajax({
-                url: "/newuser",
+                url: "/edit-user",
                 type: "POST",
                 beforeSend : function(xhr) {
                     xhr.setRequestHeader(header, token);
@@ -343,3 +332,4 @@
 <script src="/static/select/js/select.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
+--%>

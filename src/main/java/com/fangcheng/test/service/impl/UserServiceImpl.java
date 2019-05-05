@@ -1,6 +1,7 @@
 package com.fangcheng.test.service.impl;
 
 import com.fangcheng.test.dao.UserDao;
+import com.fangcheng.test.entity.TableAuthor;
 import com.fangcheng.test.entity.User;
 import com.fangcheng.test.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,14 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserDao dao;
+    private UserDao userDao;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     //将从查询到的User对象返回
     public User findByUserId(String userId){
-        return dao.findByUserId(userId);
+        return userDao.findByUserId(userId);
     }
 //    public User findByUserClass(String userClass){
 //        return dao.findByUserClass(userClass)
@@ -42,34 +43,45 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user){
         //对密码做加密处理
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        dao.save(user);
+        userDao.save(user);
     }
     public void updateUserData(User user){
-        User entity = dao.findByUserId(user.getUserId());
+        User entity = userDao.findByUserId(user.getUserId());
         if(entity!=null) {
             entity.setUserId(user.getUserId());
-            if (user.getGroupId()!=null){//年级信息
-                entity.setGroupId(user.getGroupId());
-            }
-            if (user.getUserName()!=null){//姓名
-                entity.setUserName(user.getUserName());
-            }
-            if (user.getUserMajor()!=null){//专业
-                entity.setUserMajor(user.getUserMajor());
-            }
-            if (user.getUserCollege()!=null){//学院
-                entity.setUserCollege(user.getUserCollege());
-            }
-            if (user.getUserClass()!=null){//班级
-                entity.setUserClass(user.getUserClass());
-            }
             entity.setBirthDate(user.getBirthDate());
             entity.setPhoneNumber(user.getPhoneNumber());
+            entity.setUserEmail(user.getUserEmail());
+            entity.setQQ(user.getQQ());
+            entity.setPostalAddress(user.getPostalAddress());
+            entity.setTableAuthors(user.getTableAuthors());
+            entity.setUserSecurity(user.getUserSecurity());
+            entity.setSecurityAnwser(user.getSecurityAnwser());
+        }
+    }
+    public void updateUserRole(User user){
+        User entity = userDao.findByUserId(user.getUserId());
+        Integer authorId=0;
+        if(entity!=null) {
+            for (TableAuthor tableAuthor:user.getTableAuthors()){
+                authorId = tableAuthor.getAuthorId();
+            }
+            switch(authorId){
+                case 1:
+                    entity.setGroupId("学生");break;
+                case 2:
+                    entity.setGroupId("辅导员");break;
+                case 3:
+                    entity.setGroupId("院系办公室");break;
+                case 4:
+                    entity.setGroupId("学工部");break;
+            }
+            entity.setTableAuthors(user.getTableAuthors());
         }
     }
     //修改用户密码
     public void alterUserPassword(User user){
-        User entity = dao.findByUserId(user.getUserId());
+        User entity = userDao.findByUserId(user.getUserId());
         if(entity!=null){
             //密码不相等的情况下修改
             if (!user.getPassword().equals(entity.getPassword()));
@@ -78,24 +90,19 @@ public class UserServiceImpl implements UserService {
     }
     //修改密保信息
     public void alterUserSecurityQuestion(User user){
-        User entity = dao.findByUserId(user.getUserId());
+        User entity = userDao.findByUserId(user.getUserId());
         if(entity!=null){
-            //密码不相等的情况下修改
-            if (!user.getUserSecurity().equals(entity.getUserSecurity())){
-                entity.setUserSecurity(user.getUserSecurity());
-            }
-            if (!user.getSecurityAnwser().equals(entity.getSecurityAnwser())){
-                entity.setSecurityAnwser(user.getSecurityAnwser());
-            }
+
         }
     }
     //删除用户
     public void deleteUserByUserId(String userId){
-        dao.deletByUserId(userId);
+        userDao.deletByUserId(userId);
+
     }
     //查找所有用户
     public List<User> findAllUsers(){
-        return dao.findAllUsers();
+        return userDao.findAllUsers();
     }
     public boolean isUserIdUnique(String userId){
         User user = findByUserId(userId);

@@ -1,21 +1,28 @@
-<%--<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-&lt;%&ndash;
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--
   Created by IntelliJ IDEA.
   User: FangCheng
   Date: 2019/4/20
   Time: 19:55
   To change this template use File | Settings | File Templates.
-&ndash;%&gt;
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Title</title>
     <meta name="_csrf" content="${_csrf.token}"/>
-    <meta name="_csrf_header"  content="${_csrf.headerName}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
 </head>
 <body>
 <form>
-        秒杀一：<input  name="Id" type="number"><br>
+    userId：<input class="td_input" name="userId" type="number"><br>
+    password：<input class="td_input" name="password" type="number"><br>
+    userName：<input class="td_input" name="userName" type="number"><br>
+    groupId：<input class="td_input" name="groupId" type="number"><br>
+    userSex：<input class="td_input" name="userSex" type="number"><br>
+    userClass：<input class="td_input" name="userClass" type="number"><br>
+    userMajor：<input class="td_input" name="userMajor" type="number"><br>
+    userCollege：<input class="td_input" name="userCollege" type="number"><br>
     <div>
         <div>
             <input type="button" value="test" onclick="test()"/>
@@ -44,40 +51,40 @@
             <input type="submit" value="后台用实体类接收"  class="btn btn-default" />
         </div>
     </div>
-    <div class="row">
-        <div class="form-group col-md-12">
-            <label class="col-md-3 control-lable" for="tableAuthors">Roles</label>&lt;%&ndash;authorType&ndash;%&gt;
-            <div class="col-md-7">
-                <form:select path="tableAuthors" items="${roles}" multiple="true" itemValue="authorId" itemLabel="authorType" class="form-control input-sm" />
-                <div class="has-error">
-                    <form:errors path="tableAuthors" class="help-inline"/>
-                </div>
-            </div>
-        </div>
-    </div>
 </form:form>
 <script src="/static/plugins/jquery.1.12.4.min.js"></script>
 <script type="text/javascript">
     function test(){
         var header = $("meta[name='_csrf_header']").attr("content");
         var token =$("meta[name='_csrf']").attr("content");
-        var id={"id":"123"};
+        var user={};
+        user.userId = "151047";
+        user.password = "2";
+        user.userName = "151047";
+        user.groupId = "222";
+        user.userSex = "151047";
+        user.userClass = "10111502";
+        user.userMajor = "sad";
+        user.userCollege = "asdad";
         $.ajax({
             url: '/test/fixLeader1',
             contentType: "text/html,charset=utf-8",
+            headers : {header:token},
             beforeSend : function(xhr) {
                 xhr.setRequestHeader(header, token);
             },
             type: 'post',
             async: false,
-            data:id,
+            data:JSON.stringify(user),
+            dataType:'json',
             success: function (result) {
             }
         });
     }
 </script>
 </body>
-</html>--%>
+</html>
+<%--
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -139,4 +146,15 @@
 </script>
 
 </body>
-</html>
+</html>--%>
+layer.open({
+type:1,
+title:'填写关闭原因',
+area:['500px','350px'],
+content:'<div id="mydiv"  style="margin-left:35px;margin-top:25px;"><textarea id="Context" style="width:430px;height:210px;resize:none;border-radius:6px;" ></textarea></div>',
+btn:['完成','取消'],
+btn1:function (index,layero){
+//获取弹出层中的dom元素！！
+var closeContext=top.$('#Context').val();
+alert(closeContext);
+}});
