@@ -25,7 +25,7 @@ import java.util.List;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-@Repository
+@Repository("tableApprovalDao")
 public class TableApprovalDaoImpl extends AbstractDao<Integer, TableApproval> implements TableApprovalDao {
     static final Logger logger = LoggerFactory.getLogger(TableApprovalDao.class);
 

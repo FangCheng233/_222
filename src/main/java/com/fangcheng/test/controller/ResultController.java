@@ -1,13 +1,7 @@
 package com.fangcheng.test.controller;
 
-import com.fangcheng.test.entity.Application;
-import com.fangcheng.test.entity.TableClass;
-import com.fangcheng.test.entity.User;
-import com.fangcheng.test.entity.UserFamily;
-import com.fangcheng.test.service.ApplicationService;
-import com.fangcheng.test.service.TableClassService;
-import com.fangcheng.test.service.UserFamilyService;
-import com.fangcheng.test.service.UserService;
+import com.fangcheng.test.entity.*;
+import com.fangcheng.test.service.*;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.math.BigInteger;
 import java.util.*;
 
 
@@ -45,7 +40,10 @@ public class ResultController {
     TableClassService tableClassService;
     @Autowired
     UserFamilyService userFamilyService;
-
+    @Autowired
+    AreasService areasService;
+    @Autowired
+    ReferenceDataService referenceDataService;
 
     /**
      * @method  getStudentInfo
@@ -215,6 +213,21 @@ public class ResultController {
         }
         return applicationlistToJson(applications,pageStart,pageSize);
     }
+    @ResponseBody
+    @RequestMapping(value = { "/getStudentApplication" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String getStudentApplication(ModelMap model,@Valid Integer pageStart,Integer pageSize,HttpServletResponse response) {
+        response.setHeader("Content-type", "text/html;charset=UTF-8");
+        List<Application> applicationList = new ArrayList<>();
+        try{
+            Application application = applicationService.findByApplicationNumber(getPrincipal()+getSchoolYear());
+            if(application!=null){
+                applicationList.add(application);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return applicationlistToJson(applicationList,pageStart,pageSize);
+    }
     /**
      * @method  getCounsellorApplicationList
      * @description 辅导员查询管理范围内的学生的申请信息
@@ -329,6 +342,9 @@ public class ResultController {
             jsonObject.accumulate("schoolYear",application.getSchoolYear());//学年
             jsonObject.accumulate("userGrade", user.getUserGrade());//年级
             jsonObject.accumulate("povertyLevel", application.getPovertyLevel());//困难级别
+            jsonObject.accumulate("povertyAudit",application.getSystemAudit());
+            jsonObject.accumulate("systemValue",application.getSystemValue());
+            jsonObject.accumulate("remarks",application.getRemarks());
             jsonObject.accumulate("userId", application.getUserId());//学号
             jsonObject.accumulate("userName", user.getUserName());//姓名
             jsonObject.accumulate("reasonsForApplication",application.getReasonsForApplication());//申请理由
@@ -377,7 +393,78 @@ public class ResultController {
         jsonObject1.accumulate("data", arrayList);
         return jsonObject1.toString();
     }
-
+    @ResponseBody
+    @RequestMapping(value = { "/getAreas" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String getAreas(ModelMap model,@Valid Integer pageStart, Integer pageSize,String select, HttpServletResponse response){
+        response.setHeader("Content-type", "text/html;charset=UTF-8");
+        List<Areas> areasList = areasService.findAll();
+        return areaslistToJson(areasList,pageStart,pageSize);
+    }
+    private String areaslistToJson(List<Areas> areasList,Integer pageStart,Integer pageSize) {
+        ArrayList arrayList = new ArrayList();
+        JSONObject jsonObject1 = new JSONObject();
+        int index = (pageStart -1)*pageSize;//开始位置
+        int end = 0;
+        if(areasList.size()-index>pageSize){
+            end = index+pageSize;
+        }else {
+            end = areasList.size();
+        }
+        jsonObject1.accumulate("code",0);
+        jsonObject1.accumulate("msg", "");
+        jsonObject1.accumulate("count", areasList.size());
+        Areas areas;
+        for (int i = index;i < end;i++) {
+            JSONObject jsonObject = new JSONObject();
+            areas = areasList.get(i);
+            // 向jsonObject添加属性对
+            jsonObject.accumulate("id", areas.getId());//编号
+            jsonObject.accumulate("provinceName", areas.getProvinceName());//省名
+            jsonObject.accumulate("provinceId",areas.getProvinceId());//省
+            jsonObject.accumulate("cityName", areas.getCityName());//市
+            jsonObject.accumulate("cityId",areas.getCityId());//市
+            jsonObject.accumulate("countyName", areas.getCountyName());//县
+            jsonObject.accumulate("countyId", areas.getCountyId());//县
+            jsonObject.accumulate("poorerAreas", areas.getPoorerAreas());//是否贫困地区
+            arrayList.add(jsonObject);
+        }
+        jsonObject1.accumulate("data", arrayList);
+        return jsonObject1.toString();
+    }
+    @ResponseBody
+    @RequestMapping(value = { "/getReferenceData" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    public String getReferenceData(ModelMap model,@Valid Integer pageStart, Integer pageSize,HttpServletResponse response){
+        response.setHeader("Content-type", "text/html;charset=UTF-8");
+        List<ReferenceData> referenceDataList = referenceDataService.findAll();
+        return reflistToJson(referenceDataList);
+    }
+    private String reflistToJson(List<ReferenceData> referenceDataList) {
+        ArrayList arrayList = new ArrayList();
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.accumulate("code",0);
+        jsonObject1.accumulate("msg", "");
+        jsonObject1.accumulate("count", referenceDataList.size());
+        for (ReferenceData referenceData:referenceDataList) {
+            JSONObject jsonObject = new JSONObject();
+            // 向jsonObject添加属性对
+            jsonObject.accumulate("schoolYear", referenceData.getSchoolYear());//电话
+            jsonObject.accumulate("livingExpenses", referenceData.getLivingExpenses());//编号
+            jsonObject.accumulate("tuition1", referenceData.getTuition1());//姓名
+            jsonObject.accumulate("tuition2",referenceData.getTuition2());//年龄
+            jsonObject.accumulate("tuition3", referenceData.getTuition3());//职业
+            jsonObject.accumulate("tuition4",referenceData.getTuition4());//关系
+            jsonObject.accumulate("tuition5", referenceData.getTuition5());//健康状况
+            jsonObject.accumulate("tuition6", referenceData.getTuition6());//年收入
+            jsonObject.accumulate("tuition7", referenceData.getTuition7());//工作单位
+            jsonObject.accumulate("tuition8", referenceData.getTuition8());//电话
+            jsonObject.accumulate("tuition9", referenceData.getTuition9());//电话
+            jsonObject.accumulate("tuition10", referenceData.getTuition10());//电话
+            jsonObject.accumulate("tuition11", referenceData.getTuition11());//电话
+            arrayList.add(jsonObject);
+        }
+        jsonObject1.accumulate("data", arrayList);
+        return jsonObject1.toString();
+    }
     /**
      * @method  getPrincipal
      * @description 返回当前用户的信息

@@ -13,6 +13,7 @@
     <title>家庭成员信息</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/nprogress/nprogress.css">
 </head>
 <body>
@@ -34,7 +35,23 @@
         <div class="layui-inline">
             <label class="layui-form-label">年龄</label>
             <div class="layui-input-inline">
-                <input type="number" name="userAge" autocomplete="off" class="layui-input" value="24" min="1" max="150">
+                <input type="number" name="userAge" lay-verify="required" lay-filter="choose2" autocomplete="off" class="layui-input" value="24" min="1" max="150">
+            </div>
+            <div class="layui-form-mid layui-word-aux">必填</div>
+        </div>
+        <div class="layui-inline" style="display: none">
+            <label class="layui-form-label">Self-care ability</label>
+            <div class="layui-input-inline">
+                <select name="SelfCareAbility" lay-verify="required">
+                    <option value="">请选择</option>
+                    <option value="自主吃饭">自主吃饭</option>
+                    <option value="自主穿衣">自主穿衣</option>
+                    <option value="自主上下床">自主上下床</option>
+                    <option value="自主如厕">自主如厕</option>
+                    <option value="室内自主行走">室内自主行走</option>
+                    <option value="自主洗澡">自主洗澡</option>
+                </select>
+                <input type="number" name="userAge" lay-verify="required" autocomplete="off" class="layui-input" value="24" min="1" max="150">
             </div>
             <div class="layui-form-mid layui-word-aux">必填</div>
         </div>
@@ -42,7 +59,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">单选框</label>
         <div class="layui-input-block">
-            <input type="radio" name="userSex" value="男" title="男">
+            <input type="radio" name="userSex" value="男" title="男" checked>
             <input type="radio" name="userSex" value="女" title="女">
         </div>
     </div>
@@ -50,32 +67,69 @@
         <div class="layui-inline">
             <label class="layui-form-label">职业</label>
             <div class="layui-input-inline">
-                <input type="text" name="occupation" lay-verify="title" autocomplete="off" value="学生" class="layui-input">
+                <select name="occupation" lay-filter="choose1" lay-verify="required">
+                    <option value="">请选择</option>
+                    <option value="学生">学生</option>
+                    <option value="农民">农民</option>
+                    <option value="工人">工人</option>
+                    <option value="商人">商人</option>
+                    <option value="教师">教师</option>
+                    <option value="事业单位">事业单位</option>
+                    <option value="政府人员">政府人员</option>
+                    <option value="基层干部">基层干部</option>
+                    <option value="自由职业">自由职业</option>
+                    <option value="其他">其他</option>
+                </select>
+            </div>
+            <div class="layui-form-mid layui-word-aux">必填</div>
+        </div>
+        <div class="layui-inline" id="sign1" style="display: none">
+            <label class="layui-form-label">教育阶段</label>
+            <div class="layui-input-inline">
+                <select name="education">
+                    <option value="">请选择</option>
+                    <option value="小学">小学</option>
+                    <option value="初中">初中</option>
+                    <option value="高中">高中</option>
+                    <option value="大学">大学</option>
+                    <option value="其他">其他</option>
+                </select>
             </div>
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">与学生关系</label>
+            <label class="layui-form-label">与本人关系</label>
             <div class="layui-input-inline">
-                <input type="text" name="relationship" lay-verify="required|title" autocomplete="off" value="本人" class="layui-input">
+                <select name="relationship" required>
+                    <option value="">请选择</option>
+                    <option value="父亲" selected="">父亲</option>
+                    <option value="母亲">母亲</option>
+                    <option value="兄弟姐妹">兄弟姐妹</option>
+                    <option value="祖父母或外祖父母">祖父母或外祖父母</option>
+                    <option value="其他">其他</option>
+                </select>
             </div>
             <div class="layui-form-mid layui-word-aux">必填</div>
+        </div>
+        <div class="layui-inline" id="sign2" style="display: none">
+            <label class="layui-form-label">学费</label>
+            <div class="layui-input-inline">
+                <input type="number" name="tuition" autocomplete="off" value="2000" class="layui-input" step="100">
+            </div>
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">健康状况</label>
             <div class="layui-input-inline">
-                <input type="text" name="health" lay-verify="required|title" placeholder="健康/患病" value="健康" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">年收入</label>
-            <div class="layui-input-inline">
-                <input type="number" name="annualIncome" autocomplete="off" value="2000" class="layui-input">
+                <select name="health" required>
+                    <option value="">请选择</option>
+                    <option value="健康" selected="">健康</option>
+                    <option value="轻度残疾">轻度残疾</option>
+                    <option value="重度残疾">重度残疾</option>
+                    <option value="其他">其他</option>
+                </select>
             </div>
         </div>
     </div>
@@ -87,6 +141,15 @@
             </div>
         </div>
     </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">年收入</label>
+            <div class="layui-input-inline">
+                <input type="number" name="annualIncome" placeholder="无收入填0"autocomplete="off" class="layui-input" step="1000">
+            </div>
+        </div>
+    </div>
+<a href="E:\project\SpringMvcFileUpload\WebRoot\images\layui-v2.4.5.zip">123333333333</a>
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">联系电话</label>
@@ -103,6 +166,7 @@
 </form:form>
 </fieldset>
 <script src="/static/layui/layui.js" charset="utf-8"></script>
+<script src="/static/plugins/jquery.1.12.4.min.js"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
     layui.use(['form', 'layedit', 'laydate'], function(){
@@ -126,6 +190,18 @@
                 layedit.sync(editIndex);
             }
         });
+        //监听下拉
+        form.on('select(choose1)', function (data) {
+            if (data.value == "学生") {
+                $("#sign1").show();
+                $("#sign2").show();
+            }
+            else {
+                $("#sign1").hide();
+                $("#sign2").hide();
+            }
+            form.render();
+        });
         //监听提交
         form.on('submit(demo1)', function(data){
             layer.alert(JSON.stringify(data.field), {
@@ -134,14 +210,6 @@
             return false;
         });
     });
-</script>
-<!--js逻辑-->
-<script src="/static/nprogress/nprogress.js"></script>
-<script>
-    NProgress.start();
-    window.onload = function () {
-        NProgress.done();
-    }
 </script>
 </body>
 </html>

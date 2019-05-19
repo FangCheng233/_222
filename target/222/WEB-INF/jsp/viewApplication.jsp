@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="forrm" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page isELIgnored="false" %>
 <%--
   Created by IntelliJ IDEA.
@@ -13,6 +14,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" pageEncoding="UTF-8">
     <title>layui</title>
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header"  content="${_csrf.headerName}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/layui/css/layui.css"  media="all">
@@ -77,7 +80,7 @@
     </div>
 </fieldset>
 <fieldset class="layui-elem-field" style="margin-top: 20px;margin-left: 20px;">
-    <legend>家庭信息</legend>
+    <legend>家庭成员信息</legend>
     <table class="layui-table" lay-data="{height:232, url:'/viewUserFamily?userId=${user.userId}', method:'get',id:'test'}" lay-filter="test">
         <thead>
         <tr>
@@ -260,15 +263,19 @@
             </div>
         </div>
     </fieldset>
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="" lay-filter="demo1">通过</button>
-            <button type="reset" class="layui-btn layui-btn-primary">返回</button>
+    <input type="hidden" name="applicationNumber" value="${application.applicationNumber}">
+    <sec:authorize access="hasRole('ADMIN') or hasRole('COLLEGE') or hasRole('COUNSELLOR')">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="demo1">通过</button>
+            </div>
         </div>
-    </div>
+    </sec:authorize>
+
 </form>
 <script src="/static/layui/layui.js" charset="utf-8"></script>
 <script src="/static/nprogress/nprogress.js"></script>
+<script src="/static/plugins/jquery.1.12.4.min.js"></script>
 <script>
     var header = $("meta[name='_csrf_header']").attr("content");
     var token =$("meta[name='_csrf']").attr("content");
@@ -276,22 +283,59 @@
     window.onload = function () {
         NProgress.done();
     }
-    layui.use(['table'], function(){
+    layui.use('form', function(){
         //监听提交
+        var form = layui.form
+            ,layer = layui.layer;
         form.on('submit(demo1)', function(data){
-            layer.msg('确认审批通过？')
+            var sendData = [];
+            var data = data.field
+            sendData.push(data.applicationNumber)
+            layer.msg('确认通过吗？', {
+                title: ''
+                ,time: 5000
+                ,offset: [300,300]
+                ,btn:['通过','放弃']
+                ,btnAlign: 'c'
+                ,yes: function(){
+                    $.ajax({
+                        url: "/alterApplicationPass",
+                        type: "POST",
+                        beforeSend : function(xhr) {
+                            xhr.setRequestHeader(header, token);
+                        },
+                        data: JSON.stringify(sendData),//
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (data) {//回调函数
+                            layer.msg(data.success,{
+                                time:2000
+                            })
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                            table.reload('testReload', {
+                                page: {
+                                    curr: 1 //重新从第 1 页开始
+                                }
+                            });
+                        },
+                        error:function (data) {
+
+                        }
+                    });
+                    layer.close(index);
+                }
+            })
             return false;
         });
+        //下载按钮监听
+
         //监听工具条
         $('.demoTable .layui-btn').on('click', function(){
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
     });
-/*    layui.use('table', function(){
-
-    });*/
-
 </script>
 </body>
 </html>

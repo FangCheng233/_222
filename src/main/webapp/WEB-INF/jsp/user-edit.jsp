@@ -144,7 +144,7 @@
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;市</label>
                     <div class="layui-input-inline">
                         <select disabled="disabled">
-                            <option value="adadad" selected=""> asda</option><%--${userInfo.basePlaceC}--%>
+                            <option value="" selected="">${userInfo.basePlaceC}</option>
                             <option></option>
                         </select>
                     </div>

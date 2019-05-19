@@ -73,4 +73,16 @@ public class TableApprovalServiceImpl implements TableApprovalService {
             }
         }
     }
+
+    @Override
+    public void deleteAllApprovalByApplication(String applicationNumber) {
+        List<TableApproval> tableApprovalList = tableApprovalDao.findByApplicationNumber(applicationNumber);
+        for(TableApproval tableApproval:tableApprovalList){
+            try{
+                tableApprovalDao.deleteById(tableApproval.getId());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
 }

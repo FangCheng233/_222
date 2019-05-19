@@ -1,9 +1,11 @@
 package com.fangcheng.test.controller;
 
 import com.fangcheng.test.entity.Application;
+import com.fangcheng.test.entity.TableApproval;
 import com.fangcheng.test.entity.TableClass;
 import com.fangcheng.test.entity.User;
 import com.fangcheng.test.service.ApplicationService;
+import com.fangcheng.test.service.TableApprovalService;
 import com.fangcheng.test.service.TableClassService;
 import com.fangcheng.test.service.UserService;
 import org.json.JSONObject;
@@ -43,6 +45,9 @@ import java.util.List;
         ApplicationService applicationService;
         @Autowired
         TableClassService tableClassService;
+        @Autowired
+        TableApprovalService tableApprovalService;
+
 /*
      * @method  getStudentApplicationList
      * @description 获取当前登陆用户历史申请记录
@@ -239,6 +244,48 @@ import java.util.List;
             }
             return applicationList1;
         }
+        @ResponseBody
+        @RequestMapping(value = { "/getTableApproval" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+        public String getTableApproval(ModelMap model, @Valid String applicationNumber,HttpServletResponse response) {
+            response.setHeader("Content-type", "text/html;charset=UTF-8");
+            List<TableApproval> tableApprovalList = tableApprovalService.findByApplicationNumber(applicationNumber);
+            Integer pageStart = 1;
+            Integer pageSize = 10;
+            return approvallistToJson(tableApprovalList,pageStart,pageSize);
+        }
+
+        private String approvallistToJson(List<TableApproval> tableApprovalList, Integer pageStart, Integer pageSize) {
+            ArrayList arrayList = new ArrayList();
+            JSONObject jsonObject1 = new JSONObject();
+            int index = (pageStart -1)*pageSize;//开始位置
+            int end = 0;
+            if(tableApprovalList.size()-index>pageSize){
+                end = index+pageSize;
+            }else {
+                end = tableApprovalList.size();
+            }
+            jsonObject1.accumulate("code",0);
+            jsonObject1.accumulate("msg", "");
+            jsonObject1.accumulate("count", tableApprovalList.size());
+            TableApproval tableApproval;
+            for (int i = index;i < end;i++) {
+                JSONObject jsonObject = new JSONObject();
+                tableApproval = tableApprovalList.get(i);
+                // 向jsonObject添加属性对
+                jsonObject.accumulate("applicationNumber", tableApproval.getApplicationNumber());//申请编号
+                jsonObject.accumulate("processNode", tableApproval.getProcessNode());//学院
+                jsonObject.accumulate("approvalStatus",tableApproval.getApprovalStatus());//专业
+                jsonObject.accumulate("userName", tableApproval.getUserName());//姓名
+                jsonObject.accumulate("remarks",tableApproval.getRemarks());//
+                jsonObject.accumulate("time", tableApproval.getTime());//当前节点
+                jsonObject.accumulate("id", tableApproval.getId());//审批人
+                arrayList.add(jsonObject);
+            }
+            jsonObject1.accumulate("data", arrayList);
+            return jsonObject1.toString();
+        }
+
+
     private String getPrincipal(){
         String userId = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -20,7 +20,7 @@
     <link href="/static/layui/css/layui.css"rel="stylesheet" media="all">
 
     <link href="/static/select/css/select.css" rel="stylesheet"/>
-    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<%--    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>--%>
 
     <style>
         input[disabled]{color:#535353;opacity:1}
@@ -29,8 +29,8 @@
     </style>
 </head>
 <body bgcolor="#fffafa">
-<form:form class="layui-form" action="/newuser" lay-filter="example" method="post">
-    <fieldset class="layui-elem-field" style="margin-top: 20px;margin-right: 30%;margin-left: 20px">
+<form:form class="layui-form" action="/newuser" lay-filter="example" method="post" acceptCharset="UTF-8" onsubmit="return checkForm()">
+    <fieldset class="layui-elem-field" style="margin-top: 20px;margin-right: 28%;margin-left: 20px">
         <legend>基本资料</legend>
         <div class="layui-field-box">
             <div class="layui-form-item">
@@ -80,7 +80,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label"><span style="color: red">*</span>&nbsp;证件号码</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="idNumber" lay-verify="required|identity" placeholder="" autocomplete="off" class="layui-input">
+                        <input type="text" name="idNumber" id="idNumber" lay-verify="required|identity" value="61052119900101000x" placeholder="" autocomplete="off" class="layui-input">
                         <div class="has-error">
                             <form:errors path="birthDate" class="help-inline"/>
                         </div>
@@ -138,7 +138,7 @@
             </div>
         </div>
     </fieldset>
-    <fieldset class="layui-elem-field" style="margin-top: 20px;margin-right: 30%;margin-left: 20px">
+    <fieldset class="layui-elem-field" style="margin-top: 20px;margin-right: 28%;margin-left: 20px">
         <c:choose>
             <c:when test="${getStudentList}">
                 <legend>学籍信息</legend>
@@ -205,7 +205,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label"><span style="color: red">*</span>&nbsp;班级</label>
                             <div class="layui-input-inline">
-                                <select name="userClass" lay-filter="userClass" id="userClass">
+                                <select name="userClass" lay-filter="userClass" id="userClass" lay-verify="required|userClass" >
                                     <option value=""></option>
                                 </select>
                             </div>
@@ -221,8 +221,8 @@
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
-    <input type="hidden" name="creatTime" value="${date}">
-    <input type="hidden" name="password"value="123456">
+    <input type="hidden" name="creatTime" value="${date}"/>
+    <input type='hidden' name='password' id='md5_pwd' value=''/>
     <c:choose>
         <c:when test="${getStudentList}">
             <input type="hidden" name="groupId" value="学生">
@@ -248,9 +248,17 @@
 </form:form>
 <script src="/static/layui/layui.js" charset="utf-8"></script>
 <script src="/static/plugins/jquery.1.12.4.min.js"></script>
+<script src="/static/js/md5.js" charset="utf-8"></script>
 <script>
-    var header = $("meta[name='_csrf_header']").attr("content");
-    var token =$("meta[name='_csrf']").attr("content");
+    function checkForm() {
+        var input= document.getElementById('idNumber');
+        var input_pwd=input.value;
+        var pwd = input_pwd.substr(12,18)
+        alert(pwd)
+        var password= document.getElementById('md5_pwd');
+        password.value = hex_md5(pwd)
+        return ture;
+    }
     layui.use(['form', 'layedit', 'laydate'], function(){
         var form = layui.form
             ,layer = layui.layer
@@ -276,6 +284,11 @@
                 var re= /select|update|delete|exec|count|’|"|=|;|>|<|%/i;
                 if(re.test(value.toLowerCase())||value.length < 10){
                     return '标题至少得5个字符啊';
+                }
+            }
+            ,userClass: function(value){
+                if(value.length < 3){
+                    return '请选择班级';
                 }
             }
             ,pass: [

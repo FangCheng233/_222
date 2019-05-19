@@ -73,7 +73,7 @@ public class TableClass implements Serializable {
 
     @Override
     public String toString() {
-        return "TableAuthor [classId=" + classId + ", className=" + className + ", teacherId=" + teacherId
+        return "TableClass [classId=" + classId + ", className=" + className + ", teacherId=" + teacherId
                 +", teacherName=" + teacherName +  "]";
     }
 }

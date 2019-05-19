@@ -7,6 +7,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,12 +42,24 @@
     </div>
 </script>
 <script type="text/html" id="barDemo">
+<%--    <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon">⬇</i></button>
+        <button class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon"></i></button>
+        <button class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon"></i></button>
+    </div>--%>
+    <a href="javascript:;" title="编辑" lay-event="download"><i class="layui-icon">⬇</i></a>
     <a href="javascript:;" title="编辑" lay-event="edit"><i class="layui-icon">&#xe642;</i></a>
     <a href="javascript:;" title="删除" lay-event="del"><i class="layui-icon">&#xe640;</i></a>
 </script>
 <script src="/static/layui/layui.js" charset="utf-8"></script>
 <script src="/static/plugins/jquery.1.12.4.min.js"></script>
-<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+    <script type="text/html" id="povertyAudit">
+        {{#  if(d.povertyAudit === '特别困难'){ }}
+        <span style="color: #F581B1;">{{ d.povertyAudit}}</span>
+        {{#  } else { }}
+        {{ d.povertyAudit }}
+        {{#  } }}
+    </script>
 <script>
     var header = $("meta[name='_csrf_header']").attr("content");
     var token =$("meta[name='_csrf']").attr("content");
@@ -59,6 +75,8 @@
             /*            ,totalRow: true*/
             ,id: 'testReload'
             ,width: 1630
+            ,skin: 'row'
+            ,even: true
             ,cols: [[
                 {field:'applicationNumber',hide:true}
                 ,{type:'numbers'}
@@ -74,6 +92,9 @@
                 </sec:authorize>
                 ,{field:'userGrade', title: '年级', width:100,align:'center'}
                 ,{field:'povertyLevel', title:'申请家庭经济困难等级', width:200,align:'center'}
+                ,{field:'povertyAudit', title:'系统评定结果', width:200,align:'center',templet: '#povertyAudit'}
+                ,{field:'systemValue', title:'系统评分', width:100,align:'center',templet: '#systemValue'}
+                ,{field:'remarks', title:'系统备注信息', width:200,align:'center'}
                 ,{field:'reasonsForApplication', title:'申请理由',event: 'setSign',style:'cursor: pointer;',width:200,align:'center'}
                 ,{field:'userId', title:'学号', width:100,align:'center'}
                 ,{field:'userName', title:'姓名', width:100,align:'center'}
@@ -169,6 +190,11 @@
                                     contentType: 'application/json',
                                     success: function (data) {//回调函数
                                         layer.msg(data.success+'</br>'+data.error)
+                                        table.reload('testReload', {
+                                            page: {
+                                                curr: 1 //重新从第 1 页开始
+                                            }
+                                        });
                                     }
                                 });
                                 layer.close(index);
@@ -182,25 +208,9 @@
 
         //编辑选中行数据
         table.on('tool(tableFilter)', function (obj) {
-            var data = obj.data;
-            var layEvent = obj.event;
-            if (layEvent === 'edit') {
-                layer.open({
-                    title: '编辑用户',
-                    type: 2,
-                    shade: false,
-                    maxmin: true,
-                    area: ['90%', '90%'],
-                    content: 'user-edit.jsp',
-                    zIndex: layer.zIndex,
-                    end: function () {
-                        $(".layui-laypage-btn")[0].click();
-                    }
-                });
-            }
             $("#toolbarDemo .addUser").click(function () {
                 layer.open({
-                    title: '添加用户1',
+                    title: '添加用户',
                     type: 2,
                     shade: false,
                     maxmin: true,
@@ -219,8 +229,6 @@
         //监听行工具事件
         table.on('tool(test)', function(obj){
             var data = obj.data;
-            //console.log(obj)
-            alert(JSON.stringify(obj))
             if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
                     $.ajax({
@@ -229,8 +237,7 @@
                         beforeSend : function(xhr) {
                             xhr.setRequestHeader(header, token);
                         },
-                        data: {"applicationNumber": data.applicationNumber},//
-                        dataType: 'json',
+                        data: data.applicationNumber,//
                         contentType: 'application/json',
                         success: function (res) {//回调函数
                         }
@@ -239,14 +246,45 @@
                     layer.close(index);
                 });
             } else if(obj.event === 'edit'){
-                layer.prompt({
-                    formType: 2
-                    ,value: data.email
-                }, function(value, index){
-                    obj.update({
-                        email: value
-                    });
-                    layer.close(index);
+                var data = obj.data;
+                var applicationNumber = data.applicationNumber;
+                var userId = data.userId;
+                layer.open({
+                    title: '查看详细信息',
+                    type: 2,
+                    maxmin: true,
+                    shade: 0.5,
+                    anim: 4,
+                    area: ['90%', '90%'],
+                    content: '/viewapplication?userId='+userId+'&applicationNumber='+applicationNumber,
+                    zIndex: layer.zIndex,
+                    // skin: 'layui-layer-molv',
+                    end: function () {
+                        $(".layui-laypage-btn")[0].click();
+                    }
+                });
+            }else if(obj.event === 'download'){
+                alert("<%=basePath%>")
+                var sendData = [];
+                var data = obj.data;
+                sendData.push(data.applicationNumber)
+                $.ajax({
+                    url: "/download",
+                    type: "POST",
+                    beforeSend : function(xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    data: JSON.stringify(sendData),//
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {//回调函数
+/*                        layer.msg(data.success,{
+                            time:2000
+                        })*/
+                        window.open("<%=basePath%>"+"static/data/"+data.success)
+                    },
+                    error:function (data) {
+                    }
                 });
             }
         });

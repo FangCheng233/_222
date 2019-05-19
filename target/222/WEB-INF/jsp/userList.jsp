@@ -80,13 +80,18 @@
                 ,{field:'userId', width:100, title: '学号/工号'}
                 ,{field:'userName', width:80, title: '用户名'}
                 ,{field:'userSex',width:80, minWidth:100, title: '性别', sort: true}
-                <sec:authorize access="hasRole('COLLEGE') or hasRole('COUNSELLOR')">
                 ,{field:'userClass', title:'班级', width:100,align:'center'}
-                </sec:authorize>
                 <sec:authorize access="hasRole('COLLEGE') or hasRole('COUNSELLOR')">
                 ,{field:'userMajor', title:'专业', width:100,align:'center'}
                 </sec:authorize>
-                ,{field:'userGrade', title:'班级', width:100,align:'center'}
+                <c:choose>
+                    <c:when test="${edit}">
+
+                    </c:when>
+                    <c:otherwise>
+                    </c:otherwise>
+                </c:choose>
+                ,{field:'userGrade', title:'年级', width:100,align:'center'}
                 ,{field:'groupId', minWidth:100, title: '所属组织'}
                 ,{field:'userCollege', minWidth:100, title: '所属院系', sort: true}
                 <sec:authorize access="hasRole('ADMIN')">
@@ -250,21 +255,6 @@
 
             } else if(obj.event === 'edit'){
                 layer.open({
-                    title: '修改密码',
-                    type: 2,
-                    shade: false,
-                    maxmin: true,
-                    shade: 0.5,
-                    anim: 4,
-                    area: ['20%', '20%'],
-                    content: '/alterpwd',
-                    zIndex: layer.zIndex,
-                    // skin: 'layui-layer-molv',
-                    end: function () {
-                        $(".layui-laypage-btn")[0].click();
-                    }
-                });
-/*                layer.open({
                     title: '修改权限分组',
                     type: 2,
                     shade: false,
@@ -278,7 +268,7 @@
                     end: function () {
                         $(".layui-laypage-btn")[0].click();
                     }
-                });*/
+                });
             }
         });
         var $ = layui.$, active = {
@@ -302,7 +292,7 @@
     });
 </script>
 <script>
-    /*                    //关闭弹出层倒计时
+/*                        //关闭弹出层倒计时
                     var i = 5;
                     var interval;
                     layer.msg('是否提交？', {

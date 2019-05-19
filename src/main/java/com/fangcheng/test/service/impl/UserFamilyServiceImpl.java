@@ -43,7 +43,7 @@ public class UserFamilyServiceImpl implements UserFamilyService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(String id) {
         userFamilyDao.delete(id);
     }
 

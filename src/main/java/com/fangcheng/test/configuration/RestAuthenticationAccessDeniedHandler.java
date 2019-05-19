@@ -31,7 +31,6 @@ public class RestAuthenticationAccessDeniedHandler implements AccessDeniedHandle
         response.setStatus(HttpServletResponse.SC_NOT_FOUND);/*404错误*/
         response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);/*405错误*/
         response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);/*500错误*/
-        System.out.println(HttpServletResponse.SC_NOT_FOUND);
         PrintWriter writer = response.getWriter();
         writer.println(accessDeniedException.getMessage());
     }

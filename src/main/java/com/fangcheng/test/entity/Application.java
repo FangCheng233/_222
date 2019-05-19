@@ -51,6 +51,9 @@ public class Application implements Serializable {
     //负债情况
     @Column(name = "LIABILITIES")
     private String liabilities;
+    //饮食比例
+    @Column(name = "PERCENTAGE")
+    private String percentage;
     //自然灾害
     @Column(name = "NATURAL_DISASTER")
     private String naturalDisaster;
@@ -106,6 +109,18 @@ public class Application implements Serializable {
     @NotNull
     @Column(name = "STATUS_NODES",nullable = false)
     private Integer statusNodes;
+    //系统审核结果
+    @Column(name = "SYSTEM_AUDIT",nullable = false)
+    private String systemAudit;
+    //系统审核评分
+    @Column(name = "SYSTEM_VALUE",nullable = false)
+    private Integer systemValue;
+    //系统备注
+    @Column(name = "REMARKS")
+    private String remarks;
+    //系统备注
+    @Column(name = "PROVE")
+    private String prove;
 
     public String getApplicationNumber() { return applicationNumber; }
     public void setApplicationNumber(String applicationNumber) { this.applicationNumber = applicationNumber; }
@@ -154,6 +169,14 @@ public class Application implements Serializable {
 
     public void setLiabilities(String liabilities) {
         this.liabilities = liabilities;
+    }
+
+    public String getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(String percentage) {
+        this.percentage = percentage;
     }
 
     public String getNaturalDisaster() {
@@ -256,17 +279,49 @@ public class Application implements Serializable {
     public Integer getStatusNodes() {return statusNodes; }
     public void setStatusNodes(Integer statusNodes) {this.statusNodes = statusNodes; }
 
+    public String getSystemAudit() {
+        return systemAudit;
+    }
+
+    public void setSystemAudit(String systemAudit) {
+        this.systemAudit = systemAudit;
+    }
+
+    public Integer getSystemValue() {
+        return systemValue;
+    }
+
+    public void setSystemValue(Integer systemValue) {
+        this.systemValue = systemValue;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getProve() {
+        return prove;
+    }
+
+    public void setProve(String prove) {
+        this.prove = prove;
+    }
+
     /*    @NotEmpty
-        @ManyToMany(cascade=CascadeType.REFRESH)
-        @JoinTable(name = "TABLE_APPROVAL",
-                joinColumns = { @JoinColumn(name = "APPLICATION_NUMBER") },
-                inverseJoinColumns = { @JoinColumn(name = "RF_AUTHOR_ID") })
-        private Set<TableAuthor> tableAuthors = new HashSet<TableAuthor>();
+                @ManyToMany(cascade=CascadeType.REFRESH)
+                @JoinTable(name = "TABLE_APPROVAL",
+                        joinColumns = { @JoinColumn(name = "APPLICATION_NUMBER") },
+                        inverseJoinColumns = { @JoinColumn(name = "RF_AUTHOR_ID") })
+                private Set<TableAuthor> tableAuthors = new HashSet<TableAuthor>();
 
-        public Set<TableAuthor> getTableAuthors() { return tableAuthors; }
+                public Set<TableAuthor> getTableAuthors() { return tableAuthors; }
 
-        public void setTableAuthors(Set<TableAuthor> tableAuthors) {
-            this.tableAuthors = tableAuthors; }*/
+                public void setTableAuthors(Set<TableAuthor> tableAuthors) {
+                    this.tableAuthors = tableAuthors; }*/
     //申请书对象
     @Override
     public String toString() {
@@ -278,7 +333,8 @@ public class Application implements Serializable {
                 +", postalCode=" + postalCode + ", addressee=" + addressee + ", contactNumber=" + contactNumber
                 +", emergencyContact=" + emergencyContact + ", emergencyContactNumber=" + emergencyContactNumber + ", reasonsForApplication=" + reasonsForApplication
                 + ", approvalStatus=" + approvalStatus + ", processNode=" + processNode + ", fundedSituation=" + fundedSituation
-                + ", statusNodes=" + statusNodes +",]";
+                + ", statusNodes=" + statusNodes  + ", systemAudit=" + systemAudit + ", systemValue=" + systemValue
+                + ", remarks=" + remarks + ", percentage=" + percentage + ", prove=" + prove +",]";
     }
 
 }

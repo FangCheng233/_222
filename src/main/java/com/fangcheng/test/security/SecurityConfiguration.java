@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -43,9 +42,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.headers().frameOptions().sameOrigin();
+		http.csrf().ignoringAntMatchers("/test/**");
+		http.csrf().ignoringAntMatchers("/upload");
 		http.exceptionHandling().accessDeniedHandler(getAccessDeniedHandler());
+		http.sessionManagement().sessionFixation().newSession();
 		http.authorizeRequests()
-				.antMatchers( "/","/main","/alterApplication","/approval","/userInfo")
+				.antMatchers( "/","/main","/alterApplication","/approval","/userInfo","/applicationRecord","/upload")
 				.access("hasRole('STUDENT') or hasRole('COUNSELLOR') or hasRole('COLLEGE') or hasRole('ADMIN')")
 				.antMatchers("/userList")
 				.access("hasRole('COUNSELLOR') or hasRole('COLLEGE') or hasRole('ADMIN')")
@@ -65,9 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.rememberMe()
 				.rememberMeParameter("remember-me")
 				.tokenRepository(tokenRepository)
-				.tokenValiditySeconds(86400)
-			//	.and()
-			//	.csrf()
+				.tokenValiditySeconds(10)
 				.and()
 				.exceptionHandling()
 				.accessDeniedPage("/Access_Denied");

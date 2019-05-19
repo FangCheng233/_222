@@ -82,9 +82,8 @@
                 success:function (data) {
                     if(data.success){
                         layer.open({
-                            title: '验证密保问题',
+                            title: '重置密码',
                             type: 2,
-                            shade: false,
                             maxmin: true,
                             shade: 0.5,
                             anim: 4,
@@ -93,9 +92,11 @@
                             zIndex: layer.zIndex,
                             // skin: 'layui-layer-molv',
                             end: function () {
-                                $(".layui-laypage-btn")[0].click();
+                                window.parent.location.reload();
+                               /* $(".layui-laypage-btn")[0].click();*/
                             }
                         });
+
                     }
 
                 },

@@ -21,8 +21,9 @@ public interface ApplicationService {
 
     void save(Application application);
     void  alterApplication(Application application);
-    void deleteApplicationByApplicationNumber(String userId);
+    void deleteApplicationByApplicationNumber(String application);
     void deleteAllApplicationByUserId(String userId);
+    void update(Application application);
     List<Application> findAllApplication();
     List<Application> findByUserId(String userId);
     List<Application> findBySchoolYear(String schoolYear);

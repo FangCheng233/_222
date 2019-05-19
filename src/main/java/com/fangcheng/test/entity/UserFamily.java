@@ -25,9 +25,8 @@ import java.util.Set;
 public class UserFamily implements Serializable {
     @Id
     @NotNull
-    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "ID")
-    private Integer id;
+    private String id;
 
     @NotNull
     @Column(name = "USER_ID")
@@ -49,6 +48,7 @@ public class UserFamily implements Serializable {
     @Column(name = "RELATIONSHIP")
     private String relationship;
 
+    @NotNull
     @Column(name = "HEALTH")
     private String health;
 
@@ -63,13 +63,15 @@ public class UserFamily implements Serializable {
     @Column(name = "WORK_UNIT")
     private String workUnit;
 
-    @NotNull
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
+    @NotNull
+    @Column(name = "TUITION")
+    private int tuition;
 
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
     public String getUserId() { return userId; }
     public void setUserId(String userId) { this.userId = userId; }
@@ -101,11 +103,19 @@ public class UserFamily implements Serializable {
     public String getPhoneNumber() { return phoneNumber; }
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
+    public int getTuition() {
+        return tuition;
+    }
+
+    public void setTuition(int tuition) {
+        this.tuition = tuition;
+    }
+
     @Override
     public String toString() {
         return "UserFamily [id=" + id + ", userId=" + userId + ", userSex=" + userSex
                 + ", userAge=" + userAge + ", relationship=" + relationship + ", health=" + health
                 + ", occupation=" + occupation + ", annualIncome=" + annualIncome +", workUnit=" + workUnit
-                + ", phoneNumber=" + phoneNumber +", userName=" + userName +",]";
+                + ", phoneNumber=" + phoneNumber +", userName=" + userName +", tuition=" + tuition +",]";
     }
 }

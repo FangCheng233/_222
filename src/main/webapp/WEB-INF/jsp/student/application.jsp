@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="forrm" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page isELIgnored="false" %>
 <%--
   Created by IntelliJ IDEA.
@@ -13,6 +14,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" pageEncoding="UTF-8">
     <title>layui</title>
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/layui/css/layui.css"  media="all">
@@ -77,31 +80,15 @@
     </div>
 </fieldset>
 <fieldset class="layui-elem-field" style="margin-top: 20px;margin-left: 20px;">
-    <legend>家庭信息</legend>
-    <table class="layui-table" lay-data="{height:232, url:'/getUserFamily', method:'get',id:'test',toolbar: '#toolbarDemo'}" lay-filter="test">
-        <thead>
-        <tr>
-            <th lay-data="{field:'userName', width:90,align:'center'}">姓名</th>
-            <th lay-data="{field:'userAge', width:80, align:'center'}">年龄</th>
-            <th lay-data="{field:'occupation', width:80, align:'center'}">职业</th>
-            <th lay-data="{field:'relationship', width:120, align:'center'}">与学生关系</th>
-            <th lay-data="{field:'health', width:160, align:'center'}">健康状况</th>
-            <th lay-data="{field:'annualIncome', width:80,align:'center'}">年收入</th>
-            <th lay-data="{field:'workUnit', width:200, align:'center'}">工作（学校）单位</th>
-            <th lay-data="{field:'phoneNumber', width:120,  fixed: 'right'}">联系电话</th>
-            <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
-        </tr>
-        </thead>
-    </table>
+    <legend>家庭成员信息</legend>
+    <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm" lay-event="addRole">添加家庭成员</button>
+        </div>
+    </script>
+    <table class="layui-hide" id="test" lay-filter="test"></table>
     <script type="text/html" id="barDemo">
         <a href="javascript:;" title="删除" lay-event="del"><i class="layui-icon">&#xe640;</i></a>
-    </script>
-    <script type="text/html" id="toolbarDemo">
-        <okToolbar>
-            <button class="layui-btn" id="addRole">
-                <i class="layui-icon">&#xe61f;</i>添加角色
-            </button>
-        </okToolbar>
     </script>
 </fieldset>
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;margin-left: 20px">
@@ -138,10 +125,31 @@
                 <div class="layui-input-inline">
                     <select name="liabilities">
                         <option value="">无</option>
-                        <option value="1万以下" selected="">1万以下</option>
-                        <option value="1-3万">1-3万</option>
-                        <option value="3-5万">3-5万</option>
+                        <option value="2万以下" selected="">2万以下</option>
+                        <option value="2-5万">2-5万</option>
                         <option value="5万以上">5万以上</option>
+                    </select>
+                </div>
+                <label class="layui-form-label">学生饮食支出占比</label>
+                <div class="layui-input-inline">
+                    <select name="percentage">
+                        <option value="">无</option>
+                        <option value="1">小于70%</option>
+                        <option value="2">70%-80%</option>
+                        <option value="3">80%-90%</option>
+                        <option value="4">90%以上</option>
+                    </select>
+                </div>
+                <label class="layui-form-label">经济困难证明</label>
+                <div class="layui-input-inline">
+                    <select name="prove">
+                        <option value="">无</option>
+                        <option value="特困证">特困证</option>
+                        <option value="社会扶助证">社会扶助证</option>
+                        <option value="最低生活保障证">最低生活保障证</option>
+                        <option value="建档立卡">建档立卡</option>
+                        <option value="孤残学生">孤残学生</option>
+                        <option value="烈士子女">烈士子女</option>
                     </select>
                 </div>
             </div>
@@ -177,7 +185,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">获资助情况</label>
             <div class="layui-input-block">
-                <input type="text" name="fundedSituation" lay-verify="title" placeholder="国奖" autocomplete="off" class="layui-input">
+                <input type="number" name="fundedSituation" lay-verify="title" placeholder="填写当前学年所获奖励、补助等补贴金额总数" autocomplete="off" class="layui-input">
                 <label alt='入学以来接受过的资助情况' placeholder='包含奖学金、助学金'></label>
             </div>
         </div>
@@ -263,6 +271,14 @@
                     <option value="一般贫困">特别贫困</option>
                 </select>
             </div>
+            <div class="layui-input-inline">
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn layui-btn-primary" id="test4"><i class="layui-icon"></i>只允许压缩文件</button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+
         </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">认定理由</label>
@@ -279,18 +295,16 @@
     </div>
 </form:form>
 <td id="time" style="color: #777; padding-left: 10px;"></td>
-<script src="/static/layui/layui.js" charset="utf-8"></script>
 <script src="/static/nprogress/nprogress.js"></script>
+<script src="/static/layui/layui.js" charset="utf-8"></script>
+<script src="/static/plugins/jquery.1.12.4.min.js"></script>
 <script>
-    var header = $("meta[name='_csrf_header']").attr("content");
-    var token =$("meta[name='_csrf']").attr("content");
     NProgress.start();
     window.onload = function () {
         NProgress.done();
     }
     layui.use(['form', 'layedit', 'laydate'], function(){
         var form = layui.form
-            ,layer = layui.layer
             ,layedit = layui.layedit
             ,laydate = layui.laydate;
         //日期
@@ -298,7 +312,6 @@
             elem: '#date'
             ,lang: 'zh'
         });
-
         //创建一个编辑器
         var editIndex = layedit.build('LAY_demo_editor');
 
@@ -328,76 +341,111 @@
                 layedit.sync(editIndex);
             }
         });
-        //监听指定开关
-        form.on('switch(switchTest)', function(data){
-            layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
-                offset: '6px'
-            });
-            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-        });
-        //添加
-        $("#addRole").click(function () {
-            layer.open({
-                title: '添加家庭成员',
-                type: 2,
-                shade: false,
-                maxmin: true,
-                shade: 0.5,
-                anim: 4,
-                area: ['50%', '80%'],
-                offset: [ //为了演示，随机坐标
-                100,280],
-                content: '/addfamily',
-                zIndex: layer.zIndex,
-                // skin: 'layui-layer-molv',
-                end: function () {
-                    $(".layui-laypage-btn")[0].click();
-                }
-            });
-        })
-
     });
+</script>
+<script>
+    layui.use('upload', function(){
+        var $ = layui.jquery
+            ,upload = layui.upload;
+        upload.render({ //允许上传的文件后缀
+            elem: '#test4'
+            ,url: '/upload'
+            ,accept: 'file' //普通文件
+            ,size:100000
+            ,exts: 'zip|rar|7z' //只允许上传压缩文件
+            ,done: function(res){
+                console.log(res)
+            }
+        });
+    });
+</script>
+<script>
+    var header = $("meta[name='_csrf_header']").attr("content");
+    var token =$("meta[name='_csrf']").attr("content");
     layui.use('table', function(){
         var table = layui.table;
-        //监听工具条
+        table.render({
+            elem: '#test'
+            ,url:'/getUserFamily'
+            ,height:232
+            ,width:980
+            ,title:'家庭成员表'
+            ,toolbar: '#toolbarDemo'
+            ,id: 'family'
+            ,cols: [[
+                {type:'numbers'}
+                ,{field:'userName', width:90,align:'center',title:'姓名'}
+                ,{field:'userAge', width:80, align:'center', title: '年龄'}
+                ,{field:'occupation', width:80, align:'center', title: '职业'}
+                ,{field:'relationship', width:120, align:'center', title: '与学生关系'}
+                ,{field:'health', width:160, align:'center',title:'健康状况'}
+                ,{field:'annualIncome', width:80,align:'center', title:'年收入'}
+                ,{field:'workUnit', width:200, align:'center',title:'工作（学校）单位'}
+                ,{field:'phoneNumber', width:120, title: '联系电话'}
+                ,{fixed: 'right', width:100, align:'center', toolbar: '#barDemo'}
+            ]]
+        });
+        //头工具栏事件
+        table.on('toolbar(test)', function(obj){
+            switch(obj.event){
+                case 'addRole'://批量删除用户的操作
+                    layer.open({
+                        title: '添加家庭成员',
+                        type: 2,
+                        maxmin: true,
+                        shade: 0.5,
+                        anim: 4,
+                        area: ['50%', '80%'],
+                        offset: [ //为了演示，随机坐标
+                            100,280],
+                        content: '/addfamily',
+                        zIndex: layer.zIndex,
+                        // skin: 'layui-layer-molv',
+                        end: function () {
+                            $(".layui-laypage-btn")[0].click();
+                        }
+                    });
+                    table.reload('family', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                    });
+                    break;
+            };
+        });
+        //监听行工具事件
         table.on('tool(test)', function(obj){
             var data = obj.data;
             if(obj.event === 'del'){
-                    //示范一个公告层
-                    layer.open({
-                        type: 1
-                        ,title: '要删除吗？' //不显示标题栏
-                        ,closeBtn: false
-                        ,area: '300px;'
-                        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-                        ,btn: ['确认删除', '算了吧']
-                        ,yes: function (index, layero){
-                                $.ajax({
-                                    url: "/deletefamily",
-                                    type: "POST",
-                                    beforeSend : function(xhr) {
-                                        xhr.setRequestHeader(header, token);
-                                    },
-                                    data: {'id':data.id},//
-                                    dataType: 'json',
-                                    contentType: 'application/json',
-                                    success: function (res) {//回调函数
-                                    }
-                                });
-                            obj.del()
-                            layer.close(index);
-                        }
-                        ,btnAlign: 'c'
-                        ,moveType: 1 //拖拽模式，0或者1
-                        ,offset: [200,400]
-                        ,success: function(layero){
-/*                            var btn = layero.find('.layui-layer-btn');
-                            btn.find('.layui-layer-btn0').attr({
-                                url:s
-                                ,target: '_blank'
-                            });*/
-                        }
-                    });
+                //示范一个公告层
+                layer.open({
+                    type: 1
+                    ,title: '要删除吗？' //不显示标题栏
+                    ,closeBtn: false
+                    ,area: '300px;'
+                    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,btn: ['确认删除', '算了吧']
+                    ,yes: function (index, layero){
+                        $.ajax({
+                            url: "/deletefamily",
+                            type: "POST",
+                            beforeSend : function(xhr) {
+                                xhr.setRequestHeader(header, token);
+                            },
+                            data: data.id,//
+                            contentType: 'application/json',
+                            success: function (res) {//回调函数
+                            }
+                        });
+                        obj.del()
+                        layer.close(index);
+                    }
+                    ,btnAlign: 'c'
+                    ,moveType: 1 //拖拽模式，0或者1
+                    ,offset: [200,400]
+                    ,success: function(layero){
+                    }
+                });
             }
         });
         $('.demoTable .layui-btn').on('click', function(){
@@ -405,23 +453,6 @@
             active[type] ? active[type].call(this) : '';
         });
     });
-    $("#addRole").click(function () {
-        layer.open({
-            title: '添加角色',
-            type: 2,
-            shade: false,
-            maxmin: true,
-            shade: 0.5,
-            anim: 4,
-            area: ['90%', '90%'],
-            content: 'role-add.html',
-            zIndex: layer.zIndex,
-            // skin: 'layui-layer-molv',
-            end: function () {
-                $(".layui-laypage-btn")[0].click();
-            }
-        });
-    })
 </script>
 </body>
 </html>

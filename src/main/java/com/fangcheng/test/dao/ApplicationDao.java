@@ -25,6 +25,6 @@ public interface ApplicationDao {
     List<Application> findByProcessNode(String processNode);
     List<Application> findByStatusNodes(Integer statusNodes);
     void save(Application application);
-    void  deletByApplicationNumber(String applicationNumber);
+    void  deleteByApplicationNumber(String applicationNumber);
 
 }

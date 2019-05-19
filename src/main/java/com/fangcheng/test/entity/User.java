@@ -7,7 +7,6 @@ import java.io.Serializable;
 
 import java.sql.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -107,6 +106,16 @@ public class User implements Serializable {
     //密保答案
     @Column(name="SECURITY_ANWSER", nullable=true)
     private String securityAnwser;
+    //初始贫困级别
+    @Column(name="ISPOOR", nullable=true)
+    private String isPoor;
+    //初始评定结果
+    @Column(name="PRE_AUDIT_REMARKS", nullable=true)
+    private String preAuditRemarks;
+    //减免金额
+    @Column(name="WAIVER_AMOUNT", nullable=true)
+    private Integer waiverAmount;
+
 
     public String getUserId(){ return userId; }
     public void setUserId(String userId) {this.userId = userId; }
@@ -191,6 +200,15 @@ public class User implements Serializable {
     public String getPostalAddress() { return postalAddress; }
     public void setPostalAddress(String postalAddress) { this.postalAddress = postalAddress; }
 
+    public String getIsPoor() { return isPoor; }
+    public void setIsPoor(String isPoor) { this.isPoor = isPoor; }
+
+    public String getPreAuditRemarks() { return preAuditRemarks; }
+    public void setPreAuditRemarks(String preAuditRemarks) { this.preAuditRemarks = preAuditRemarks; }
+
+    public Integer getWaiverAmount() { return waiverAmount; }
+    public void setWaiverAmount(Integer waiverAmount) { this.waiverAmount = waiverAmount; }
+
     @NotEmpty
     @ManyToMany(cascade=CascadeType.REFRESH)
     @JoinTable(name = "ROLE_AUTHOR",
@@ -211,6 +229,7 @@ public class User implements Serializable {
                 + ", basePlaceA=" + basePlaceA + ", userSecurity=" + userSecurity + ", securityAnwser=" + securityAnwser
                 + ", idType=" + idType + ", nation=" + nation  +", politicalOutlook=" + politicalOutlook
                 + ", nameUsedBefore=" + nameUsedBefore + ", QQ=" + QQ + ", postalAddress=" + postalAddress
-                + ", postalNumber=" + postalNumber+"]";/**/
+                + ", postalNumber=" + postalNumber + ", isPoor=" + isPoor + ", preAuditRemarks=" + preAuditRemarks
+                + ", waiverAmount=" + waiverAmount+"]";/**/
     }
 }

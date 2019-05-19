@@ -8,8 +8,6 @@ import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 
@@ -82,7 +80,7 @@ public class ApplicationDaoImpl extends AbstractDao<Integer, Application> implem
     }
 
     @Override
-    public void deletByApplicationNumber(String applicationNumber) {
+    public void deleteByApplicationNumber(String applicationNumber) {
         Criteria crit = createEntityCriteria();
         crit.add(Restrictions.eq("applicationNumber", applicationNumber));
         Application application = (Application) crit.uniqueResult();

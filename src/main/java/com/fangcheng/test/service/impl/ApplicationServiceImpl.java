@@ -37,6 +37,15 @@ public class ApplicationServiceImpl implements ApplicationService {
         applicationDao.save(application);
     }
 
+    public void update(Application application){
+        Application entity = applicationDao.findByApplicationNumber(application.getApplicationNumber());
+        //系统评级
+        entity.setSystemAudit(application.getSystemAudit());
+        //系统评分
+        entity.setSystemValue(application.getSystemValue());
+        //备注
+        entity.setRemarks(application.getRemarks());
+    }
     @Override
     public void alterApplication(Application application) {
         Application entity = applicationDao.findByApplicationNumber(application.getApplicationNumber());
@@ -50,14 +59,14 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public void deleteApplicationByApplicationNumber(String applicationNumber) {
-        applicationDao.deletByApplicationNumber(applicationNumber);
+        applicationDao.deleteByApplicationNumber(applicationNumber);
     }
     @Override
     public void deleteAllApplicationByUserId(String userId) {
         List<Application> applicationList = applicationDao.findByUserId(userId);
         for(Application application:applicationList){
             try{
-                applicationDao.deletByApplicationNumber(application.getApplicationNumber());
+                applicationDao.deleteByApplicationNumber(application.getApplicationNumber());
             }catch (Exception e){
                 e.printStackTrace();
             }

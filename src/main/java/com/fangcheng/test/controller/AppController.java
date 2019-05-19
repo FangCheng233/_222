@@ -14,10 +14,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.File;
 import java.util.*;
 
 
@@ -51,6 +53,11 @@ public class AppController {
 
 	@Autowired
 	UserFamilyService userFamilyService;
+
+	@Autowired
+	AreasService areasService;
+	@Autowired
+    FileService fileService;
 	/**
 	 * @method  loginPage
 	 * @description 登陆控制及页面跳转
@@ -72,7 +79,9 @@ public class AppController {
 		List<Application> applications = applicationService.findByStatusNodes(3);
 		List<Application> applications1 = applicationService.findByStatusNodes(4);
 		List<Application> applicationslist = applicationService.findAllApplication();
-//		model.addAttribute("loggedinuser", getUserName());
+		User user = userService.findByUserId(getPrincipal());
+		model.addAttribute("loggedinuser", getUserName());
+		model.addAttribute("user", user);
 		model.addAttribute("pending",applications.size());
 		model.addAttribute("solved",applications1.size());
 		model.addAttribute("count",applicationslist.size());
@@ -159,7 +168,9 @@ public class AppController {
 	public Map<String,Object> saveUser(@Valid User user, BindingResult result,
                            ModelMap model,HttpServletResponse response) {
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
+
 		Map<String,Object> map = new HashMap<String, Object>();
+		System.out.println(result);
 		if (result.hasErrors()) {
 			map.put("error","信息不正确");
 			return map;
@@ -171,6 +182,7 @@ public class AppController {
 			return map;
 		}
 		try{
+			user.setPassword(user.getPassword());
 			user.setUserName(unicode(user.getUserName()));
 			user.setGroupId(unicode(user.getGroupId()));
 			user.setUserCollege(unicode(user.getUserCollege()));
@@ -320,20 +332,31 @@ public class AppController {
 		return "student/add-family";
 	}
 	@RequestMapping(value = { "/addfamily" }, method = RequestMethod.POST)
-	public void addfamily(@Valid ModelMap modelMap,UserFamily userFamily,
+    @ResponseBody
+	public Map<String,Object> addfamily(@Valid ModelMap modelMap,UserFamily userFamily,
 		HttpServletRequest request,HttpServletResponse response) {
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
-		List<UserFamily> userFamilyList = userFamilyService.findByUserId(getPrincipal());
+		Map<String,Object> map = new HashMap<String, Object>();
 		userFamily.setUserId(getPrincipal());
+		userFamily.setId(getPrincipal()+getTime());
+		userFamily.setUserName(unicode(userFamily.getUserName()));
+		userFamily.setRelationship(unicode(userFamily.getRelationship()));
+		userFamily.setWorkUnit(unicode(userFamily.getWorkUnit()));
+		userFamily.setOccupation(unicode(userFamily.getOccupation()));
+		userFamily.setHealth(unicode(userFamily.getHealth()));
+		userFamily.setUserSex(unicode(userFamily.getUserSex()));
 		try {
 			userFamilyService.save(userFamily);
+			map.put("success","添加成功");
 		}catch (Exception e){
 			e.printStackTrace();
-			modelMap.addAttribute("errror", "222");
+            map.put("error","添加失败");
 		}
+		return map;
 	}
-	@RequestMapping(value = { "/deletefamily" }, method = RequestMethod.GET)
-	public void deletefamily(@Valid Integer id,HttpServletRequest request) {
+	@RequestMapping(value = { "/deletefamily" }, method = RequestMethod.POST)
+	@ResponseBody
+	public void deletefamily(@RequestBody String id,HttpServletRequest request) {
 		try {
 			userFamilyService.delete(id);
 		}catch (Exception e){
@@ -384,28 +407,49 @@ public class AppController {
 		model.addAttribute("user",user);
 		return "userSecurity";
 	}
-	@RequestMapping(value = { "/alterpwd" }, method = RequestMethod.GET)
-	public String alterpassword(ModelMap model,String userId) {
-		User user = userService.findByUserId(userId);
-		model.addAttribute("user",user);
-		return "alterpwd";
+
+	@RequestMapping(value = { "/getApprovalList" }, method = RequestMethod.GET)
+	public String getApprovalList(ModelMap model,String applicationNumber) {
+		model.addAttribute("applicationNumber",applicationNumber);
+		return "approvalprocess";
 	}
+    @RequestMapping(value = { "/findUser" }, method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,String> findUser(ModelMap model,String userId) {
+        Map<String,String> map = new HashMap<String, String>();
+        try {
+            User user = userService.findByUserId(userId);
+            if(user==null){
+                map.put("error","该用户不存在，请检查学号/工号是否正确");
+                return map;
+            }
+            System.out.println(user);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        map.put("success","true");
+        return map;
+    }
+    @RequestMapping(value = { "/alterpwd" }, method = RequestMethod.GET)
+    public String alterpassword(ModelMap model,String userId) {
+        User user = userService.findByUserId(userId);
+        model.addAttribute("user",user);
+        return "alterpwd";
+    }
 	@RequestMapping(value = { "/alterPassword" }, method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> alterPassword(@RequestBody String[] anwser) {
 		Map<String,Object> map = new HashMap<String, Object>();
-		if(anwser[0].equals(anwser[1])){
-			User user = userService.findByUserId(anwser[2]);
-			try {
-				user.setPassword(anwser[0]);
-				userService.alterUserPassword(user);
-				map.put("success","修改成功");
-				return map;
-			}catch (Exception e){
-				e.printStackTrace();
-			}
+		User user = userService.findByUserId(anwser[1]);
+		try {
+		    user.setPassword(anwser[0]);
+		    userService.alterUserPassword(user);
+		    map.put("success","修改成功");
+		    return map;
+		}catch (Exception e){
+		    e.printStackTrace();
+		    map.put("error","密码修改失败");
 		}
-		map.put("error","两次输入的密码不一致");
 		return map;
 	}
 	@RequestMapping(value = { "/compareAnwser" }, method = RequestMethod.POST)
@@ -426,6 +470,34 @@ public class AppController {
 		}
 		return map;
 	}
+    /**
+     * @method  findApplication
+     * @description 检查该用户本年度是否有提交记录，避免重复提交
+     * @date: 2019/5/10 0:38
+     * @author: Fangcheng
+    [model]
+     * @return java.util.Map<java.lang.String,java.lang.String>
+     */
+    @RequestMapping(value = { "/findApplication" }, method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,String> findApplication(ModelMap model) {
+        Map<String,String> map = new HashMap<String, String>();
+        List<Areas> areasList = areasService.findByName("陕西省","渭南市","华县");
+        try {
+            List<Application> applicationList = applicationService.findByUserId(getPrincipal());
+            if(applicationList!=null){
+                for(Application application:applicationList){
+                    if(application.getSchoolYear().equals(getSchoolYear()));
+                    map.put("error","已提交该年度申请，请勿重复提交");
+                    return map;
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        map.put("success","true");
+        return map;
+    }
 	/**
 	 * @method  addApplication
 	 * @description 获取贫困申请界面数据，记录该申请
@@ -435,10 +507,25 @@ public class AppController {
 	 * @return java.lang.String
 	 */
     @RequestMapping(value = { "/addApplication" }, method = RequestMethod.POST)
-	public void addApplication(@Valid Application application, BindingResult result,
+	@ResponseBody
+	public Map<String,Object> addApplication(@Valid Application application, BindingResult result,
 								 ModelMap model,HttpServletResponse response) {
+		Map<String,Object> map = new HashMap<String, Object>();
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		application.setApplicationNumber(getApplicationNumber());
+		application.setLiabilities(unicode(application.getLiabilities()));
+		application.setAddressee(unicode(application.getAddressee()));
+		application.setAddress(unicode(application.getAddress()));
+		application.setOtherSituation(unicode(application.getOtherSituation()));
+		application.setPovertyLevel(unicode(application.getPovertyLevel()));
+		application.setUnexpectedAccident(unicode(application.getUnexpectedAccident()));
+		application.setFundedSituation(unicode(application.getFundedSituation()));
+		application.setMembershipSituation(unicode(application.getMembershipSituation()));
+		application.setUnemploymentSituation(unicode(application.getUnemploymentSituation()));
+		application.setPostalAddress(unicode(application.getPostalAddress()));
+		application.setNaturalDisaster(unicode(application.getNaturalDisaster()));
+		application.setReasonsForApplication(unicode(application.getReasonsForApplication()));
+		application.setEmergencyContact(unicode(application.getEmergencyContact()));
 		application.setUserId(getPrincipal());
 		application.setSchoolYear(getSchoolYear());
 		application.setApprovalStatus("提交申请");
@@ -455,12 +542,82 @@ public class AppController {
 		try {
 			applicationService.save(application);
 			tableApprovalService.save(tableApproval);
+			main(application);
+			map.put("success","提交成功");
 		}catch (Exception e){
 			e.printStackTrace();
-			model.addAttribute("errror", "222");
+			map.put("error", "222");
 		}
+		return map;
     }
+	/**
+	 * @method  upload
+	 * @description 上传压缩文件
+	 * @date: 2019/5/17 23:32
+	 * @author: Fangcheng
+	[multipartFile, request]
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 */
+	@RequestMapping(value = { "/upload" }, method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> upload(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
+		if(!multipartFile.isEmpty()){
+			String contextPath = request.getContextPath();//"/SpringMvcFileUpload"
+			String servletPath = request.getServletPath();//"/gotoAction"
+			String scheme = request.getScheme();//
+			String url = getSchoolYear()+"\\"+getUserCollege()+"\\"+getPrincipal();
+			String storePath= "C:\\Users\\FangCheng\\Downloads\\SpringMVCHibernateWithSpringSecurityExample\\_222\\src\\main\\webapp\\static\\data\\"+url;//存放我们上传的文件路径
+//           String fileName = multipartFile.getOriginalFilename();
+			String fileName = getApplicationNumber()+".zip";
+			java.io.File filepath = new java.io.File(storePath, fileName);
+			if (!filepath.getParentFile().exists()) {
+				filepath.getParentFile().mkdirs();//如果目录不存在，创建目录
+			}
+			try {
+				multipartFile.transferTo(new java.io.File(storePath+ File.separator+fileName));//把文件写入目标文件地址
+                //判断文件是否存在
+                com.fangcheng.test.entity.File file1 = fileService.findById(getApplicationNumber());
+                if(file1==null){
+					com.fangcheng.test.entity.File file = new com.fangcheng.test.entity.File();
+                	file.setId(getApplicationNumber());
+                	file.setSuffix(".zip");
+                	file.setName(getApplicationNumber()+".zip");
+                	file.setLastModifyTime(getTime());
+                    file.setVisitUrl(url.replace(	"\\","/"));
+                    file.setCreatTime(getTime());
+                    file.setUserId(getPrincipal());
+                    fileService.save(file);
+                }else {
+                	file1.setCreatTime(getTime());
+                	file1.setLastModifyTime(getTime());
+                	fileService.update(file1);
+				}
 
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+
+			}
+		}
+		return null;
+	}
+	@RequestMapping(value = { "/download" }, method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> download(@RequestBody String[] applicationNumberList) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		List<String> listsuccess = new ArrayList<>();
+		for(String str:applicationNumberList){
+			try{
+				com.fangcheng.test.entity.File file = fileService.findById(str);
+				map.put("success",file.getVisitUrl()+ "/" +file.getName());
+				return map;
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+		}
+		map.put("error","该用户未上传文件");
+		return map;
+	}
 	/**
 	 * @method  alterApplication
 	 * @description 修改申请状态，流程审批
@@ -496,7 +653,7 @@ public class AppController {
 				e.printStackTrace();
 			}
 		}
-	map.put("success","删除成功");
+	map.put("success","成功");
 	return map;
 	}
 
@@ -542,7 +699,9 @@ public class AppController {
 		map.put("error",listerror);
 		return map;
 	}
-
+    public static void main(Application application){
+        DataAudit.dealWithData(application);
+    }
 
 	/**
 	 * This method will delete an user by it's UserID value.
@@ -591,9 +750,11 @@ public class AppController {
 		return map;
 	}
 	@RequestMapping(value = { "/delete-application" }, method = RequestMethod.POST)
-	public void deleteApplication(@Valid String applicationNumber) {
+	@ResponseBody
+	public void deleteApplication(@RequestBody String applicationNumber) {
 		try{
 			applicationService.deleteApplicationByApplicationNumber(applicationNumber);
+			tableApprovalService.deleteAllApprovalByApplication(applicationNumber);
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -613,12 +774,32 @@ public class AppController {
 		model.addAttribute("loggedinuser", getUserName());
 		return "accessDenied";
 	}
-
+	@RequestMapping(value = "/getReference", method = RequestMethod.GET)
+	public String getReference(ModelMap model) {
+		return "admin/referencedata";
+	}
+    @RequestMapping(value = "/getPoorerAreas", method = RequestMethod.GET)
+    public String getPoorerAreas(ModelMap model) {
+        return "admin/Areas";
+    }
+    @RequestMapping(value = "/verifyInfo", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Integer> verifyInfo(ModelMap model) {
+	    Map<String,Integer> map = new HashMap<>();
+	    User user = userService.findByUserId(getPrincipal());
+        System.out.println(user.getUserSecurity());
+	    if (null==user.getUserSecurity()){
+	        map.put("error",1);
+	        return map;
+        }
+        map.put("success",0);
+        return map;
+    }
 
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
 	public String logoutPage (HttpServletRequest request, HttpServletResponse response){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth != null){    
+		if (auth != null){
 			//new SecurityContextLogoutHandler().logout(request, response, auth);
 			persistentTokenBasedRememberMeServices.logout(request, response, auth);
 			SecurityContextHolder.getContext().setAuthentication(null);
@@ -653,6 +834,11 @@ public class AppController {
 		String userId = getPrincipal();
 		User user = userService.findByUserId(userId);
 		return user.getGroupId();
+	}
+	private String getUserCollege(){
+		User user = userService.findByUserId(getPrincipal());
+		String userCollege = user.getUserCollege();
+		return userCollege;
 	}
 	private String getApprovalStatus(){
 		String userId = getPrincipal();
@@ -711,7 +897,6 @@ public class AppController {
 	}
 	private Date getdate() {
 		Date date=new java.sql.Date(System.currentTimeMillis());
-		System.out.println(date);
 		return date;
 	}
 
@@ -720,7 +905,6 @@ public class AppController {
 	 */
 	private boolean isCurrentAuthenticationAnonymous() {
 	    final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    System.out.println(authentication);
 	    return authenticationTrustResolver.isAnonymous(authentication);
 	}
 }
