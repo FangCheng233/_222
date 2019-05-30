@@ -184,6 +184,10 @@ import java.util.List;
             jsonObject.accumulate("schoolYear",application.getSchoolYear());//学年
             jsonObject.accumulate("userGrade", user.getUserGrade());//年级
             jsonObject.accumulate("povertyLevel", application.getPovertyLevel());//困难级别
+            jsonObject.accumulate("systemAudit",application.getSystemAudit());
+            System.out.println(application.getSystemAudit());
+            jsonObject.accumulate("systemValue",application.getSystemValue());
+            jsonObject.accumulate("remarks",application.getRemarks());
             jsonObject.accumulate("userId", application.getUserId());//学号
             jsonObject.accumulate("userName", user.getUserName());//姓名
             jsonObject.accumulate("reasonsForApplication",application.getReasonsForApplication());//申请理由

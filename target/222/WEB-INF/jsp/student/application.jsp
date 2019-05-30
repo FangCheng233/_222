@@ -112,9 +112,9 @@
                 </div>
             </div>
             <div class="layui-inline" id="hide">
-                <label class="layui-form-label">人均年收入</label>
+                <label class="layui-form-label">户籍地最低生活保障</label>
                 <div class="layui-input-inline">
-                    <input type="number" name="perCapitaIncome" id="perCapitaIncome" lay-verify="required" value="1000" autocomplete="off" class="layui-input" min="0" step="1000">
+                    <input type="number" name="guarantee" id="guarantee" lay-verify="required" value="500" autocomplete="off" class="layui-input" min="0" step="100">
                     <label alt='请输入整数' placeholder='单位为￥'></label>
                 </div>
             </div>
@@ -130,6 +130,8 @@
                         <option value="5万以上">5万以上</option>
                     </select>
                 </div>
+            </div>
+            <div class="layui-inline">
                 <label class="layui-form-label">学生饮食支出占比</label>
                 <div class="layui-input-inline">
                     <select name="percentage">
@@ -140,6 +142,19 @@
                         <option value="4">90%以上</option>
                     </select>
                 </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">大病医疗支出</label>
+                <div class="layui-input-inline">
+                    <select name="medical">
+                        <option value="">无</option>
+                        <option value="2万以下">2万以下</option>
+                        <option value="2-5万">2-5万</option>
+                        <option value="5万以上">5万以上</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
                 <label class="layui-form-label">经济困难证明</label>
                 <div class="layui-input-inline">
                     <select name="prove">
@@ -273,12 +288,9 @@
             </div>
             <div class="layui-input-inline">
                 <div class="layui-upload">
-                    <button type="button" class="layui-btn layui-btn-primary" id="test4"><i class="layui-icon"></i>只允许压缩文件</button>
+                    <button type="button" class="layui-btn layui-btn-primary" id="test4"><i class="layui-icon"></i>只允许zip压缩文件</button>
                 </div>
             </div>
-        </div>
-        <div class="layui-form-item">
-
         </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">认定理由</label>
@@ -351,10 +363,10 @@
             elem: '#test4'
             ,url: '/upload'
             ,accept: 'file' //普通文件
-            ,size:100000
-            ,exts: 'zip|rar|7z' //只允许上传压缩文件
+            ,size:204800
+            ,exts: 'zip' //只允许上传压缩文件
             ,done: function(res){
-                console.log(res)
+                layer.msg(res.success)
             }
         });
     });

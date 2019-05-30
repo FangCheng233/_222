@@ -68,8 +68,8 @@ public class AreasServiceImpl implements AreasService {
     }
 
     @Override
-    public List<Areas> findAllCountry(String cityName) {
-        return areasDao.findAllCountry(cityName);
+    public List<Areas> findAllCounty(String cityName) {
+        return areasDao.findAllCounty(cityName);
     }
 
     @Override

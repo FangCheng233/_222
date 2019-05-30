@@ -37,9 +37,6 @@ public class File implements Serializable {
     @NotNull
     @Column(name = "VISIT_URL")
     private String visitUrl;
-    //文件大小
-    @Column(name = "SIZE")
-    private int size;
     //文件创建时间
     @Column(name = "CREATE_TIME")
     private String creatTime;
@@ -57,7 +54,6 @@ public class File implements Serializable {
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -65,7 +61,6 @@ public class File implements Serializable {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -73,7 +68,6 @@ public class File implements Serializable {
     public String getSuffix() {
         return suffix;
     }
-
     public void setSuffix(String suffix) {
         this.suffix = suffix;
     }
@@ -81,23 +75,13 @@ public class File implements Serializable {
     public String getVisitUrl() {
         return visitUrl;
     }
-
     public void setVisitUrl(String visitUrl) {
         this.visitUrl = visitUrl;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 
     public String getCreatTime() {
         return creatTime;
     }
-
     public void setCreatTime(String creatTime) {
         this.creatTime = creatTime;
     }
@@ -105,7 +89,6 @@ public class File implements Serializable {
     public int getDownloadTimes() {
         return downloadTimes;
     }
-
     public void setDownloadTimes(int downloadTimes) {
         this.downloadTimes = downloadTimes;
     }
@@ -113,7 +96,6 @@ public class File implements Serializable {
     public String getLastModifyTime() {
         return lastModifyTime;
     }
-
     public void setLastModifyTime(String lastModifyTime) {
         this.lastModifyTime = lastModifyTime;
     }
@@ -121,7 +103,6 @@ public class File implements Serializable {
     public String getUserId() {
         return userId;
     }
-
     public void setUserId(String userId) {
         this.userId = userId;
     }

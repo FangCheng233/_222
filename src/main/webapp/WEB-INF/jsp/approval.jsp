@@ -34,30 +34,26 @@
         </div>
         <table class="layui-hide" id="test" lay-filter="test" style="margin-left: 10px"></table>
     </div>
-
-<script type="text/html" id="toolbarDemo">
-    <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="pass">审批通过</button>
-        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="refuse">驳回申请</button>
-    </div>
-</script>
+    <sec:authorize access="hasRole('ADMIN')">
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-sm" lay-event="pass">审批通过</button>
+                <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="refuse">驳回申请</button>
+            </div>
+        </script>
+    </sec:authorize>
 <script type="text/html" id="barDemo">
-<%--    <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon">⬇</i></button>
-        <button class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon"></i></button>
-        <button class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon"></i></button>
-    </div>--%>
-    <a href="javascript:;" title="编辑" lay-event="download"><i class="layui-icon">⬇</i></a>
+    <a href="javascript:;" title="下载文件" lay-event="download"><i class="layui-icon">⬇</i></a>
     <a href="javascript:;" title="编辑" lay-event="edit"><i class="layui-icon">&#xe642;</i></a>
     <a href="javascript:;" title="删除" lay-event="del"><i class="layui-icon">&#xe640;</i></a>
 </script>
 <script src="/static/layui/layui.js" charset="utf-8"></script>
 <script src="/static/plugins/jquery.1.12.4.min.js"></script>
-    <script type="text/html" id="povertyAudit">
-        {{#  if(d.povertyAudit === '特别困难'){ }}
-        <span style="color: #F581B1;">{{ d.povertyAudit}}</span>
+    <script type="text/html" id="systemAudit">
+        {{#  if(d.systemAudit === '特别困难'){ }}
+        <span style="color: red;">{{ d.systemAudit}}</span>
         {{#  } else { }}
-        {{ d.povertyAudit }}
+        <span style="color: #2fa0ec;">{{ d.systemAudit}}</span>
         {{#  } }}
     </script>
 <script>
@@ -92,7 +88,7 @@
                 </sec:authorize>
                 ,{field:'userGrade', title: '年级', width:100,align:'center'}
                 ,{field:'povertyLevel', title:'申请家庭经济困难等级', width:200,align:'center'}
-                ,{field:'povertyAudit', title:'系统评定结果', width:200,align:'center',templet: '#povertyAudit'}
+                ,{field:'systemAudit', title:'系统评定结果', width:200,align:'center',templet: '#systemAudit'}
                 ,{field:'systemValue', title:'系统评分', width:100,align:'center',templet: '#systemValue'}
                 ,{field:'remarks', title:'系统备注信息', width:200,align:'center'}
                 ,{field:'reasonsForApplication', title:'申请理由',event: 'setSign',style:'cursor: pointer;',width:200,align:'center'}
@@ -101,7 +97,7 @@
                 ,{field:'processNode', title: '上一节点', width:100,align:'center'}
                 ,{field:'teacherName', title: '审批人', width:100,align:'center'}
                 ,{field:'approvalStatus', title:'审批状态', width:100, sort:true, align:'center'}
-                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', minWidth:150,align:'center', fixed: 'right'}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', minWidth:150,align:'center'}
             ]]
             ,request:{
                 pageName: 'pageStart', //页码的参数名称，默认：page
@@ -230,7 +226,7 @@
         table.on('tool(test)', function(obj){
             var data = obj.data;
             if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
+                layer.confirm('真的删除么', function(index){
                     $.ajax({
                         url: "/delete-application",
                         type: "POST",

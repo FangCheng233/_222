@@ -57,29 +57,26 @@ public class AreasDaoImpl extends AbstractDao<Integer, Areas>  implements AreasD
     }
 
     @Override
-    public List<Areas> findAllCity(String provinceName) {
-        Criteria criteria = createEntityCriteria().addOrder(Order.asc("provinceId"));
-        criteria.add(Restrictions.eq("provinceName",provinceName));
-        criteria.setProjection(Projections.groupProperty("cityName"));
-        List<Areas> areasList = criteria.list();
+    public List<Areas> findAllCity(String provinceName) {//根据省名找下辖市
+        Criteria criteria = createEntityCriteria().addOrder(Order.asc("provinceName"));
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+        List<Areas> areasList =  criteria.add(Restrictions.eq("provinceName",provinceName)).list();
         return areasList;
     }
 
     @Override
-    public List<Areas> findAllCountry(String cityName) {
-        Criteria criteria = createEntityCriteria().addOrder(Order.asc("countryId"));
-        criteria.add(Restrictions.eq("cityName",cityName));
-        criteria.setProjection(Projections.projectionList().add(Projections.groupProperty("countryName")));
-        List<Areas> areasList = criteria.list();
+    public List<Areas> findAllCounty(String cityName) {//根据市名找县名
+        Criteria criteria = createEntityCriteria().addOrder(Order.asc("cityName"));
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+        List<Areas> areasList =  criteria.add(Restrictions.eq("cityName",cityName)).list();
         return areasList;
     }
 
     @Override
-    public List<Areas> findAllTown(String countryName) {
-        Criteria criteria = createEntityCriteria().addOrder(Order.asc("townId"));
-        criteria.add(Restrictions.eq("countryName",countryName));
-        criteria.setProjection(Projections.projectionList().add(Projections.groupProperty("townName")));
-        List<Areas> areasList = criteria.list();
+    public List<Areas> findAllTown(String countryName) {//找县
+        Criteria criteria = createEntityCriteria().addOrder(Order.asc("countryName"));
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+        List<Areas> areasList =  criteria.add(Restrictions.eq("countryName",countryName)).list();
         return areasList;
     }
 

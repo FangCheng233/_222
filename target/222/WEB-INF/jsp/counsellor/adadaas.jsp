@@ -120,55 +120,6 @@
 </form:form>--%>
 
 <script type="text/javascript">
-    layui.use('form', function(){
-        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
-        form.on('select(test)', function(data){
-            layer.msg(data.value);
-            if(data.value==100){
-                $("#show").html('');    //先清空一下div
-                var html1 = $("#sign").html();  //获取要向div中添加的内容
-                $("#show").html(html1);  //向div中添加内容
-            }else {
-                $("#show").html('');
-            }
-            console.log(data);
-
-        });
-        //……
-
-        //但是，如果你的HTML是动态生成的，自动渲染就会失效
-        //因此你需要在相应的地方，执行下述方法来手动渲染，跟这类似的还有 element.init();
-        form.render();
-    });
-    function test(){
-        var header = $("meta[name='_csrf_header']").attr("content");
-        var token =$("meta[name='_csrf']").attr("content");
-        var user={};
-        user.userId = "151047";
-        user.password = "2";
-        user.userName = "151047";
-        user.groupId = "222";
-        user.userSex = "151047";
-        user.userClass = "10111502";
-        user.userMajor = "sad";
-        user.userCollege = "asdad";
-        $.ajax({
-            url: '/test/fixLeader1',
-            contentType: "text/html,charset=utf-8",
-            headers : {header:token},
-            beforeSend : function(xhr) {
-                xhr.setRequestHeader(header, token);
-            },
-            type: 'post',
-            async: false,
-            data:JSON.stringify(user),
-            dataType:'json',
-            success: function (result) {
-            }
-        });
-    }
-</script>
-<script type="text/javascript">
     //跟单结果在选择签单时，向form表单添加相应的显示内容
     function change(obj){
         alert(123)
@@ -180,6 +131,56 @@
             $("#show").html('');
         }
     }
+</script>
+<script type="text/javascript">
+    function load()
+    {
+        window.onfocus=function()
+        {
+            //
+            var password = ''
+            layer.prompt({
+                formType: 1
+                ,title: '请输入密码确认身份'
+                ,value: password
+            }, function(value, index){
+                layer.close(index);
+
+            });
+        };
+        window.onblur=function()
+        {
+            layer.msg(456)
+        };
+    }
+</script>
+<body onload="load();">
+<script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+        //监听单元格事件
+        table.on('tool(demoEvent)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'setSign'){
+                layer.prompt({
+                    formType: 2
+                    ,title: '修改 ID 为 ['+ data.id +'] 的用户签名'
+                    ,value: data.sign
+                }, function(value, index){
+                    layer.close(index);
+
+                    //这里一般是发送修改的Ajax请求
+
+                    //同步更新表格和缓存对应的值
+                    obj.update({
+                        sign: value
+                    });
+                });
+            }
+        });
+    });
 </script>
 </body>
 </html>

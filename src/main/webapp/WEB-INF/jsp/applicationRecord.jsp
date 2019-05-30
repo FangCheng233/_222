@@ -47,6 +47,13 @@
 </script>
 <script src="/static/layui/layui.js" charset="utf-8"></script>
 <script src="/static/plugins/jquery.1.12.4.min.js"></script>
+<script type="text/html" id="systemAudit">
+    {{#  if(d.systemAudit === '特别贫困'){ }}
+    <span style="color: #F581B1;">{{ d.systemAudit}}</span>
+    {{#  } else { }}
+    {{ d.systemAudit }}
+    {{#  } }}
+</script>
 <script>
     var header = $("meta[name='_csrf_header']").attr("content");
     var token =$("meta[name='_csrf']").attr("content");
@@ -78,10 +85,11 @@
                 ,{field:'schoolYear', title: '学年', width:100,align:'center'}
                 ,{field:'povertyLevel', title:'申请家庭经济困难等级', width:200,align:'center'}
                 ,{field:'reasonsForApplication', title:'申请理由',event: 'setSign',style:'cursor: pointer;',width:200,align:'center'}
+                ,{field:'systemAudit', title:'系统评定结果', width:200,align:'center',templet: '#systemAudit'}
                 ,{field:'userId', title:'学号', width:100,align:'center'}
-                ,{field:'userName', title:'姓名', width:100,align:'center'}
+                ,{field:'userName', title:'姓名', width:100,align:'center',templet: '#userName'}
                 ,{field:'approvalStatus', title:'审批状态', width:100, sort:true, align:'center'}
-                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', minWidth:50,align:'center', fixed: 'right'}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', minWidth:90,align:'center'}
             ]]
             ,request:{
                 pageName: 'pageStart', //页码的参数名称，默认：page

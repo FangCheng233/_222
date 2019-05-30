@@ -54,7 +54,17 @@
 </script>
 </sec:authorize>
 <script type="text/html" id="barDemo">
-    <a href="javascript:;" title="编辑" lay-event="edit"><i class="layui-icon">&#xe642;</i></a>
+<c:choose>
+    <c:when test="${getCounsellorList}">
+        <a href="javascript:;" title="编辑" lay-event="edit"><i class="layui-icon">&#xe642;</i></a>
+    </c:when>
+    <c:when test="${getCollegeList}">
+        <a href="javascript:;" title="编辑" lay-event="edit"><i class="layui-icon">&#xe642;</i></a>
+    </c:when>
+    <c:when test="${getAdminList}">
+        <a href="javascript:;" title="编辑" lay-event="edit"><i class="layui-icon">&#xe642;</i></a>
+    </c:when>
+</c:choose>
     <a href="javascript:;" title="删除" lay-event="del"><i class="layui-icon">&#xe640;</i></a>
 </script>
 <script src="/static/layui/layui.js" charset="utf-8"></script>
@@ -80,20 +90,24 @@
                 ,{field:'userId', width:100, title: '学号/工号'}
                 ,{field:'userName', width:80, title: '用户名'}
                 ,{field:'userSex',width:80, minWidth:100, title: '性别', sort: true}
+                <c:choose>
+                <c:when test="${getStudentList}">
                 ,{field:'userClass', title:'班级', width:100,align:'center'}
                 <sec:authorize access="hasRole('COLLEGE') or hasRole('COUNSELLOR')">
                 ,{field:'userMajor', title:'专业', width:100,align:'center'}
-                </sec:authorize>
-                <c:choose>
-                    <c:when test="${edit}">
-
-                    </c:when>
-                    <c:otherwise>
-                    </c:otherwise>
-                </c:choose>
                 ,{field:'userGrade', title:'年级', width:100,align:'center'}
+                </sec:authorize>
+                </c:when>
+                </c:choose>
+
                 ,{field:'groupId', minWidth:100, title: '所属组织'}
                 ,{field:'userCollege', minWidth:100, title: '所属院系', sort: true}
+                <c:choose>
+                <c:when test="${getStudentList}">
+                ,{field:'preAuditRemarks', title: '初始评定结果', width:120, edit:'text',align:'center'}
+                ,{field:'waiverAmount', title: '减免金额', width:120, edit:'number',align:'center'}
+                </c:when>
+                </c:choose>
                 <sec:authorize access="hasRole('ADMIN')">
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150,align:'center'}
                 </sec:authorize>
@@ -221,12 +235,31 @@
                     break;
             };
         });
+        table.on('edit(test)', function(obj){
+            var value = obj.value //得到修改后的值
+                ,data = obj.data //得到所在行所有键值
+                ,field = obj.field; //得到字段
+            layer.msg( field + ' 更改为：'+ value);
+            //Ajax修改对应的参数
+            var sendData =[data.userId,field,value];
+            $.ajax({
+                url: "/setReference",
+                type: "POST",
+                beforeSend : function(xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                data: JSON.stringify(sendData),//
+                contentType: 'application/json',
+                success: function (res) {//回调函数
+                }
+            });
+        });
         //监听行工具事件
         table.on('tool(test)', function(obj){
             var data = obj.data;
             var sendData = data.userId;
             if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
+                layer.confirm('真的删除该用户么', function(index){
                     $.ajax({
                         url: "/delete-user",
                         type: "POST",
@@ -319,6 +352,30 @@
                         }
                     })*/
 </script>
+<script type="text/javascript">
+    function load()
+    {
+        window.onfocus=function()
+        {
+            //
+            var password = ''
+            layer.prompt({
+                formType: 1
+                ,title: '请输入密码确认身份'
+                ,value: password
+            }, function(value, index){
+                layer.close(index);
+                //对密码进行加密处理
+            //发送Ajax请求验证密码是否正确
+            });
+        };
+        window.onblur=function()
+        {
+            layer.msg(456)
+        };
+    }
+</script>
+<body onload="load();">
 </body>
 </html>
 

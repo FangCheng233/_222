@@ -67,6 +67,9 @@ public class ResultController {
                 e.printStackTrace();
             }
         }
+        if(select!=null&&!"".equals(select)){
+            return listToJson(dealWithSelectUser(users1,select),pageStart,pageSize);
+        }
         return listToJson(users1,pageStart,pageSize);
     }
     /**
@@ -213,6 +216,14 @@ public class ResultController {
         }
         return applicationlistToJson(applications,pageStart,pageSize);
     }
+    /**
+     * @method  getStudentApplication
+     * @description 学生历史申请记录
+     * @date: 2019/5/29 15:38
+     * @author: Fangcheng
+    [model, pageStart, pageSize, response]
+     * @return java.lang.String
+     */
     @ResponseBody
     @RequestMapping(value = { "/getStudentApplication" }, method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public String getStudentApplication(ModelMap model,@Valid Integer pageStart,Integer pageSize,HttpServletResponse response) {
@@ -342,7 +353,7 @@ public class ResultController {
             jsonObject.accumulate("schoolYear",application.getSchoolYear());//学年
             jsonObject.accumulate("userGrade", user.getUserGrade());//年级
             jsonObject.accumulate("povertyLevel", application.getPovertyLevel());//困难级别
-            jsonObject.accumulate("povertyAudit",application.getSystemAudit());
+            jsonObject.accumulate("systemAudit",application.getSystemAudit());
             jsonObject.accumulate("systemValue",application.getSystemValue());
             jsonObject.accumulate("remarks",application.getRemarks());
             jsonObject.accumulate("userId", application.getUserId());//学号
@@ -398,6 +409,22 @@ public class ResultController {
     public String getAreas(ModelMap model,@Valid Integer pageStart, Integer pageSize,String select, HttpServletResponse response){
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         List<Areas> areasList = areasService.findAll();
+        if(select!=null&&!"".equals(select)){
+            try{
+                List<Areas> areasList1 = areasService.findAllCity(select);
+                List<Areas> areasList2 = areasService.findAllCounty(select);
+                List<Areas> areasList3 = areasService.findAllTown(select);
+                if(areasList1!=null){
+                    return areaslistToJson(areasList1,pageStart,pageSize);
+                }else if(areasList2!=null){
+                    return areaslistToJson(areasList2,pageStart,pageSize);
+                }else if(areasList3!=null){
+                    return areaslistToJson(areasList3,pageStart,pageSize);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
         return areaslistToJson(areasList,pageStart,pageSize);
     }
     private String areaslistToJson(List<Areas> areasList,Integer pageStart,Integer pageSize) {

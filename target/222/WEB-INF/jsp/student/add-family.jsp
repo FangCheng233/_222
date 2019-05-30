@@ -42,7 +42,7 @@
         <div class="layui-inline" style="display: none">
             <label class="layui-form-label">Self-care ability</label>
             <div class="layui-input-inline">
-                <select name="SelfCareAbility" lay-verify="required">
+                <select name="SelfCareAbility">
                     <option value="">请选择</option>
                     <option value="自主吃饭">自主吃饭</option>
                     <option value="自主穿衣">自主穿衣</option>
@@ -149,7 +149,6 @@
             </div>
         </div>
     </div>
-<a href="E:\project\SpringMvcFileUpload\WebRoot\images\layui-v2.4.5.zip">123333333333</a>
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">联系电话</label>

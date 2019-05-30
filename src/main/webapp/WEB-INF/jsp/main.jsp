@@ -24,6 +24,7 @@
     <link href="/static/layui/css/layui.css" rel="stylesheet"/>
     <link href="/static/css/okadmin.css" rel="stylesheet"/>
     <link href="/static/font/iconfont.css" rel="stylesheet"/>
+    <link href="/static/js/ouibounce.min.css" rel="stylesheet"/>
 <style>
         /** skins **/
         #student #header {background: #29A176;}
@@ -190,7 +191,8 @@
                 <i class="iconfont icon-dianliyonghuzongshu"></i>
                 </div>
                 <div class="md2-sub2">
-                <span>${pending}</span>
+                <%--<span>${pending}</span>--%>
+                    <span>1</span>
                 <cite>待处理审批</cite>
                 </div>
                 </div>
@@ -332,8 +334,6 @@
             ,url:'/getStudentApplication'
             ,page: true
             ,title:'审批进度数据表'
-            ,toolbar: '#toolbarDemo'
-            /*            ,totalRow: true*/
             ,id: 'testReload'
             ,width: 1550
             ,cols: [[
@@ -429,7 +429,7 @@
                         ,btn: ['我这就来', '残忍拒绝']
                         ,btnAlign: 'c'
                         ,moveType: 1 //拖拽模式，0或者1
-                        ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">亲切提示！<br><br><br>您的密保信息未补充完整，为了您的账户安全请前往填写</div>'
+                        ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">亲切提示！<br><br><br>您的密保信息未补充完整，<br>为了您的账户安全请前往填写</div>'
                         ,yes: function (index, layero){
                             Tab.addTab('个人资料', '/userInfo');
                             layer.close(index);
@@ -454,5 +454,50 @@
 <sec:authorize access="hasRole('STUDENT')">
     <script src="/static/js/student.js"></script>
 </sec:authorize>
+<script src="/static/js/ouibounce.js"></script>
+<script src="/static/js/md5.js" charset="utf-8"></script>
+<script type="text/javascript">
+    function load()
+    {
+        window.onfocus=function()
+        {
+            //
+            var password = ''
+            layer.prompt({
+                formType: 1
+                ,title: '请输入密码确认身份'
+                ,value: password
+            }, function(value, index){
+                // layer.close(index);
+                //对密码进行加密处理
+                value = hex_md5(value)
+                //发送Ajax请求验证密码是否正确
+                var sendData=[]
+                sendData.push(value)
+                $.ajax({
+                    url: "/verify",
+                    type: "POST",
+                    beforeSend : function(xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    data: sendData,//参数，（注：你后台的方法参数不好传啊）
+                    contentType: 'application/json',
+                    async : true,
+                    success:function (data) {
+                            //执行重载
+                    },
+                    error:function (data) {
+                    }
+                });
+            });
+        };
+        window.onblur=function()
+        {
+            //点击其他页面时登出操做 session失效
+
+        };
+    }
+</script>
+<body onload="load();">
 </body>
 </html>

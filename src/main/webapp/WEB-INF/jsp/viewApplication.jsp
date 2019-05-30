@@ -81,20 +81,7 @@
 </fieldset>
 <fieldset class="layui-elem-field" style="margin-top: 20px;margin-left: 20px;">
     <legend>家庭成员信息</legend>
-    <table class="layui-table" lay-data="{height:232, url:'/viewUserFamily?userId=${user.userId}', method:'get',id:'test'}" lay-filter="test">
-        <thead>
-        <tr>
-            <th lay-data="{field:'userName', width:90,align:'center'}">姓名</th>
-            <th lay-data="{field:'userAge', width:80, align:'center'}">年龄</th>
-            <th lay-data="{field:'occupation', width:80, align:'center'}">职业</th>
-            <th lay-data="{field:'relationship', width:120, align:'center'}">与学生关系</th>
-            <th lay-data="{field:'health', width:160, align:'center'}">健康状况</th>
-            <th lay-data="{field:'annualIncome', width:80,align:'center'}">年收入</th>
-            <th lay-data="{field:'workUnit', width:200, align:'center'}">工作（学校）单位</th>
-            <th lay-data="{field:'phoneNumber', width:120,  fixed: 'right'}">联系电话</th>
-        </tr>
-        </thead>
-    </table>
+    <table class="layui-hide" id="test" lay-filter="test"></table>
 </fieldset>
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;margin-left: 20px">
     <legend>影响家庭贫困的因素</legend>
@@ -266,8 +253,11 @@
     <input type="hidden" name="applicationNumber" value="${application.applicationNumber}">
     <sec:authorize access="hasRole('ADMIN') or hasRole('COLLEGE') or hasRole('COUNSELLOR')">
         <div class="layui-form-item">
-            <div class="layui-input-block">
+            <div class="layui-input-inline" style="margin-left: 100px">
                 <button class="layui-btn" lay-submit="" lay-filter="demo1">通过</button>
+            </div>
+            <div class="layui-input-inline">
+                <button class="layui-btn" lay-submit="" lay-filter="demo2">驳回</button>
             </div>
         </div>
     </sec:authorize>
@@ -276,6 +266,36 @@
 <script src="/static/layui/layui.js" charset="utf-8"></script>
 <script src="/static/nprogress/nprogress.js"></script>
 <script src="/static/plugins/jquery.1.12.4.min.js"></script>
+<script>
+    var header = $("meta[name='_csrf_header']").attr("content");
+    var token =$("meta[name='_csrf']").attr("content");
+    layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+            elem: '#test'
+            ,url:'/viewUserFamily?userId=${user.userId}'
+            ,height:232
+            ,width:980
+            ,title:'家庭成员表'
+            ,id: 'family'
+            ,cols: [[
+                {type:'numbers'}
+                ,{field:'userName', width:90,align:'center',title:'姓名'}
+                ,{field:'userAge', width:80, align:'center', title: '年龄'}
+                ,{field:'occupation', width:80, align:'center', title: '职业'}
+                ,{field:'relationship', width:120, align:'center', title: '与学生关系'}
+                ,{field:'health', width:160, align:'center',title:'健康状况'}
+                ,{field:'annualIncome', width:80,align:'center', title:'年收入'}
+                ,{field:'workUnit', width:200, align:'center',title:'工作（学校）单位'}
+                ,{field:'phoneNumber', width:120, title: '联系电话'}
+            ]]
+        });
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
 <script>
     var header = $("meta[name='_csrf_header']").attr("content");
     var token =$("meta[name='_csrf']").attr("content");
@@ -326,6 +346,47 @@
                     layer.close(index);
                 }
             })
+            return false;
+        });
+        form.on('submit(demo2)', function(data){
+            var sendData = [];
+            var remark = ''
+            var data = data.field
+            sendData.push(data.applicationNumber)
+            layer.prompt({
+                formType: 2
+                ,title: '填写拒绝原因'
+                ,value: remark
+                ,offset: [300,300]
+            }, function(value, index){
+                //这里一般是发送修改的Ajax请求
+                sendData.push(value)
+                $.ajax({
+                    url: "/alterApplicationRefuse",
+                    type: "POST",
+                    beforeSend : function(xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    data: JSON.stringify(sendData),//
+                    contentType: 'application/json',
+                    success: function (data) {//回调函数
+                        layer.msg(data.success,{
+                            time:2000
+                        })
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                        table.reload('testReload', {
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                        });
+                    },
+                    error:function (data) {
+
+                    }
+                });
+                layer.close(index);
+            });
             return false;
         });
         //下载按钮监听

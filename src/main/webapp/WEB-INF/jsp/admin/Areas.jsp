@@ -64,7 +64,7 @@
             ,cols: [[
                 {type:'numbers'}
                 ,{field: 'state', checkbox: true}
-                ,{field:'id', width:100, title: '编号'}
+                ,{field:'id', width:100, title: '编号',hide:true}
                 ,{field:'provinceId', width:80, title: '省编号'}
                 ,{field:'provinceName',width:80, minWidth:100, title: '省', sort: true}
                 ,{field:'cityId', title:'市编号', width:150,align:'center'}
@@ -94,15 +94,15 @@
                     }
                     var sendData = [];
                     for(var i=0;i<data.length;i++) {
-                        var userId = data[i].userId;
-                        sendData.push(userId)
+                        var id = data[i].id;
+                        sendData.push(id)
                     }
                     layer.msg('当前选中' + data.length  +'条信息<br>确认设为贫困地区？', {
                         time: 20000, //20s后自动关闭
-                        btn: ['删除', '放弃']
+                        btn: ['确认', '放弃']
                         ,yes: function (index, layero){
                             $.ajax({
-                                url: "/remove-user",
+                                url: "/setAreas",
                                 type: "POST",
                                 data: JSON.stringify(sendData),
                                 contentType: 'application/json',
@@ -138,15 +138,15 @@
                     }
                     var sendData = [];
                     for(var i=0;i<data.length;i++) {
-                        var userId = data[i].userId;
-                        sendData.push(userId)
+                        var id = data[i].id;
+                        sendData.push(id)
                     }
                     layer.msg('当前选中' + data.length  +'条信息<br>确认取消贫困地区？', {
                         time: 20000, //20s后自动关闭
-                        btn: ['删除', '放弃']
+                        btn: ['确认', '放弃']
                         ,yes: function (index, layero){
                             $.ajax({
-                                url: "/remove-user",
+                                url: "/cancelAreas",
                                 type: "POST",
                                 data: JSON.stringify(sendData),
                                 contentType: 'application/json',

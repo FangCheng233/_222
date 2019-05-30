@@ -26,6 +26,6 @@ public interface AreasService {
     List<Areas> findAll();
     List<Areas> findAllProvince();
     List<Areas> findAllCity(String provinceName);
-    List<Areas> findAllCountry(String cityName);
+    List<Areas> findAllCounty(String cityName);
     List<Areas> findAllTown(String countryName);
 }

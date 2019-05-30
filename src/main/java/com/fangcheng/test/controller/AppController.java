@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,38 +27,32 @@ import java.util.*;
 @Controller
 @RequestMapping("/")
 public class AppController {
-
 	@Autowired
 	UserService userService;
-
 	@Autowired
 	ApplicationService applicationService;
-	
 	@Autowired
 	TableAuthorService tableAuthorService;
-
 	@Autowired
 	TableApprovalService tableApprovalService;
-	
 	@Autowired
     MessageSource messageSource;
-
 	@Autowired
     PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices;
-	
 	@Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
-
 	@Autowired
 	TableClassService tableClassService;
-
 	@Autowired
 	UserFamilyService userFamilyService;
-
+	@Autowired
+	ReferenceDataService referenceDataService;
 	@Autowired
 	AreasService areasService;
 	@Autowired
     FileService fileService;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	/**
 	 * @method  loginPage
 	 * @description 登陆控制及页面跳转
@@ -74,6 +69,57 @@ public class AppController {
 			return "redirect:/main";
 		}
 	}
+	/**
+	 * @method  loginPage
+	 * @description 登陆控制及页面跳转
+	 * @date: 2019/4/16 15:13
+	 * @author: Fangcheng
+	[]
+	 * @return java.lang.String
+	 */
+	@RequestMapping(value = "/verify", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,String> verify(@RequestBody  String[] value) {
+		Map<String,String> map = new HashMap<>();
+		User user = userService.findByUserId(getPrincipal());
+		if (user.getPassword().equals(passwordEncoder.encode(value[0]))) {
+			map.put("success","验证通过");
+			return map;
+		} else {
+			map.put("error","密码错误");
+			return map;
+		}
+	}
+	/**
+	 * @method  logoutPage
+	 * @description 登出操作。跳转至首页
+	 * @date: 2019/5/29 15:26
+	 * @author: Fangcheng
+	[request, response]
+	 * @return java.lang.String
+	 */
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public String logoutPage (HttpServletRequest request, HttpServletResponse response){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null){
+			//new SecurityContextLogoutHandler().logout(request, response, auth);
+			persistentTokenBasedRememberMeServices.logout(request, response, auth);
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return "redirect:/login?logout";
+	}
+	@RequestMapping(value="/logoutVerify", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,String> logoutVerify (HttpServletRequest request, HttpServletResponse response){
+		Map<String,String> map = new HashMap<>();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null){
+			//new SecurityContextLogoutHandler().logout(request, response, auth);
+			persistentTokenBasedRememberMeServices.logout(request, response, auth);
+			SecurityContextHolder.getContext().setAuthentication(null);
+		}
+		return map;
+	}
 	@RequestMapping(value = { "/", "/main" }, method = RequestMethod.GET)
 	public String main(ModelMap model) {
 		List<Application> applications = applicationService.findByStatusNodes(3);
@@ -82,7 +128,7 @@ public class AppController {
 		User user = userService.findByUserId(getPrincipal());
 		model.addAttribute("loggedinuser", getUserName());
 		model.addAttribute("user", user);
-		model.addAttribute("pending",applications.size());
+		model.addAttribute("pending",applications.size());//计算该用户待审批量
 		model.addAttribute("solved",applications1.size());
 		model.addAttribute("count",applicationslist.size());
 		return "main";
@@ -170,7 +216,6 @@ public class AppController {
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 
 		Map<String,Object> map = new HashMap<String, Object>();
-		System.out.println(result);
 		if (result.hasErrors()) {
 			map.put("error","信息不正确");
 			return map;
@@ -317,7 +362,6 @@ public class AppController {
 	public String approval(ModelMap model,@Valid String params) {
 			model.addAttribute("params", params);
 			model.addAttribute("schoolYearly",getSchoolYear());
-			System.out.println(getSchoolYear());
 		return "approval";
 	}
 	@RequestMapping(value = { "/applicationRecord" }, method = RequestMethod.GET)
@@ -423,7 +467,6 @@ public class AppController {
                 map.put("error","该用户不存在，请检查学号/工号是否正确");
                 return map;
             }
-            System.out.println(user);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -542,10 +585,12 @@ public class AppController {
 		try {
 			applicationService.save(application);
 			tableApprovalService.save(tableApproval);
-			main(application);
+			dealWithResult(application);
 			map.put("success","提交成功");
 		}catch (Exception e){
 			e.printStackTrace();
+			tableApprovalService.deleteAllApprovalByApplication(application.getApplicationNumber());
+			applicationService.deleteApplicationByApplicationNumber(application.getApplicationNumber());
 			map.put("error", "222");
 		}
 		return map;
@@ -560,7 +605,8 @@ public class AppController {
 	 */
 	@RequestMapping(value = { "/upload" }, method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> upload(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
+	public Map<String,String> upload(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
+		Map<String,String> map = new HashMap<>();
 		if(!multipartFile.isEmpty()){
 			String contextPath = request.getContextPath();//"/SpringMvcFileUpload"
 			String servletPath = request.getServletPath();//"/gotoAction"
@@ -587,19 +633,21 @@ public class AppController {
                     file.setCreatTime(getTime());
                     file.setUserId(getPrincipal());
                     fileService.save(file);
+                    map.put("success","文件上传成功");
                 }else {
                 	file1.setCreatTime(getTime());
                 	file1.setLastModifyTime(getTime());
                 	fileService.update(file1);
+                	map.put("success","文件更新成功");
 				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				return null;
-
+				map.put("error","文件上传失败");
+				return map;
 			}
 		}
-		return null;
+		return map;
 	}
 	@RequestMapping(value = { "/download" }, method = RequestMethod.POST)
 	@ResponseBody
@@ -683,7 +731,7 @@ public class AppController {
 			tableApproval.setUserName(getUserName());
 			tableApproval.setApprovalStatus("驳回");
 			tableApproval.setProcessNode(getGroupId());
-			tableApproval.setRemarks("");
+			tableApproval.setRemarks(applicationNumberList[1]);
 			tableApproval.setTime(getTime());
 			tableApproval.setId(getPrincipal()+getSchoolYear()+tableApprovalList.size());
 			try {
@@ -699,9 +747,6 @@ public class AppController {
 		map.put("error",listerror);
 		return map;
 	}
-    public static void main(Application application){
-        DataAudit.dealWithData(application);
-    }
 
 	/**
 	 * This method will delete an user by it's UserID value.
@@ -713,10 +758,10 @@ public class AppController {
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		Map<String,Object> map = new HashMap<String, Object>();
 		try {
-			userService.deleteUserByUserId(userId);
+			tableApprovalService.deleteAllApprovalByUserId(userId);
 			applicationService.deleteAllApplicationByUserId(userId);
 			userFamilyService.deleteByUserId(userId);
-			tableApprovalService.deleteAllApprovalByUserId(userId);
+			userService.deleteUserByUserId(userId);
 		}catch (Exception e) {
 			e.printStackTrace();
 			map.put("resultString",userId + "删除失败");
@@ -735,10 +780,10 @@ public class AppController {
 		for(String userId:userIdList){
 			listsuccess.add(userId);
 			try {
-				userService.deleteUserByUserId(userId);
+				tableApprovalService.deleteAllApprovalByUserId(userId);
 				applicationService.deleteAllApplicationByUserId(userId);
 				userFamilyService.deleteByUserId(userId);
-				tableApprovalService.deleteAllApprovalByUserId(userId);
+				userService.deleteUserByUserId(userId);
 			}catch (Exception e){
 				e.printStackTrace();
 				listerror.add(userId);
@@ -753,8 +798,8 @@ public class AppController {
 	@ResponseBody
 	public void deleteApplication(@RequestBody String applicationNumber) {
 		try{
-			applicationService.deleteApplicationByApplicationNumber(applicationNumber);
 			tableApprovalService.deleteAllApprovalByApplication(applicationNumber);
+			applicationService.deleteApplicationByApplicationNumber(applicationNumber);
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -787,7 +832,6 @@ public class AppController {
     public Map<String,Integer> verifyInfo(ModelMap model) {
 	    Map<String,Integer> map = new HashMap<>();
 	    User user = userService.findByUserId(getPrincipal());
-        System.out.println(user.getUserSecurity());
 	    if (null==user.getUserSecurity()){
 	        map.put("error",1);
 	        return map;
@@ -796,17 +840,175 @@ public class AppController {
         return map;
     }
 
-	@RequestMapping(value="/logout", method = RequestMethod.GET)
-	public String logoutPage (HttpServletRequest request, HttpServletResponse response){
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth != null){
-			//new SecurityContextLogoutHandler().logout(request, response, auth);
-			persistentTokenBasedRememberMeServices.logout(request, response, auth);
-			SecurityContextHolder.getContext().setAuthentication(null);
-		}
-		return "redirect:/login?logout";
-	}
 
+	public void dealWithResult(Application application){
+		//获取该申请人的家庭成员信息
+		List<UserFamily> userFamilyList = new ArrayList<>();
+		Map<String,Integer> map = new HashMap<>();
+		try {
+			userFamilyList = userFamilyService.findByUserId(application.getUserId());
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		try {
+			if(userFamilyList.size()>0){
+				//60岁以上
+				Integer sixtyAge = 0;
+				//学生数量
+				Integer student = 0;
+				//70岁以上
+				Integer seventyAge = 0;
+				//总学费支出
+				int totalTuition = 0;
+				//家庭成员年总收入
+				int totalIncome = 0;
+				for(UserFamily userFamily:userFamilyList){
+					//计算60-70岁成员数量，
+					if(userFamily.getUserAge()>=60&&userFamily.getUserAge()<70){
+						sixtyAge++;
+					}
+					//计算70岁以上的成员数量
+					if(userFamily.getUserAge()>=70){
+						seventyAge++;
+					}
+					//计算家庭成员中是否有学龄成员计算年度学费支出
+					if(userFamily.getOccupation().equals("学生")){
+						totalTuition+=userFamily.getTuition();
+						totalIncome+=userFamily.getAnnualIncome();//学生若有收入也应计算
+						student++;
+					}else {
+						totalIncome+=userFamily.getAnnualIncome();
+					}
+					//家庭成员中若有伤残应为其赋分值
+					if(userFamily.getHealth().equals("轻度残疾")){
+						map.put("health",1);
+					}else if(userFamily.getHealth().equals("重度残疾")){
+						map.put("health",3);
+					}
+				}
+				map.put("sixtyOld",sixtyAge);
+				map.put("seventyAge",seventyAge);
+				//学费
+				map.put("totalTuition",totalTuition);
+				//收入
+				map.put("totalIncome",totalIncome);
+				map.put("student",student);
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		map.put("lonely",0);
+		//处理出生地
+		User user = userService.findByUserId(application.getUserId());
+		//获取用户地址，寻找对应县信息
+		try {
+			List<Areas> areas = areasService.findByName(user.getBasePlaceP(),user.getBasePlaceC(),user.getBasePlaceA());
+			for(Areas areas1:areas){
+				if(areas1.getPoorerAreas().equals(1)){
+					map.put("isPoor",1);
+				}
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		map.put("isPoor",0);
+		//处理花费
+		Integer systemValue = 0;
+		String remarks = "";
+		Integer yearlyIncome = application.getYearlyIncome();
+		Integer guarantee = application.getGuarantee();
+		ReferenceData referenceData = referenceDataService.findBySchoolYear(application.getSchoolYear());
+		Integer xuefei = 0;
+		//判断院系
+		if(user.getUserCollege().equals("信息工程学院")){
+			xuefei = referenceData.getTuition1();
+		}else if (user.getUserCollege().equals("外国语言系")){
+			xuefei = referenceData.getTuition2();
+		}else if (user.getUserCollege().equals("经济系")){
+			xuefei = referenceData.getTuition3();
+		}else if (user.getUserCollege().equals("艺术与设计系")){
+			xuefei = referenceData.getTuition4();
+		}else if (user.getUserCollege().equals("管理系")){
+			xuefei = referenceData.getTuition5();
+		}else if (user.getUserCollege().equals("飞行器")){
+			xuefei = referenceData.getTuition6();
+		}
+		try {
+			//计算家庭成员
+			if (map.get("health")!=0){
+				systemValue+=map.get("health").intValue();
+				remarks = remarks + "家庭有残疾人员,";
+			}
+			if(map.get("sixtyOld")!=0){
+				remarks = remarks + "家有60-70岁老人"+map.get("sixtyOld").intValue()+"人,";
+			}
+			if(map.get("seventyAge")!=0){
+				remarks = remarks +"70岁以上老人"+map.get("seventyAge").intValue()+"人,";
+			}
+			//计算家庭总收入
+			if(yearlyIncome<10000){
+				systemValue +=3;
+			}else if(yearlyIncome<=20000&&yearlyIncome>10000){
+				systemValue+=2;
+			}else if (yearlyIncome<30000&&yearlyIncome>20000){
+				systemValue+=1;
+			}
+			//计算家庭月人均收入
+			if((yearlyIncome/application.getPopulationSize())<=500){
+				systemValue+=5;
+			}else if ((yearlyIncome/application.getPopulationSize())>500&&(yearlyIncome/application.getPopulationSize())<1000){
+				systemValue+=3;
+			}else if((yearlyIncome/application.getPopulationSize())>1000&&(yearlyIncome/application.getPopulationSize())<1500){
+				systemValue+=1;
+			}
+			//计算保障金
+			if(guarantee<referenceData.getLivingExpenses()){//生源地保障金大于学校
+				systemValue+=2;
+			}
+			//计算负债情况
+			if(application.getLiabilities().equals("2万以下")){
+				systemValue+=1;
+			}else if (application.getLiabilities().equals("2-5万")){
+				systemValue+=2;
+			}else if (application.getLiabilities().equals("5万以上")){
+				systemValue+=3;
+			}
+			//计算生活饮食支出占比
+		switch (application.getPercentage()){
+			case "1": systemValue+=1;break;
+			case "2": systemValue+=2;break;
+			case "3": systemValue+=3;break;
+			case "4": systemValue+=4;break;
+			default:break;
+		}
+			//计算大病医疗支出
+			//九三
+			if(yearlyIncome<(map.get("totalTuition")+xuefei)){
+				remarks = remarks + "学费支出大于收入";
+			}
+			//计算贫困地区
+			if(map.get("isPoor").equals(1)){
+				//评分加1
+				systemValue+=2;
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		if(systemValue>17){
+			application.setSystemAudit("特别贫困");
+		}else {
+			application.setSystemAudit("一般贫困");
+		}
+		//判断持有证明
+		if(application.getProve().equals("特困证")||application.getProve().equals("社会扶助证")||
+				application.getProve().equals("最低生活保障证")||application.getProve().equals("建档立卡")||
+				application.getProve().equals("孤残学生")||application.getProve().equals("烈士子女")){
+			application.setSystemAudit("特别贫困");
+		}
+		application.setSystemValue(systemValue);
+		application.setRemarks(remarks);
+		applicationService.update(application);
+	}
 	/**
 	 * @method  getPrincipal
 	 * @description 返回当前用户的信息
@@ -906,5 +1108,19 @@ public class AppController {
 	private boolean isCurrentAuthenticationAnonymous() {
 	    final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    return authenticationTrustResolver.isAnonymous(authentication);
+	}
+	private Integer getSize(){
+		Integer size = 0;
+		//
+		//判断用户级别
+		if(getGroupId().equals("辅导员")){
+			//获取
+		}else if(getGroupId().equals("院系办公室")){
+
+		}else if(getGroupId().equals("学工部")){
+
+		}
+//		List<Application> applicationList = applicationService.
+		return size;
 	}
 }

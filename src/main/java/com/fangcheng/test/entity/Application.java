@@ -44,10 +44,9 @@ public class Application implements Serializable {
     @NotNull
     @Column(name = "POPULATION_SIZE")
     private int populationSize;
-    //人均年收入
-    @NotNull
-    @Column(name = "PER_CAPITA_INCOME")
-    private int perCapitaIncome;
+    //当地最低生活保障
+    @Column(name = "GUARANTEE")
+    private int guarantee;
     //负债情况
     @Column(name = "LIABILITIES")
     private String liabilities;
@@ -118,9 +117,14 @@ public class Application implements Serializable {
     //系统备注
     @Column(name = "REMARKS")
     private String remarks;
-    //系统备注
+    //证明
     @Column(name = "PROVE")
     private String prove;
+    //医疗支出
+    @Column(name = "MEDICAL")
+    private String medical;
+
+
 
     public String getApplicationNumber() { return applicationNumber; }
     public void setApplicationNumber(String applicationNumber) { this.applicationNumber = applicationNumber; }
@@ -155,12 +159,12 @@ public class Application implements Serializable {
         this.populationSize = populationSize;
     }
 
-    public int getPerCapitaIncome() {
-        return perCapitaIncome;
+    public int getGuarantee() {
+        return guarantee;
     }
 
-    public void setPerCapitaIncome(int perCapitaIncome) {
-        this.perCapitaIncome = perCapitaIncome;
+    public void setGuarantee(int guarantee) {
+        this.guarantee = guarantee;
     }
 
     public String getLiabilities() {
@@ -311,23 +315,12 @@ public class Application implements Serializable {
         this.prove = prove;
     }
 
-    /*    @NotEmpty
-                @ManyToMany(cascade=CascadeType.REFRESH)
-                @JoinTable(name = "TABLE_APPROVAL",
-                        joinColumns = { @JoinColumn(name = "APPLICATION_NUMBER") },
-                        inverseJoinColumns = { @JoinColumn(name = "RF_AUTHOR_ID") })
-                private Set<TableAuthor> tableAuthors = new HashSet<TableAuthor>();
-
-                public Set<TableAuthor> getTableAuthors() { return tableAuthors; }
-
-                public void setTableAuthors(Set<TableAuthor> tableAuthors) {
-                    this.tableAuthors = tableAuthors; }*/
     //申请书对象
     @Override
     public String toString() {
         return "Application [applicationNumber=" + applicationNumber + ", userId=" + userId + ", schoolYear=" + schoolYear
                 + ", povertyLevel=" + povertyLevel + ", yearlyIncome=" + yearlyIncome + ", populationSize=" + populationSize
-                + ", perCapitaIncome=" + perCapitaIncome + ", liabilities=" + liabilities +", naturalDisaster=" + naturalDisaster
+                + ", guarantee=" + guarantee + ", liabilities=" + liabilities +", naturalDisaster=" + naturalDisaster
                 + ", unexpectedAccident=" + unexpectedAccident + ", membershipSituation=" + membershipSituation + ", unemploymentSituation=" + unemploymentSituation
                 +", otherSituation=" + otherSituation + ", address=" + address + ", postalAddress=" + postalAddress
                 +", postalCode=" + postalCode + ", addressee=" + addressee + ", contactNumber=" + contactNumber

@@ -22,7 +22,7 @@ public interface AreasDao {
     List<Areas> findByName(String provinceName,String cityName,String countyName);
     List<Areas> findAllProvince();
     List<Areas> findAllCity(String provinceName);
-    List<Areas> findAllCountry(String cityName);
+    List<Areas> findAllCounty(String cityName);
     List<Areas> findAllTown(String countryName);
     List<Areas> findAll();
     void  deleteById(String id);
