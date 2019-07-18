@@ -187,6 +187,8 @@ public class ResultController {
             jsonObject.accumulate("userClass", user.getUserClass());//班级
             jsonObject.accumulate("userCollege", user.getUserCollege());//学院
             jsonObject.accumulate("userMajor", user.getUserMajor());//专业
+            jsonObject.accumulate("preAuditRemarks",user.getPreAuditRemarks());//贫困信息
+            jsonObject.accumulate("waiverAmount",user.getWaiverAmount());//
             jsonObject.accumulate("userEmail", user.getUserEmail());//邮箱
             jsonObject.accumulate("userGrade", user.getUserGrade());//年级
             arrayList.add(jsonObject);

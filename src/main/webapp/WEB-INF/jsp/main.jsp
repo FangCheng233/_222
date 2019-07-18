@@ -424,7 +424,7 @@
                         ,title: false //不显示标题栏
                         ,closeBtn: false
                         ,area: '300px;'
-                        ,shade: 0.8
+                        ,shade: 0.3
                         ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
                         ,btn: ['我这就来', '残忍拒绝']
                         ,btnAlign: 'c'
@@ -462,7 +462,7 @@
         window.onfocus=function()
         {
             //
-            var password = ''
+        var password = ''
             layer.prompt({
                 formType: 1
                 ,title: '请输入密码确认身份'

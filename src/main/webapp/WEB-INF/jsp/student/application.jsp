@@ -363,7 +363,7 @@
             elem: '#test4'
             ,url: '/upload'
             ,accept: 'file' //普通文件
-            ,size:204800
+            ,size:20480
             ,exts: 'zip' //只允许上传压缩文件
             ,done: function(res){
                 layer.msg(res.success)

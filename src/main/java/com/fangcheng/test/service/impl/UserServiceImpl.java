@@ -57,6 +57,8 @@ public class UserServiceImpl implements UserService {
             entity.setTableAuthors(user.getTableAuthors());
             entity.setUserSecurity(user.getUserSecurity());
             entity.setSecurityAnwser(user.getSecurityAnwser());
+            entity.setPreAuditRemarks(user.getPreAuditRemarks());
+            entity.setWaiverAmount(user.getWaiverAmount());
         }
     }
     public void updateUserRole(User user){

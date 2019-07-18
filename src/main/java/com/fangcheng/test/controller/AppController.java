@@ -1007,7 +1007,9 @@ public class AppController {
 		}
 		application.setSystemValue(systemValue);
 		application.setRemarks(remarks);
+		user.setPreAuditRemarks(application.getSystemAudit());
 		applicationService.update(application);
+		userService.updateUserData(user);
 	}
 	/**
 	 * @method  getPrincipal
